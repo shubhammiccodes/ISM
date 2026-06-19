@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISM Formula Sheet – Last Minute Revision</title>
+<meta name="description" content="Last-minute formula revision guide for Introduction to Statistical Methods (AIMLCZC418) – BITS Pilani.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)'],['$','$']],
+    displayMath: [['\\[','\\]'],['$$','$$']],
+    processEscapes: true
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root{--bg:#07080f;--card:rgba(255,255,255,0.045);--border:rgba(255,255,255,0.09);--border-hi:rgba(255,255,255,0.18);--t1:#eef2ff;--t2:#8892aa;--t3:#4a5568;--blue:#4f8ef7;--purple:#a855f7;--teal:#2dd4bf;--gold:#f59e0b;--pink:#ec4899;--green:#22c55e;--orange:#f97316;--red:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 15% 10%,rgba(79,142,247,0.07) 0%,transparent 55%),radial-gradient(ellipse at 85% 85%,rgba(168,85,247,0.07) 0%,transparent 55%);}
+.header{text-align:center;padding:36px 20px 24px;}
+.header-badge{display:inline-block;padding:5px 18px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.35);color:#f87171;margin-bottom:14px;}
+.header h1{font-size:clamp(1.6rem,4vw,2.5rem);font-weight:800;background:linear-gradient(135deg,#fff 0%,var(--blue) 45%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.15;margin-bottom:10px;}
+.header p{color:var(--t2);font-size:.9rem;margin-bottom:16px;}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.chip{padding:4px 13px;border-radius:999px;font-size:.72rem;font-weight:600;border:1px solid;backdrop-filter:blur(6px);}
+.chip-b{border-color:rgba(79,142,247,.4);color:var(--blue);background:rgba(79,142,247,.08);}
+.chip-p{border-color:rgba(168,85,247,.4);color:var(--purple);background:rgba(168,85,247,.08);}
+.chip-t{border-color:rgba(45,212,191,.4);color:var(--teal);background:rgba(45,212,191,.08);}
+.chip-g{border-color:rgba(245,158,11,.4);color:var(--gold);background:rgba(245,158,11,.08);}
+.chip-pk{border-color:rgba(236,72,153,.4);color:var(--pink);background:rgba(236,72,153,.08);}
+.chip-gn{border-color:rgba(34,197,94,.4);color:var(--green);background:rgba(34,197,94,.08);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px;padding:0 18px 48px;max-width:1400px;margin:0 auto;}
+.card{background:var(--card);backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:16px;padding:22px 22px 18px;transition:border-color .25s,transform .2s;}
+.card:hover{border-color:var(--border-hi);transform:translateY(-2px);}
+.card.wide{grid-column:1/-1;}
+.card.blue{border-top:2px solid var(--blue);}
+.card.purple{border-top:2px solid var(--purple);}
+.card.teal{border-top:2px solid var(--teal);}
+.card.gold{border-top:2px solid var(--gold);}
+.card.pink{border-top:2px solid var(--pink);}
+.card.green{border-top:2px solid var(--green);}
+.card.orange{border-top:2px solid var(--orange);}
+.card.red{border-top:2px solid var(--red);}
+.card-title{display:flex;align-items:center;gap:9px;margin-bottom:15px;}
+.card-icon{font-size:1.15rem;}
+.card-title h2{font-size:.88rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+.card.blue .card-title h2{color:var(--blue);}
+.card.purple .card-title h2{color:var(--purple);}
+.card.teal .card-title h2{color:var(--teal);}
+.card.gold .card-title h2{color:var(--gold);}
+.card.pink .card-title h2{color:var(--pink);}
+.card.green .card-title h2{color:var(--green);}
+.card.orange .card-title h2{color:var(--orange);}
+.card.red .card-title h2{color:var(--red);}
+.frow{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.84rem;line-height:1.55;}
+.frow:last-child{border-bottom:none;padding-bottom:0;}
+.flabel{color:var(--t2);min-width:130px;flex-shrink:0;font-size:.78rem;padding-top:2px;}
+.fval{color:var(--t1);font-size:.8rem;flex:1;}
+.fblock{background:rgba(255,255,255,.04);border-radius:10px;padding:10px 14px;margin:8px 0;text-align:center;font-size:.83rem;}
+.note{display:inline-flex;align-items:center;gap:5px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);border-radius:6px;padding:4px 10px;font-size:.72rem;color:var(--gold);margin-top:8px;line-height:1.4;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;}
+.ftable{width:100%;border-collapse:collapse;font-size:.78rem;margin-top:8px;}
+.ftable th{background:rgba(255,255,255,.06);color:var(--t2);font-weight:600;padding:6px 10px;text-align:left;border-bottom:1px solid var(--border);}
+.ftable td{padding:5px 10px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--t1);font-size:.77rem;}
+.ftable tr:last-child td{border-bottom:none;}
+.section-label{text-align:center;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);padding:12px 0 4px;grid-column:1/-1;}
+@media(max-width:700px){.grid{grid-template-columns:1fr;padding:0 12px 36px;}.flabel{min-width:100px;}.two-col{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">&#x26A1; Last-Minute Revision</div>
+  <h1>ISM Formula Cheat Sheet</h1>
+  <p>AIMLCZC418 / DSECLZC418 &nbsp;&middot;&nbsp; BITS Pilani &nbsp;&middot;&nbsp; Midsem Quick Reference</p>
+  <div class="chips">
+    <span class="chip chip-b">Descriptive Stats</span>
+    <span class="chip chip-p">Probability</span>
+    <span class="chip chip-t">Distributions</span>
+    <span class="chip chip-g">Continuous RVs</span>
+    <span class="chip chip-pk">Bayes / Naive Bayes</span>
+    <span class="chip chip-gn">Estimation</span>
+  </div>
+</div>
+
+<div class="grid">
+
+  <div class="section-label">&#x1F4CA; Descriptive Statistics</div>
+
+  <div class="card blue">
+    <div class="card-title"><span class="card-icon">&#x1F4D0;</span><h2>Mean &amp; Variance</h2></div>
+    <div class="frow"><span class="flabel">Sample Mean</span><span class="fval">\(\bar{x} = \dfrac{\sum x_i}{n}\)</span></div>
+    <div class="frow"><span class="flabel">Sample Variance</span><span class="fval">\(s^2 = \dfrac{\sum(x_i - \bar{x})^2}{n-1}\)</span></div>
+    <div class="frow"><span class="flabel">Std Deviation</span><span class="fval">\(s = \sqrt{s^2}\)</span></div>
+    <div class="frow"><span class="flabel">Population Var</span><span class="fval">\(\sigma^2 = \dfrac{\sum(x_i - \mu)^2}{N}\)</span></div>
+    <div class="note">&#x26A0; Use n&minus;1 (sample) vs N (population)</div>
+  </div>
+
+  <div class="card purple">
+    <div class="card-title"><span class="card-icon">&#x1F4E6;</span><h2>Quartiles &amp; IQR</h2></div>
+    <div class="frow"><span class="flabel">Step 1</span><span class="fval">Sort data ascending</span></div>
+    <div class="frow"><span class="flabel">Q1 position</span><span class="fval">\(\dfrac{n+1}{4}\)-th value</span></div>
+    <div class="frow"><span class="flabel">Q2 (Median)</span><span class="fval">\(\dfrac{n+1}{2}\)-th value</span></div>
+    <div class="frow"><span class="flabel">Q3 position</span><span class="fval">\(\dfrac{3(n+1)}{4}\)-th value</span></div>
+    <div class="frow"><span class="flabel">IQR</span><span class="fval">\(IQR = Q3 - Q1\)</span></div>
+    <div class="frow"><span class="flabel">Outlier bounds</span><span class="fval">Lower: \(Q1 - 1.5 \cdot IQR\) &nbsp;|&nbsp; Upper: \(Q3 + 1.5 \cdot IQR\)</span></div>
+  </div>
+
+  <div class="section-label">&#x1F3B2; Probability Rules</div>
+
+  <div class="card teal">
+    <div class="card-title"><span class="card-icon">&#x1F3B2;</span><h2>Core Probability</h2></div>
+    <div class="frow"><span class="flabel">Addition Rule</span><span class="fval">\(P(A \cup B) = P(A)+P(B)-P(A \cap B)\)</span></div>
+    <div class="frow"><span class="flabel">Complement</span><span class="fval">\(P(A') = 1 - P(A)\)</span></div>
+    <div class="frow"><span class="flabel">Conditional</span><span class="fval">\(P(A|B) = \dfrac{P(A \cap B)}{P(B)}\)</span></div>
+    <div class="frow"><span class="flabel">Multiplication</span><span class="fval">\(P(A \cap B) = P(A|B) \cdot P(B)\)</span></div>
+    <div class="frow"><span class="flabel">Independence</span><span class="fval">\(P(A \cap B) = P(A) \cdot P(B)\)</span></div>
+    <div class="frow"><span class="flabel">Set difference</span><span class="fval">\(P(A-B) = P(A) - P(A \cap B)\)</span></div>
+    <div class="frow"><span class="flabel">Union (sets)</span><span class="fval">\(P(A \cup B) = P(A{-}B)+P(B{-}A)+P(A{\cap}B)\)</span></div>
+  </div>
+
+  <div class="card pink">
+    <div class="card-title"><span class="card-icon">&#x1F9E0;</span><h2>Bayes' Theorem</h2></div>
+    <div class="fblock">$$P(A|B) = \frac{P(B|A)\,P(A)}{P(B)}$$</div>
+    <div class="frow"><span class="flabel">Law of Total Prob</span><span class="fval">\(P(B) = \sum_i P(B|A_i)\,P(A_i)\)</span></div>
+    <div class="frow"><span class="flabel">Full form</span><span class="fval">\(P(A_i|B) = \dfrac{P(B|A_i)\,P(A_i)}{\sum_j P(B|A_j)\,P(A_j)}\)</span></div>
+    <div class="note">&#x1F4A1; Prior &times; Likelihood &divide; Evidence</div>
+  </div>
+
+  <div class="section-label">&#x1F4C8; Probability Distributions</div>
+
+  <div class="card gold">
+    <div class="card-title"><span class="card-icon">&#x1F3AF;</span><h2>Discrete RV</h2></div>
+    <div class="frow"><span class="flabel">Valid PMF</span><span class="fval">\(\sum_x P(X=x) = 1\) &nbsp;and&nbsp; \(P(x) \geq 0\)</span></div>
+    <div class="frow"><span class="flabel">Expected Value</span><span class="fval">\(E(X) = \sum x \cdot P(x)\)</span></div>
+    <div class="frow"><span class="flabel">E(X&sup2;)</span><span class="fval">\(E(X^2) = \sum x^2 \cdot P(x)\)</span></div>
+    <div class="frow"><span class="flabel">Variance</span><span class="fval">\(Var(X) = E(X^2) - [E(X)]^2\)</span></div>
+    <div class="frow"><span class="flabel">E(aX+b)</span><span class="fval">\(aE(X) + b\)</span></div>
+    <div class="frow"><span class="flabel">Var(aX+b)</span><span class="fval">\(a^2 \cdot Var(X)\) &nbsp;(b vanishes!)</span></div>
+  </div>
+
+  <div class="card blue">
+    <div class="card-title"><span class="card-icon">&#x1F535;</span><h2>Binomial Distribution</h2></div>
+    <div class="fblock">$$P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}$$</div>
+    <div class="frow"><span class="flabel">Mean</span><span class="fval">\(\mu = np\)</span></div>
+    <div class="frow"><span class="flabel">Variance</span><span class="fval">\(\sigma^2 = np(1-p)\)</span></div>
+    <div class="frow"><span class="flabel">Combination</span><span class="fval">\(\binom{n}{k} = \dfrac{n!}{k!(n-k)!}\)</span></div>
+    <div class="frow"><span class="flabel">Use when</span><span class="fval">Fixed n, independent trials, constant p</span></div>
+  </div>
+
+  <div class="card green">
+    <div class="card-title"><span class="card-icon">&#x1F7E2;</span><h2>Poisson Distribution</h2></div>
+    <div class="fblock">$$P(X=k) = \frac{e^{-\lambda}\,\lambda^k}{k!}$$</div>
+    <div class="frow"><span class="flabel">Mean = Variance</span><span class="fval">\(E(X) = Var(X) = \lambda\)</span></div>
+    <div class="frow"><span class="flabel">Approx to Binom</span><span class="fval">\(\lambda = np\) &nbsp;(large n, small p)</span></div>
+    <div class="frow"><span class="flabel">Scaling interval</span><span class="fval">For interval t: \(\lambda_t = \lambda \cdot t\)</span></div>
+    <div class="frow"><span class="flabel">P(&ge;k)</span><span class="fval">\(1 - \sum_{x=0}^{k-1} \frac{e^{-\lambda}\lambda^x}{x!}\)</span></div>
+  </div>
+
+  <div class="card orange">
+    <div class="card-title"><span class="card-icon">&#x1F7E0;</span><h2>Hypergeometric</h2></div>
+    <div class="fblock">$$P(X=k) = \frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}$$</div>
+    <div class="frow"><span class="flabel">N</span><span class="fval">Total population size</span></div>
+    <div class="frow"><span class="flabel">K</span><span class="fval">Total successes in population</span></div>
+    <div class="frow"><span class="flabel">n</span><span class="fval">Sample size drawn (without replacement)</span></div>
+    <div class="note">&#x26A1; Without replacement &#x2192; always Hypergeometric</div>
+  </div>
+
+  <div class="section-label">&#x1F4C9; Continuous Random Variables</div>
+
+  <div class="card purple">
+    <div class="card-title"><span class="card-icon">&#x1F30A;</span><h2>Continuous RV (PDF / CDF)</h2></div>
+    <div class="frow"><span class="flabel">Valid PDF</span><span class="fval">\(\int_{-\infty}^{\infty} f(x)\,dx = 1\) &nbsp;and&nbsp; \(f(x)\geq 0\)</span></div>
+    <div class="frow"><span class="flabel">Probability</span><span class="fval">\(P(a < X < b) = \int_a^b f(x)\,dx\)</span></div>
+    <div class="frow"><span class="flabel">Expected Value</span><span class="fval">\(E(X) = \int_{-\infty}^{\infty} x\,f(x)\,dx\)</span></div>
+    <div class="frow"><span class="flabel">E(X&sup2;)</span><span class="fval">\(\int_{-\infty}^{\infty} x^2\,f(x)\,dx\)</span></div>
+    <div class="frow"><span class="flabel">Variance</span><span class="fval">\(Var(X) = E(X^2) - [E(X)]^2\)</span></div>
+    <div class="note">&#x1F4A1; Find k or c: set integral = 1 and solve</div>
+  </div>
+
+  <div class="card blue">
+    <div class="card-title"><span class="card-icon">&#x1F514;</span><h2>Normal Distribution</h2></div>
+    <div class="fblock">$$Z = \frac{X - \mu}{\sigma}$$</div>
+    <div class="frow"><span class="flabel">Standardise</span><span class="fval">Convert X to Z, look up Z-table</span></div>
+    <div class="frow"><span class="flabel">P(X &lt; a)</span><span class="fval">\(\Phi\!\left(\dfrac{a-\mu}{\sigma}\right)\)</span></div>
+    <div class="frow"><span class="flabel">P(a&lt;X&lt;b)</span><span class="fval">\(\Phi(Z_b) - \Phi(Z_a)\)</span></div>
+    <div class="frow"><span class="flabel">P(X &gt; a)</span><span class="fval">\(1 - \Phi(Z_a)\)</span></div>
+    <div class="frow"><span class="flabel">CLT / Sampling</span><span class="fval">\(Z = \dfrac{\bar{X}-\mu}{\sigma/\sqrt{n}}\)</span></div>
+    <div class="note">&#x26A1; \(\Phi(-z) = 1 - \Phi(z)\) &mdash; use symmetry!</div>
+  </div>
+
+  <div class="section-label">&#x1F517; Joint Distributions</div>
+
+  <div class="card teal">
+    <div class="card-title"><span class="card-icon">&#x1F517;</span><h2>Joint, Marginal &amp; Conditional</h2></div>
+    <div class="frow"><span class="flabel">Marginal P(X)</span><span class="fval">\(P_X(x) = \sum_y P(x,y)\)</span></div>
+    <div class="frow"><span class="flabel">Marginal P(Y)</span><span class="fval">\(P_Y(y) = \sum_x P(x,y)\)</span></div>
+    <div class="frow"><span class="flabel">Conditional X|Y</span><span class="fval">\(P(X=x\mid Y=y) = \dfrac{P(x,y)}{P_Y(y)}\)</span></div>
+    <div class="frow"><span class="flabel">Conditional Y|X</span><span class="fval">\(P(Y=y\mid X=x) = \dfrac{P(x,y)}{P_X(x)}\)</span></div>
+    <div class="frow"><span class="flabel">Independence</span><span class="fval">\(P(x,y) = P_X(x)\cdot P_Y(y)\) for all x,y</span></div>
+    <div class="frow"><span class="flabel">Joint sum check</span><span class="fval">All cells in joint table must sum to 1</span></div>
+  </div>
+
+  <div class="section-label">&#x1F916; Naive Bayes Classifier</div>
+
+  <div class="card pink wide">
+    <div class="card-title"><span class="card-icon">&#x1F916;</span><h2>Naive Bayes Classifier</h2></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 24px;">
+      <div>
+        <div class="fblock" style="text-align:left;margin:0 0 12px;">
+          $$P(C\mid\text{doc}) \propto P(C) \prod_{i} P(w_i\mid C)$$
+        </div>
+        <div class="frow"><span class="flabel">Prior</span><span class="fval">\(P(C) = \dfrac{\text{docs in class }C}{\text{total docs}}\)</span></div>
+        <div class="frow"><span class="flabel">Likelihood</span><span class="fval">\(P(w\mid C) = \dfrac{\text{count}(w,C)}{\text{total words in }C}\)</span></div>
+        <div class="frow"><span class="flabel">Laplace smooth</span><span class="fval">\(P(w\mid C) = \dfrac{\text{count}(w,C)+1}{\text{total words in }C + |V|}\)</span></div>
+        <div class="note">&#x26A1; |V| = total unique words in vocabulary</div>
+      </div>
+      <div>
+        <div class="note" style="display:block;margin:0 0 10px;">&#x1F4CB; Step-by-step</div>
+        <div style="color:var(--t2);font-size:.82rem;line-height:1.8;">
+          &#x2460; Count words per class &amp; total words<br>
+          &#x2461; Compute prior P(C)<br>
+          &#x2462; Compute P(w|C) with Laplace smoothing<br>
+          &#x2463; Multiply prior &times; all word likelihoods per class<br>
+          &#x2464; Pick class with higher result = classification
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">&#x1F4CF; Confidence Intervals &amp; Sample Size</div>
+
+  <div class="card green">
+    <div class="card-title"><span class="card-icon">&#x1F4CF;</span><h2>Confidence Intervals</h2></div>
+    <div class="frow"><span class="flabel">CI for &mu; (known &sigma;)</span><span class="fval">\(\bar{x} \pm z_{\alpha/2}\dfrac{\sigma}{\sqrt{n}}\)</span></div>
+    <div class="frow"><span class="flabel">CI for &mu; (unknown &sigma;)</span><span class="fval">\(\bar{x} \pm t_{\alpha/2,\,n-1}\dfrac{s}{\sqrt{n}}\)</span></div>
+    <div class="frow"><span class="flabel">Margin of Error</span><span class="fval">\(E = z_{\alpha/2}\dfrac{\sigma}{\sqrt{n}}\)</span></div>
+    <div class="frow"><span class="flabel">Required Sample n</span><span class="fval">\(n = \left(\dfrac{z_{\alpha/2}\cdot\sigma}{E}\right)^2\) &nbsp;&#x2192; Round UP</span></div>
+    <div class="frow"><span class="flabel">z-values</span><span class="fval">90%&rarr;1.645 &nbsp;|&nbsp; 95%&rarr;1.96 &nbsp;|&nbsp; 99%&rarr;2.576</span></div>
+  </div>
+
+  <div class="card gold">
+    <div class="card-title"><span class="card-icon">&#x26A1;</span><h2>Quick Reference &amp; Exam Tricks</h2></div>
+    <table class="ftable">
+      <thead><tr><th>Confidence</th><th>&alpha;</th><th>&alpha;/2</th><th>z value</th></tr></thead>
+      <tbody>
+        <tr><td>90%</td><td>0.10</td><td>0.05</td><td>1.645</td></tr>
+        <tr><td>95%</td><td>0.05</td><td>0.025</td><td>1.960</td></tr>
+        <tr><td>99%</td><td>0.01</td><td>0.005</td><td>2.576</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px;">
+      <div class="frow"><span class="flabel">Poisson approx</span><span class="fval">n &ge; 20, p &le; 0.05</span></div>
+      <div class="frow"><span class="flabel">CLT valid when</span><span class="fval">n &ge; 30 (or normal population)</span></div>
+      <div class="frow"><span class="flabel">Right skewed</span><span class="fval">Mean &gt; Median</span></div>
+      <div class="frow"><span class="flabel">Left skewed</span><span class="fval">Mean &lt; Median</span></div>
+    </div>
+  </div>
+
+  <div class="card red wide">
+    <div class="card-title"><span class="card-icon">&#x1F3C6;</span><h2>Most Common Exam Patterns</h2></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px 24px;">
+      <div>
+        <div class="frow"><span class="flabel">Find k (PDF)</span><span class="fval">Set integral = 1 &rarr; solve k</span></div>
+        <div class="frow"><span class="flabel">Find k (PMF)</span><span class="fval">Set &sum;P(x) = 1 &rarr; solve k</span></div>
+        <div class="frow"><span class="flabel">Var(aX+b)</span><span class="fval">= a&sup2; &middot; Var(X) &nbsp;&nbsp;(b drops out!)</span></div>
+        <div class="frow"><span class="flabel">Hyper vs Binom</span><span class="fval">Without replacement &rarr; Hypergeometric</span></div>
+      </div>
+      <div>
+        <div class="frow"><span class="flabel">P(&ge;k) Poisson</span><span class="fval">= 1 &minus; P(X &le; k&minus;1)</span></div>
+        <div class="frow"><span class="flabel">Bayes shortcut</span><span class="fval">Tree diagram &rarr; P(B) = sum all branches to B</span></div>
+        <div class="frow"><span class="flabel">Normal symmetry</span><span class="fval">&Phi;(&minus;z) = 1 &minus; &Phi;(z)</span></div>
+        <div class="frow"><span class="flabel">Naive Bayes tie</span><span class="fval">Higher posterior wins (Spam vs Ham)</span></div>
+      </div>
+      <div>
+        <div class="frow"><span class="flabel">Outlier formula</span><span class="fval">Outside [Q1&minus;1.5&middot;IQR, Q3+1.5&middot;IQR]</span></div>
+        <div class="frow"><span class="flabel">Five-number</span><span class="fval">Min, Q1, Median, Q3, Max</span></div>
+        <div class="frow"><span class="flabel">Sample size n</span><span class="fval">Always round UP to integer</span></div>
+        <div class="frow"><span class="flabel">Joint PMF</span><span class="fval">All cell probabilities must sum to 1</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="text-align:center;padding:12px 0 32px;color:var(--t3);font-size:.72rem;letter-spacing:.5px;">
+  ISM Formula Sheet &nbsp;&middot;&nbsp; BITS Pilani WILPD &nbsp;&middot;&nbsp; Good luck! &#x1F680;
+</div>
+
+</body>
+</html>

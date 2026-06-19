@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISM - Introduction to Statistical Methods | Complete Study Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0a0a1a;
+    --bg-secondary: #111128;
+    --bg-card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.08);
+    --accent1: #00d2ff;
+    --accent2: #3a7bd5;
+    --accent3: #f093fb;
+    --accent4: #f5af19;
+    --accent5: #11998e;
+    --text-primary: #f0f0f0;
+    --text-secondary: #a0a0c0;
+    --text-muted: #606080;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  /* Animated Background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: 
+      radial-gradient(ellipse at 20% 20%, rgba(0,210,255,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(240,147,251,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(58,123,213,0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+  
+  /* Hero Section */
+  .hero {
+    padding: 80px 0 60px;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,210,255,0.1);
+    border: 1px solid rgba(0,210,255,0.3);
+    color: var(--accent1);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,210,255,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(0,210,255,0); }
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #fff 0%, var(--accent1) 50%, var(--accent3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 20px;
+    line-height: 1.6;
+  }
+  .hero-course {
+    display: inline-flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .course-tag {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  .course-tag span { color: var(--accent1); }
+
+  /* Stats Bar */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 40px 0;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+  .stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0,210,255,0.3);
+    box-shadow: 0 8px 32px rgba(0,210,255,0.1);
+  }
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
+
+  /* Section Title */
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .section-subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    font-size: 0.95rem;
+  }
+
+  /* Paper Cards */
+  .papers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+  .paper-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    display: block;
+    cursor: pointer;
+  }
+  .paper-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-start), var(--color-end));
+  }
+  .paper-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,255,255,0.15);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .paper-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+  }
+  .badge-regular { background: rgba(0,210,255,0.15); color: var(--accent1); }
+  .badge-makeup { background: rgba(240,147,251,0.15); color: var(--accent3); }
+  .badge-past { background: rgba(245,175,25,0.15); color: var(--accent4); }
+  
+  .paper-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    font-family: 'Fira Code', monospace;
+  }
+  .paper-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .paper-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .topic-pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+  .paper-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .btn-open {
+    flex: 1;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, var(--color-start), var(--color-end));
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s;
+    opacity: 0.9;
+  }
+  .btn-open:hover { opacity: 1; transform: scale(1.02); }
+  .q-count {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  /* Topics Section */
+  .topics-section { margin: 48px 0; }
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .topic-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+  }
+  .topic-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.15);
+  }
+  .topic-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .topic-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+  .topic-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* Exam Tips */
+  .tips-section {
+    background: rgba(0,210,255,0.04);
+    border: 1px solid rgba(0,210,255,0.15);
+    border-radius: 20px;
+    padding: 32px;
+    margin: 48px 0;
+  }
+  .tips-section h2 {
+    color: var(--accent1);
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+  }
+  .tip-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .tip-num {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    color: #000;
+  }
+  .tip-item p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+  footer span { color: var(--accent1); }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 40px 0;
+  }
+
+  /* Formula Quick Ref */
+  .formula-ref {
+    background: rgba(58,123,213,0.06);
+    border: 1px solid rgba(58,123,213,0.2);
+    border-radius: 20px;
+    padding: 32px;
+    margin: 48px 0;
+  }
+  .formula-ref h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 20px; }
+  .formula-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 12px;
+  }
+  .formula-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .formula-name { font-size: 12px; color: var(--accent2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .formula-eq { font-family: 'Fira Code', monospace; font-size: 13px; color: var(--text-primary); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-primary); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <div class="hero-badge">📊 BITS Pilani WILPD | AIMLCZC418 / DSECLZC418</div>
+    <h1>Introduction to<br>Statistical Methods</h1>
+    <p class="hero-subtitle">Complete Exam Preparation Portal — All Past Papers with Step-by-Step Solutions, Theory, and Practice Examples</p>
+    <div class="hero-course">
+      <div class="course-tag">Course: <span>AIMLCZC418 / DSECLZC418</span></div>
+      <div class="course-tag">Type: <span>Closed Book</span></div>
+      <div class="course-tag">Duration: <span>2 Hours</span></div>
+      <div class="course-tag">Weightage: <span>30%</span></div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-number">6</div>
+      <div class="stat-label">Exam Papers Covered</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">30+</div>
+      <div class="stat-label">Questions Solved</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">6</div>
+      <div class="stat-label">Core Topics Mastered</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Coverage</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Papers Section -->
+  <div>
+    <div class="section-title">📄 All Exam Paper Solutions</div>
+    <div class="section-subtitle">Click any paper to open its complete solution with theory, examples, and step-by-step answers</div>
+    
+    <div class="papers-grid">
+      <!-- Concept Guide Card -->
+      <div class="paper-card" style="--color-start: #f59e0b; --color-end: #ec4899; grid-column: span 2;" onclick="window.open('ISM_Complete_Concept_Guide.html','_blank')">
+        <div class="paper-badge" style="background: linear-gradient(135deg, #f59e0b33, #ec489933); border: 1px solid rgba(245,158,11,0.5); color: #f59e0b;">📖 Master Study Guide</div>
+        <div class="paper-date">📐 All Concepts + Formulas + Worked Examples</div>
+        <div class="paper-title">🌟 ISM Complete Concept Guide — Exam Preparation</div>
+        <div class="paper-topics">
+          <span class="topic-pill">Five-Number Summary</span>
+          <span class="topic-pill">Mean & SD Tables</span>
+          <span class="topic-pill">IQR & Outliers</span>
+          <span class="topic-pill">CLT & CI</span>
+          <span class="topic-pill">Set Theory</span>
+          <span class="topic-pill">Conditional Probability</span>
+          <span class="topic-pill">Total Probability</span>
+          <span class="topic-pill">Bayes' Theorem</span>
+          <span class="topic-pill">Naïve Bayes</span>
+          <span class="topic-pill">Discrete RVs & PMF</span>
+          <span class="topic-pill">Joint PMF & Marginals</span>
+          <span class="topic-pill">Hypergeometric</span>
+          <span class="topic-pill">Binomial & Poisson</span>
+          <span class="topic-pill">Normal Distribution</span>
+          <span class="topic-pill">Continuous PDFs</span>
+        </div>
+      </div>
+
+      <div class="paper-card" style="--color-start: #00d2ff; --color-end: #3a7bd5;" onclick="window.open('Solution_2024_MidSem_Regular.html','_blank')">
+        <div class="paper-badge badge-regular">📝 Regular Exam</div>
+        <div class="paper-date">📅 18 January 2025 | First Semester 2024-2025</div>
+        <div class="paper-title">2024 MidSem Regular (AIMLCZC418)</div>
+        <div class="paper-topics">
+          <span class="topic-pill">Five-Number Summary</span>
+          <span class="topic-pill">Mean & SD</span>
+          <span class="topic-pill">Conditional Probability</span>
+          <span class="topic-pill">Poisson Distribution</span>
+          <span class="topic-pill">Bayes' Theorem</span>
+          <span class="topic-pill">Naive Bayes</span>
+          <span class="topic-pill">Normal Distribution</span>
+          <span class="topic-pill">Hypergeometric</span>
+        </div>
+        <div class="paper-actions">
+          <span class="btn-open">🔓 Open Full Solution</span>
+          <span class="q-count">6 Questions</span>
+        </div>
+      </div>
+
+      <!-- Paper 2 -->
+      <div class="paper-card" style="--color-start: #f093fb; --color-end: #f5576c;" onclick="window.open('Solution_2024_MidSem_Makeup.html','_blank')">
+        <div class="paper-badge badge-makeup">🔄 Makeup Exam</div>
+        <div class="paper-date">📅 28 June 2025 | Second Semester 2024-2025</div>
+        <div class="paper-title">2024 MidSem Makeup (AIMLCZC418)</div>
+        <div class="paper-topics">
+          <span class="topic-pill">Mean & Five-Number Summary</span>
+          <span class="topic-pill">CLT & Sampling</span>
+          <span class="topic-pill">Naive Bayes</span>
+          <span class="topic-pill">Sample Size Formula</span>
+          <span class="topic-pill">PMF & Expected Value</span>
+          <span class="topic-pill">Bayes' Theorem (DNA)</span>
+          <span class="topic-pill">Poisson Distribution</span>
+          <span class="topic-pill">Continuous PDF</span>
+        </div>
+        <div class="paper-actions">
+          <span class="btn-open">🔓 Open Full Solution</span>
+          <span class="q-count">6 Questions</span>
+        </div>
+      </div>
+
+      <!-- Paper 3 & 4 Combined -->
+      <div class="paper-card" style="--color-start: #f5af19; --color-end: #f12711;" onclick="window.open('Solution_2024_Makeup2_and_2025_Regular.html','_blank')">
+        <div class="paper-badge badge-past">📚 Combined: 2 Papers</div>
+        <div class="paper-date">📅 2024 Makeup ISM 2 + 2025 Regular (DSECLZC418)</div>
+        <div class="paper-title">2024 Makeup ISM 2 + 2025 MidSem Regular</div>
+        <div class="paper-topics">
+          <span class="topic-pill">Quartiles & IQR</span>
+          <span class="topic-pill">Set Theory & Probability</span>
+          <span class="topic-pill">Normal Distribution</span>
+          <span class="topic-pill">Bayes' Theorem</span>
+          <span class="topic-pill">Contingency Tables</span>
+          <span class="topic-pill">Binomial vs Poisson</span>
+          <span class="topic-pill">Joint PMF</span>
+          <span class="topic-pill">Coin Toss Joint Distribution</span>
+        </div>
+        <div class="paper-actions">
+          <span class="btn-open">🔓 Open Full Solution</span>
+          <span class="q-count">10+ Questions</span>
+        </div>
+      </div>
+
+      <!-- Paper 5 & 6 Combined -->
+      <div class="paper-card" style="--color-start: #11998e; --color-end: #38ef7d;" onclick="window.open('Solution_Dec2025_Regular_Jan2026_Makeup.html','_blank')">
+        <div class="paper-badge badge-regular">🆕 Latest Papers</div>
+        <div class="paper-date">📅 Dec 2025 Regular + Jan 2026 Makeup</div>
+        <div class="paper-title">Dec 2025 Regular + Jan 2026 Makeup (Latest)</div>
+        <div class="paper-topics">
+          <span class="topic-pill">Descriptive Statistics</span>
+          <span class="topic-pill">Naive Bayes Classifier</span>
+          <span class="topic-pill">PMF (k finding)</span>
+          <span class="topic-pill">Poisson Approximation</span>
+          <span class="topic-pill">Joint Continuous PDF</span>
+          <span class="topic-pill">Normal Distribution</span>
+          <span class="topic-pill">Inclusion-Exclusion</span>
+          <span class="topic-pill">CDF & PDF Derivation</span>
+        </div>
+        <div class="paper-actions">
+          <span class="btn-open">🔓 Open Full Solution</span>
+          <span class="q-count">12 Questions</span>
+        </div>
+      </div>
+
+      <!-- ISM Past Papers DOCX -->
+      <div class="paper-card" style="--color-start: #a18cd1; --color-end: #fbc2eb;" onclick="window.open('Solution_ISM_PastPapers_DOCX.html','_blank')">
+        <div class="paper-badge badge-past">📒 Past Papers Archive</div>
+        <div class="paper-date">📅 2022-2023 | 2023-2024 | Multiple Years</div>
+        <div class="paper-title">ISM Past Papers Collection (DOCX Archive)</div>
+        <div class="paper-topics">
+          <span class="topic-pill">2022-23 Makeup (DSE)</span>
+          <span class="topic-pill">2022-23 Regular (DSE)</span>
+          <span class="topic-pill">2023-24 Regular (AI&ML)</span>
+          <span class="topic-pill">Module-wise Organization</span>
+          <span class="topic-pill">All CS Topics Covered</span>
+        </div>
+        <div class="paper-actions">
+          <span class="btn-open">🔓 Open Past Papers</span>
+          <span class="q-count">Multi-Year</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Topics Coverage -->
+  <div class="topics-section">
+    <div class="section-title">🧠 Topics Covered</div>
+    <div class="section-subtitle">All major topics from the Introduction to Statistical Methods course</div>
+    <div class="topics-grid">
+      <div class="topic-card">
+        <div class="topic-icon" style="background: rgba(0,210,255,0.1);">📊</div>
+        <h3>Descriptive Statistics</h3>
+        <p>Mean, Median, Mode, Five-Number Summary, IQR, Standard Deviation, Outlier Detection, Skewness</p>
+      </div>
+      <div class="topic-card">
+        <div class="topic-icon" style="background: rgba(240,147,251,0.1);">🎲</div>
+        <h3>Probability Theory</h3>
+        <p>Axioms, Set Theory, Union/Intersection, Complement, Conditional Probability, Independence, Law of Total Probability</p>
+      </div>
+      <div class="topic-card">
+        <div class="topic-icon" style="background: rgba(245,175,25,0.1);">🔄</div>
+        <h3>Bayes' Theorem</h3>
+        <p>Prior/Posterior Probability, Total Probability, Medical Diagnosis, Crime Scene, Naive Bayes Classifier</p>
+      </div>
+      <div class="topic-card">
+        <div class="topic-icon" style="background: rgba(17,153,142,0.1);">📈</div>
+        <h3>Discrete Distributions</h3>
+        <p>Bernoulli, Binomial, Poisson, Hypergeometric, PMF, Expectation, Variance</p>
+      </div>
+      <div class="topic-card">
+        <div class="topic-icon" style="background: rgba(58,123,213,0.1);">📉</div>
+        <h3>Continuous Distributions</h3>
+        <p>Normal Distribution, Z-scores, PDF, CDF, Uniform Distribution, Expectation, Variance</p>
+      </div>
+      <div class="topic-card">
+        <div class="topic-icon" style="background: rgba(161,140,209,0.1);">🔗</div>
+        <h3>Joint Distributions</h3>
+        <p>Joint PMF/PDF, Marginal Distributions, Conditional Distributions, Independence, Covariance</p>
+      </div>
+      <div class="topic-card">
+        <div class="topic-icon" style="background: rgba(245,87,92,0.1);">🤖</div>
+        <h3>Naive Bayes Classifier</h3>
+        <p>Text Classification, Spam Detection, Laplace Smoothing, Word Count Tables, Prior & Likelihood Calculations</p>
+      </div>
+      <div class="topic-card">
+        <div class="topic-icon" style="background: rgba(56,239,125,0.1);">📏</div>
+        <h3>Sampling & CLT</h3>
+        <p>Central Limit Theorem, Standard Error, Sample Size Determination, Margin of Error, Confidence Intervals</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Formula Reference -->
+  <div class="formula-ref">
+    <h2>⚡ Quick Formula Reference Card</h2>
+    <div class="formula-list">
+      <div class="formula-item">
+        <div class="formula-name">Mean</div>
+        <div class="formula-eq">x̄ = (Σxᵢ) / n</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Sample Standard Deviation</div>
+        <div class="formula-eq">s = √[Σ(xᵢ-x̄)² / (n-1)]</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">IQR</div>
+        <div class="formula-eq">IQR = Q3 - Q1</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Outlier Fences</div>
+        <div class="formula-eq">Lower: Q1 - 1.5×IQR | Upper: Q3 + 1.5×IQR</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Conditional Probability</div>
+        <div class="formula-eq">P(A|B) = P(A∩B) / P(B)</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Bayes' Theorem</div>
+        <div class="formula-eq">P(A|B) = P(B|A)P(A) / P(B)</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Total Probability</div>
+        <div class="formula-eq">P(B) = ΣP(B|Aᵢ)P(Aᵢ)</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Inclusion-Exclusion</div>
+        <div class="formula-eq">P(A∪B) = P(A)+P(B)-P(A∩B)</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Binomial PMF</div>
+        <div class="formula-eq">P(X=k) = C(n,k) × pᵏ × (1-p)ⁿ⁻ᵏ</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Poisson PMF</div>
+        <div class="formula-eq">P(X=k) = e⁻λ × λᵏ / k!</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Z-Score (Standardization)</div>
+        <div class="formula-eq">z = (x - μ) / σ</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Expectation (Discrete)</div>
+        <div class="formula-eq">E[X] = Σ xᵢ × P(X=xᵢ)</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Variance</div>
+        <div class="formula-eq">Var(X) = E[X²] - (E[X])²</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Standard Error (CLT)</div>
+        <div class="formula-eq">SE = σ / √n</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Sample Size Formula</div>
+        <div class="formula-eq">n = (z × σ / E)²</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Valid PDF Condition</div>
+        <div class="formula-eq">∫f(x)dx = 1, f(x) ≥ 0</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Var(aX+b)</div>
+        <div class="formula-eq">Var(aX+b) = a² × Var(X)</div>
+      </div>
+      <div class="formula-item">
+        <div class="formula-name">Poisson Approximation</div>
+        <div class="formula-eq">λ = np (when n large, p small)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exam Tips -->
+  <div class="tips-section">
+    <h2>💡 Exam Preparation Tips from Your Professor</h2>
+    <div class="tips-grid">
+      <div class="tip-item">
+        <div class="tip-num">1</div>
+        <p>Always <strong>sort the data first</strong> before finding quartiles, median, or any order statistics. This prevents mistakes.</p>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">2</div>
+        <p>For Bayes' Theorem, always write out <strong>all given probabilities</strong> and identify what you're looking for before computing.</p>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">3</div>
+        <p>For <strong>Naive Bayes classifier</strong>, always apply Laplace smoothing (add 1 to numerator, add |V| to denominator).</p>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">4</div>
+        <p>Use <strong>Poisson approximation</strong> to Binomial only when n is large (≥20) and p is small (≤0.05). λ = np.</p>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">5</div>
+        <p>For continuous PDFs, always <strong>verify using ∫f(x)dx = 1</strong> to find the constant before computing probabilities.</p>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">6</div>
+        <p>For joint distributions, check <strong>independence by verifying f(x,y) = fX(x) × fY(y)</strong>. Don't guess!</p>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">7</div>
+        <p>Normal distribution: <strong>always convert to Z-scores</strong> first, then use the standard normal table.</p>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">8</div>
+        <p>For PMF problems, use <strong>ΣP(X=x) = 1</strong> to find constants k. Never skip this validation step.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Created for Exam Preparation | <span>Introduction to Statistical Methods</span> | BITS Pilani WILPD</p>
+    <p style="margin-top: 8px;">📚 Study hard, stay consistent, and you'll ace the exam! 🎯</p>
+  </footer>
+</div>
+</body>
+</html>

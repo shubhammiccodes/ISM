@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solution - 2024 MidSem Regular ISM</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0a0118;
+    --bg-secondary: #1a1040;
+    --bg-card: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
+    --accent-blue: #00d2ff;
+    --accent-purple: #f093fb;
+    --accent-green: #38ef7d;
+    --accent-gold: #f5af19;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0c0;
+    --text-muted: #606080;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary), #0f0c29, var(--bg-secondary));
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 15% 50%, rgba(0, 210, 255, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(240, 147, 251, 0.08), transparent 25%);
+    pointer-events: none; z-index: -1;
+  }
+  
+  .layout { display: flex; max-width: 1400px; margin: 0 auto; padding: 20px; gap: 30px; }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    height: calc(100vh - 40px);
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    overflow-y: auto;
+  }
+  .sidebar h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .nav-link {
+    display: block;
+    padding: 10px 14px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    transition: all 0.3s;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .nav-link:hover, .nav-link.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    transform: translateX(5px);
+  }
+  
+  /* Main Content */
+  .main { flex-grow: 1; min-width: 0; }
+  
+  .header {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 4px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-green));
+  }
+  .header h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
+  .header p { color: var(--text-secondary); font-size: 1.1rem; }
+  
+  /* Question Card */
+  .q-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .q-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .q-title { font-size: 1.5rem; font-weight: 800; color: var(--accent-blue); }
+  .marks-badge {
+    background: rgba(240, 147, 251, 0.15);
+    color: var(--accent-purple);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  
+  .q-text { font-size: 1.1rem; margin-bottom: 30px; font-weight: 500; }
+  
+  /* Theory Section */
+  .theory-box {
+    background: rgba(0, 210, 255, 0.05);
+    border-left: 4px solid var(--accent-blue);
+    padding: 24px;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 30px;
+  }
+  .theory-box h4 { color: var(--accent-blue); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .theory-box p { color: var(--text-secondary); font-size: 14px; margin-bottom: 10px; }
+  
+  .formula-box {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    font-family: 'Fira Code', monospace;
+    text-align: center;
+    color: var(--accent-gold);
+    overflow-x: auto;
+  }
+  
+  /* Practice Examples */
+  .practice-box {
+    background: rgba(56, 239, 125, 0.05);
+    border-left: 4px solid var(--accent-green);
+    padding: 24px;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 30px;
+  }
+  .practice-box h4 { color: var(--accent-green); margin-bottom: 12px; }
+  .example-item { margin-bottom: 16px; font-size: 14px; }
+  .example-item strong { color: var(--text-primary); }
+  .example-item span { color: var(--text-secondary); display: block; margin-top: 4px; }
+  
+  /* Algorithm */
+  .algo-box {
+    background: rgba(245, 175, 25, 0.05);
+    border: 1px solid rgba(245, 175, 25, 0.2);
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+  }
+  .algo-box h4 { color: var(--accent-gold); margin-bottom: 16px; }
+  .algo-step { display: flex; gap: 12px; margin-bottom: 12px; }
+  .algo-step-num { 
+    background: var(--accent-gold); color: #000;
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 12px; flex-shrink: 0;
+  }
+  .algo-step-content { font-size: 14px; color: var(--text-secondary); }
+  
+  /* Solution */
+  .solution-box {
+    background: rgba(240, 147, 251, 0.05);
+    border-top: 4px solid var(--accent-purple);
+    padding: 30px;
+    border-radius: 12px;
+    margin-top: 20px;
+  }
+  .solution-box h4 { color: var(--accent-purple); margin-bottom: 20px; font-size: 1.2rem; }
+  .step-math { margin-bottom: 16px; overflow-x: auto; }
+  .final-ans {
+    display: inline-block;
+    background: rgba(240, 147, 251, 0.1);
+    border: 1px solid var(--accent-purple);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+  
+  /* Utility */
+  .math-inline { font-family: 'Fira Code', monospace; }
+  
+  @media (max-width: 900px) {
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: static; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3>📋 Navigation</h3>
+    <a href="#q1a" class="nav-link">Q1a. Five-Number Summary</a>
+    <a href="#q1b" class="nav-link">Q1b. Mean & Std Dev</a>
+    <a href="#q2" class="nav-link">Q2. Conditional Probability</a>
+    <a href="#q3a" class="nav-link">Q3a. Poisson Distribution</a>
+    <a href="#q3b" class="nav-link">Q3b. Total Probability</a>
+    <a href="#q4a" class="nav-link">Q4a. Joint PMF</a>
+    <a href="#q4b" class="nav-link">Q4b. Hypergeometric Dist</a>
+    <a href="#q5" class="nav-link">Q5. Naive Bayes</a>
+    <a href="#q6a" class="nav-link">Q6a. Bayes' Theorem</a>
+    <a href="#q6b" class="nav-link">Q6b. Normal Distribution</a>
+    <div style="margin-top: 30px;">
+      <a href="ISM_Master_Index.html" class="nav-link" style="background: rgba(255,255,255,0.05); text-align: center; border: 1px solid var(--border);">← Back to Master Index</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="header">
+      <h1>2024 MidSem Regular (ISM)</h1>
+      <p>Course: AIMLCZC418 | Date: 18.01.2025</p>
+    </div>
+
+    <!-- Q1a -->
+    <div id="q1a" class="q-card">
+      <div class="q-header">
+        <div class="q-title">Q1. a) Five-Number Summary</div>
+        <div class="marks-badge">[3 Marks]</div>
+      </div>
+      <div class="q-text">
+        Consider waiting times (in minutes): 4.21, 5.55, 3.02, 5.13, 4.77, 2.34, 3.54, 3.20, 4.50, 6.10, 0.38, 5.12, 6.46, 6.19, 3.79. Determine the five-number summary: Minimum, Q1, Median, Q3, Maximum. Based on the results obtained, give an interpretation about the data.
+      </div>
+      
+      <div class="theory-box">
+        <h4>🎓 Theory & Concepts</h4>
+        <p>The <strong>Five-Number Summary</strong> provides a quick overview of a dataset's distribution. It consists of the Minimum, 1st Quartile (Q1), Median (Q2), 3rd Quartile (Q3), and Maximum.</p>
+        <p>To find these, the data <strong>MUST be sorted in ascending order</strong> first.</p>
+        <div class="formula-box">
+          Position of Median = (n+1)/2<br>
+          Position of Q1 = (n+1)/4<br>
+          Position of Q3 = 3(n+1)/4
+        </div>
+        <p>If the mean > median or if the right tail (Max - Median) is much longer than the left tail (Median - Min), the data is <strong>positively skewed</strong> (skewed to the right).</p>
+      </div>
+
+      <div class="algo-box">
+        <h4>⚙️ Step-by-Step Algorithm</h4>
+        <div class="algo-step">
+          <div class="algo-step-num">1</div>
+          <div class="algo-step-content"><strong>Sort</strong> all values from smallest to largest.</div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">2</div>
+          <div class="algo-step-content"><strong>Identify Min and Max</strong> (the first and last values).</div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">3</div>
+          <div class="algo-step-content"><strong>Find Median</strong> (the exact middle value for odd n, or average of two middle values for even n).</div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">4</div>
+          <div class="algo-step-content"><strong>Find Q1 and Q3</strong> (the medians of the lower half and upper half of the data respectively).</div>
+        </div>
+      </div>
+
+      <div class="solution-box">
+        <h4>📝 Full Exam Solution</h4>
+        <div class="step-math">
+          <strong>Step 1: Sort the Data (n = 15)</strong><br>
+          0.38, 2.34, 3.02, 3.20, 3.54, 3.79, 4.21, 4.50, 4.77, 5.12, 5.13, 5.55, 6.10, 6.19, 6.46
+        </div>
+        <div class="step-math">
+          <strong>Step 2: Find the Five Numbers</strong><br>
+          <ul>
+            <li><strong>Minimum:</strong> 0.38</li>
+            <li><strong>Median (Position 8):</strong> 4.50</li>
+            <li><strong>Q1 (Median of first 7 values):</strong> 4th value = 3.20</li>
+            <li><strong>Q3 (Median of last 7 values):</strong> 12th value = 5.55</li>
+            <li><strong>Maximum:</strong> 6.46</li>
+          </ul>
+        </div>
+        <div class="step-math">
+          <strong>Step 3: Interpretation</strong><br>
+          The data is slightly positively skewed. We can observe that the right tail (Max - Median = 6.46 - 4.50 = 1.96) is slightly longer than the left tail (Median - Min = 4.50 - 0.38 = 4.12). Wait, let's re-examine. Actually, left tail (4.12) is much longer than right tail (1.96). Let's check Q1-Min (2.82) vs Max-Q3 (0.91). This implies negative skewness. Let's calculate the mean: sum = 64.3, mean = 64.3/15 = 4.286. Since Mean (4.286) < Median (4.50), the data is actually <strong>negatively skewed</strong> (left skewed).
+        </div>
+        <div class="final-ans">
+          Five-number summary: (0.38, 3.20, 4.50, 5.55, 6.46). Data is negatively skewed.
+        </div>
+      </div>
+    </div>
+
+    <!-- Q1b -->
+    <div id="q1b" class="q-card">
+      <div class="q-header">
+        <div class="q-title">Q1. b) Mean & Standard Deviation</div>
+        <div class="marks-badge">[2 Marks]</div>
+      </div>
+      <div class="q-text">
+        The SpaceX space program lasted from 2020 until 2024 and included 13 launches. The duration of each launch is listed below: 9, 195, 241, 301, 216, 260, 7, 244, 192, 147, 10, 295, 142. Find the mean, standard deviation of the launch times.
+      </div>
+      <div class="solution-box">
+        <h4>📝 Full Exam Solution</h4>
+        <div class="step-math">
+          Sum of values = 9 + 195 + 241 + 301 + 216 + 260 + 7 + 244 + 192 + 147 + 10 + 295 + 142 = 2259<br>
+          n = 13<br><br>
+          <strong>Mean (\(\bar{x}\)):</strong><br>
+          \[ \bar{x} = \frac{2259}{13} = 173.7692 \]
+        </div>
+        <div class="step-math">
+          <strong>Variance (\(s^2\)) and Standard Deviation (\(s\)):</strong><br>
+          Calculate sum of squared deviations from the mean (\( \bar{x} = 173.7692 \)), then divide by (n-1):<br>
+          <table style="width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 15px; font-size: 0.95rem; text-align: center;">
+            <tr style="background-color: rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.2);">
+              <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">\( x_i \)</th>
+              <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">\( x_i - \bar{x} \)</th>
+              <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">\( (x_i - \bar{x})^2 \)</th>
+            </tr>
+            <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">9</td><td style="border: 1px solid rgba(255,255,255,0.1);">-164.7692</td><td style="border: 1px solid rgba(255,255,255,0.1);">27148.8906</td></tr>
+            <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">195</td><td style="border: 1px solid rgba(255,255,255,0.1);">21.2308</td><td style="border: 1px solid rgba(255,255,255,0.1);">450.7469</td></tr>
+            <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">241</td><td style="border: 1px solid rgba(255,255,255,0.1);">67.2308</td><td style="border: 1px solid rgba(255,255,255,0.1);">4519.9805</td></tr>
+            <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">301</td><td style="border: 1px solid rgba(255,255,255,0.1);">127.2308</td><td style="border: 1px solid rgba(255,255,255,0.1);">16187.6765</td></tr>
+            <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">216</td><td style="border: 1px solid rgba(255,255,255,0.1);">42.2308</td><td style="border: 1px solid rgba(255,255,255,0.1);">1783.4405</td></tr>
+            <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">260</td><td style="border: 1px solid rgba(255,255,255,0.1);">86.2308</td><td style="border: 1px solid rgba(255,255,255,0.1);">7435.7509</td></tr>
+            <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">7</td><td style="border: 1px solid rgba(255,255,255,0.1);">-166.7692</td><td style="border: 1px solid rgba(255,255,255,0.1);">27811.9662</td></tr>
+            <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">244</td><td style="border: 1px solid rgba(255,255,255,0.1);">70.2308</td><td style="border: 1px solid rgba(255,255,255,0.1);">4932.3653</td></tr>
+            <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">192</td><td style="border: 1px solid rgba(255,255,255,0.1);">18.2308</td><td style="border: 1px solid rgba(255,255,255,0.1);">332.3621</td></tr>
+            <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">147</td><td style="border: 1px solid rgba(255,255,255,0.1);">-26.7692</td><td style="border: 1px solid rgba(255,255,255,0.1);">716.5901</td></tr>
+            <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">10</td><td style="border: 1px solid rgba(255,255,255,0.1);">-163.7692</td><td style="border: 1px solid rgba(255,255,255,0.1);">26820.3508</td></tr>
+            <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">295</td><td style="border: 1px solid rgba(255,255,255,0.1);">121.2308</td><td style="border: 1px solid rgba(255,255,255,0.1);">14696.9069</td></tr>
+            <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">142</td><td style="border: 1px solid rgba(255,255,255,0.1);">-31.7692</td><td style="border: 1px solid rgba(255,255,255,0.1);">1009.2821</td></tr>
+            <tr style="background-color: rgba(255,255,255,0.05); font-weight: bold;">
+              <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Sum</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">~0</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">133846.3077</td>
+            </tr>
+          </table>
+          \[ s^2 = \frac{\sum(x_i - \bar{x})^2}{n-1} = \frac{133846.3077}{12} = 11153.8589 \]<br>
+          \[ s = \sqrt{11153.8589} = 105.61 \]
+        </div>
+        <div class="final-ans">
+          Mean = 173.77, Standard deviation = 105.61
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div id="q2" class="q-card">
+      <div class="q-header">
+        <div class="q-title">Q2. Conditional Probability</div>
+        <div class="marks-badge">[5 Marks]</div>
+      </div>
+      <div class="q-text">
+        A study revealed that 35% of employees admit to keeping quiet when they see co-worker misconduct. Suppose 75% of employees who admit to keeping quiet when they see co-worker misconduct call in sick when they are well. In addition, suppose that 40% of the employees who call in sick when they are well admit to keeping quiet when they see co-worker misconduct. Find: (a) P(calls in sick AND keeps quiet), (b) P(keeps quiet OR calls in sick), (c) P(does not keep quiet | calls in sick), (d) P(neither), (e) P(keeps quiet AND does not call in sick).
+      </div>
+      
+      <div class="theory-box">
+        <h4>🎓 Theory & Concepts</h4>
+        <p>This is a classic conditional probability problem. Let's define the events clearly:</p>
+        <ul>
+          <li><strong>Q</strong> = Employee keeps quiet.</li>
+          <li><strong>S</strong> = Employee calls in sick when well.</li>
+        </ul>
+        <div class="formula-box">
+          P(A ∩ B) = P(A | B) × P(B)<br>
+          P(A ∪ B) = P(A) + P(B) - P(A ∩ B)<br>
+          P(A' | B) = 1 - P(A | B)
+        </div>
+      </div>
+
+      <div class="solution-box">
+        <h4>📝 Full Exam Solution</h4>
+        <div class="step-math">
+          <strong>Given Probabilities:</strong><br>
+          P(Q) = 0.35<br>
+          P(S | Q) = 0.75<br>
+          P(Q | S) = 0.40
+        </div>
+        <div class="step-math">
+          <strong>Preliminary Calculations:</strong><br>
+          Intersection: P(Q ∩ S) = P(S | Q) × P(Q) = 0.75 × 0.35 = <strong>0.2625</strong><br>
+          Probability of S: P(S) = P(Q ∩ S) / P(Q | S) = 0.2625 / 0.40 = <strong>0.65625</strong>
+        </div>
+        <div class="step-math">
+          <strong>a) Calls in sick and admits to keeping quiet:</strong><br>
+          P(Q ∩ S) = <strong>0.2625</strong>
+        </div>
+        <div class="step-math">
+          <strong>b) Admits to keeping quiet or calls in sick:</strong><br>
+          P(Q ∪ S) = P(Q) + P(S) - P(Q ∩ S) = 0.35 + 0.65625 - 0.2625 = <strong>0.74375</strong>
+        </div>
+        <div class="step-math">
+          <strong>c) Given calls in sick, does not keep quiet:</strong><br>
+          P(Q' | S) = 1 - P(Q | S) = 1 - 0.40 = <strong>0.60</strong>
+        </div>
+        <div class="step-math">
+          <strong>d) Neither keeps quiet nor calls in sick:</strong><br>
+          P(Q' ∩ S') = 1 - P(Q ∪ S) = 1 - 0.74375 = <strong>0.25625</strong>
+        </div>
+        <div class="step-math">
+          <strong>e) Admits to keeping quiet and does not call in sick:</strong><br>
+          P(Q ∩ S') = P(Q) - P(Q ∩ S) = 0.35 - 0.2625 = <strong>0.0875</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3a -->
+    <div id="q3a" class="q-card">
+      <div class="q-header">
+        <div class="q-title">Q3. a) Poisson Distribution</div>
+        <div class="marks-badge">[3 Marks]</div>
+      </div>
+      <div class="q-text">
+        Flaws per foot in rolls follow a Poisson distribution with a mean of 0.2 flaw per foot. What is the probability that in a:<br>
+        i. 1-foot roll, there will be at least 2 flaws?<br>
+        ii. 50-foot roll, there will be greater than or equal to 5 flaws and less than or equal to 8 flaws?
+      </div>
+      
+      <div class="theory-box">
+        <h4>🎓 Theory & Concepts</h4>
+        <p>The Poisson distribution models the number of events occurring in a fixed interval of time or space. The key parameter is \(\lambda\) (lambda), which is the average rate of occurrence.</p>
+        <p><strong>Crucial rule:</strong> If the interval size changes, \(\lambda\) must be scaled proportionally!</p>
+        <div class="formula-box">
+          \[ P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!} \]
+        </div>
+      </div>
+
+      <div class="solution-box">
+        <h4>📝 Full Exam Solution</h4>
+        <div class="step-math">
+          <strong>Part (i): 1-foot roll</strong><br>
+          For a 1-foot roll, \(\lambda = 0.2\).<br>
+          We want P(X ≥ 2). It's easier to use the complement rule: P(X ≥ 2) = 1 - P(X < 2) = 1 - [P(X = 0) + P(X = 1)]<br>
+          \[ P(X = 0) = \frac{e^{-0.2}(0.2)^0}{0!} = e^{-0.2} = 0.8187 \]<br>
+          \[ P(X = 1) = \frac{e^{-0.2}(0.2)^1}{1!} = 0.8187 \times 0.2 = 0.1637 \]<br>
+          P(X < 2) = 0.8187 + 0.1637 = 0.9824<br>
+          P(X ≥ 2) = 1 - 0.9824 = <strong>0.0176</strong> (or 0.0175 without intermediate rounding)
+        </div>
+        <div class="step-math">
+          <strong>Part (ii): 50-foot roll</strong><br>
+          For a 50-foot roll, the new mean is \(\lambda = 50 \times 0.2 = 10\).<br>
+          We want P(5 ≤ X ≤ 8) = P(X=5) + P(X=6) + P(X=7) + P(X=8).<br>
+          \[ P(X = 5) = \frac{e^{-10}(10)^5}{5!} = \frac{0.0000454 \times 100000}{120} = 0.0378 \]<br>
+          \[ P(X = 6) = \frac{e^{-10}(10)^6}{6!} = 0.0631 \]<br>
+          \[ P(X = 7) = \frac{e^{-10}(10)^7}{7!} = 0.0901 \]<br>
+          \[ P(X = 8) = \frac{e^{-10}(10)^8}{8!} = 0.1126 \]<br>
+          Total = 0.0378 + 0.0631 + 0.0901 + 0.1126 = <strong>0.3036</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3b -->
+    <div id="q3b" class="q-card">
+      <div class="q-header">
+        <div class="q-title">Q3. b) Total Probability</div>
+        <div class="marks-badge">[2 Marks]</div>
+      </div>
+      <div class="q-text">
+        An individual has 3 different email accounts. Most of her messages, in fact 70%, come into account #1, whereas 20% come into account #2 and the remaining 10% into account #3. Of the messages into account #1, only 1% are spam, whereas the corresponding percentages for accounts #2 and #3 are 2% and 5%, respectively. What is the probability that a randomly selected message is spam?
+      </div>
+      <div class="theory-box">
+        <h4>dYZ" Theory & Concepts</h4>
+        <p>This problem uses the <strong>Law of Total Probability</strong>. If an event can occur through several mutually exclusive and exhaustive paths (the different email accounts), the total probability is the sum of the probabilities of each path.</p>
+        <div class="formula-box">
+          \[ P(S) = \sum P(S | A_i) \cdot P(A_i) \]
+        </div>
+      </div>
+      <div class="solution-box">
+        <h4>dY"? Full Exam Solution</h4>
+        <div class="step-math">
+          <strong>Given:</strong><br>
+          P(Account 1) = \( P(A_1) = 0.70 \), \( P(\text{Spam} | A_1) = 0.01 \)<br>
+          P(Account 2) = \( P(A_2) = 0.20 \), \( P(\text{Spam} | A_2) = 0.02 \)<br>
+          P(Account 3) = \( P(A_3) = 0.10 \), \( P(\text{Spam} | A_3) = 0.05 \)
+        </div>
+        <div class="step-math">
+          <strong>Applying Total Probability:</strong><br>
+          \[ P(\text{Spam}) = P(S|A_1)P(A_1) + P(S|A_2)P(A_2) + P(S|A_3)P(A_3) \]<br>
+          \[ P(\text{Spam}) = (0.01 \times 0.70) + (0.02 \times 0.20) + (0.05 \times 0.10) \]<br>
+          \[ P(\text{Spam}) = 0.007 + 0.004 + 0.005 = 0.016 \]
+        </div>
+        <div class="final-ans">
+          P(Spam) = 0.016 (or 1.6%)
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4a -->
+    <div id="q4a" class="q-card">
+      <div class="q-header">
+        <div class="q-title">Q4. a) Joint Probability Mass Function</div>
+        <div class="marks-badge">[3 Marks]</div>
+      </div>
+      <div class="q-text">
+        The discrete random variables X and Y have joint probability mass function. Find value of constant k and marginal probability functions for X and Y.
+      </div>
+      <div class="theory-box">
+        <h4>dYZ" Theory & Concepts</h4>
+        <p><em>Note: The specific PMF table/equation was missing from the original exam text, so here is the general approach to solve it.</em></p>
+        <p>A <strong>Joint PMF</strong> \( P(X=x, Y=y) \) must satisfy two conditions:<br>
+        1. All probabilities are non-negative.<br>
+        2. The sum of all probabilities over all possible combinations of (x, y) must equal 1.</p>
+      </div>
+      <div class="solution-box">
+        <h4>dY"? Full Exam Solution</h4>
+        <div class="step-math">
+          <strong>Step 1: Finding the constant \( k \)</strong><br>
+          Set up the equation: \( \sum_x \sum_y P(X=x, Y=y) = 1 \). Substitute the given probabilities involving \( k \) into the sum, and solve for \( k \).
+        </div>
+        <div class="step-math">
+          <strong>Step 2: Finding Marginal PMFs</strong><br>
+          To find the marginal probability for \( X \), sum over all \( Y \):<br>
+          \[ P_X(x) = \sum_y P(X=x, Y=y) \]<br>
+          To find the marginal probability for \( Y \), sum over all \( X \):<br>
+          \[ P_Y(y) = \sum_x P(X=x, Y=y) \]
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4b -->
+    <div id="q4b" class="q-card">
+      <div class="q-header">
+        <div class="q-title">Q4. b) Hypergeometric Distribution</div>
+        <div class="marks-badge">[2 Marks]</div>
+      </div>
+      <div class="q-text">
+        From a lot of 10 items containing 3 defective items, a sample of 4 items is drawn at random without replacement. Let the random variable X denote the number of defective items in the sample.<br>
+        i) Find the probability distribution of X<br>
+        ii) Find P(X &ge; 1)<br>
+        iii) Find E(X)
+      </div>
+      <div class="theory-box">
+        <h4>dYZ" Theory & Concepts</h4>
+        <p>Since we are drawing <em>without replacement</em>, this follows a <strong>Hypergeometric Distribution</strong>.</p>
+        <div class="formula-box">
+          \[ P(X=x) = \frac{\binom{K}{x} \binom{N-K}{n-x}}{\binom{N}{n}} \]
+        </div>
+        <p>Where:<br>
+        \( N = 10 \) (total items)<br>
+        \( K = 3 \) (defective items)<br>
+        \( N-K = 7 \) (good items)<br>
+        \( n = 4 \) (sample size)</p>
+      </div>
+      <div class="solution-box">
+        <h4>dY"? Full Exam Solution</h4>
+        <div class="step-math">
+          <strong>i) Probability Distribution of X:</strong><br>
+          Total possible ways to draw 4 items from 10: \( \binom{10}{4} = 210 \).<br>
+          <table style="width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 15px; font-size: 0.95rem; text-align: center;">
+            <tr style="background-color: rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.2);">
+              <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">\( x \)</th>
+              <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Numerator: \( \binom{3}{x} \binom{7}{4-x} \)</th>
+              <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">\( P(X=x) \)</th>
+            </tr>
+            <tr>
+              <td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">0</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">\( \binom{3}{0}\binom{7}{4} = 1 \times 35 = 35 \)</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">\( \frac{35}{210} = \frac{1}{6} \)</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">1</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">\( \binom{3}{1}\binom{7}{3} = 3 \times 35 = 105 \)</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">\( \frac{105}{210} = \frac{1}{2} \)</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">2</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">\( \binom{3}{2}\binom{7}{2} = 3 \times 21 = 63 \)</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">\( \frac{63}{210} = \frac{3}{10} \)</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">3</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">\( \binom{3}{3}\binom{7}{1} = 1 \times 7 = 7 \)</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">\( \frac{7}{210} = \frac{1}{30} \)</td>
+            </tr>
+          </table>
+        </div>
+        <div class="step-math">
+          <strong>ii) Find P(X &ge; 1):</strong><br>
+          Using the complement rule: \( P(X \ge 1) = 1 - P(X = 0) \)<br>
+          \[ P(X \ge 1) = 1 - \frac{1}{6} = \frac{5}{6} \approx 0.8333 \]
+        </div>
+        <div class="step-math">
+          <strong>iii) Expected Value E(X):</strong><br>
+          <table style="width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 15px; font-size: 0.95rem; text-align: center;">
+            <tr style="background-color: rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.2);">
+              <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">\( x \)</th>
+              <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">\( P(X=x) \)</th>
+              <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">\( x \cdot P(X=x) \)</th>
+            </tr>
+            <tr>
+              <td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">0</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">\( 1/6 \)</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">0</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">1</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">\( 1/2 \)</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">0.5</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">2</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">\( 3/10 \)</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">0.6</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">3</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">\( 1/30 \)</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">0.1</td>
+            </tr>
+            <tr style="background-color: rgba(255,255,255,0.05); font-weight: bold;">
+              <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);" colspan="2">E(X) = Sum</td>
+              <td style="border: 1px solid rgba(255,255,255,0.1);">1.2</td>
+            </tr>
+          </table>
+          \[ E(X) = \sum x \cdot P(X=x) = 1.2 \]
+          <em>Note:</em> For a Hypergeometric Distribution, \( E(X) = n \cdot \frac{K}{N} = 4 \cdot \frac{3}{10} = 1.2 \). This matches perfectly!
+        </div>
+      </div>
+    </div>
+    <!-- Q5 -->
+    <div id="q5" class="q-card">
+      <div class="q-header">
+        <div class="q-title">Q5. Naive Bayes Classification</div>
+        <div class="marks-badge">[5 Marks]</div>
+      </div>
+      <div class="q-text">
+        If the weather is Snowy, then the player will play or not? Use Naive Bayes.<br>
+        (Based on a dataset of 14 days, where "Player Play = Yes" occurs 7 times, and "Player Play = No" occurs 7 times. "Snowy" occurs 1 time when Play=Yes, and 3 times when Play=No).
+      </div>
+      <div class="theory-box">
+        <h4>dYZ" Theory & Concepts</h4>
+        <p><strong>Naive Bayes</strong> is a probabilistic classifier based on applying Bayes' theorem with strong (naive) independence assumptions between the features.</p>
+        <div class="formula-box">
+          \[ P(\text{Class} | \text{Feature}) = \frac{P(\text{Feature} | \text{Class}) \cdot P(\text{Class})}{P(\text{Feature})} \]
+        </div>
+      </div>
+      <div class="solution-box">
+        <h4>dY"? Full Exam Solution</h4>
+        <div class="step-math">
+          <strong>Step 1: Prior Probabilities</strong><br>
+          Total rows = 14<br>
+          \( P(\text{Play=Yes}) = \frac{7}{14} = 0.5 \)<br>
+          \( P(\text{Play=No}) = \frac{7}{14} = 0.5 \)
+        </div>
+        <div class="step-math">
+          <strong>Step 2: Conditional Probabilities for Snowy</strong><br>
+          \( P(\text{Snowy} | \text{Yes}) = \frac{1}{7} \)<br>
+          \( P(\text{Snowy} | \text{No}) = \frac{3}{7} \)
+        </div>
+        <div class="step-math">
+          <strong>Step 3: Total Probability of Snowy</strong><br>
+          \( P(\text{Snowy}) = P(\text{Snowy} | \text{Yes})P(\text{Yes}) + P(\text{Snowy} | \text{No})P(\text{No}) \)<br>
+          \( P(\text{Snowy}) = (\frac{1}{7} \times 0.5) + (\frac{3}{7} \times 0.5) = \frac{4}{14} = \frac{2}{7} \)
+        </div>
+        <div class="step-math">
+          <strong>Step 4: Apply Bayes' Theorem</strong><br>
+          \( P(\text{Yes} | \text{Snowy}) = \frac{P(\text{Snowy} | \text{Yes}) \cdot P(\text{Yes})}{P(\text{Snowy})} \)<br>
+          \( P(\text{Yes} | \text{Snowy}) = \frac{\frac{1}{7} \times \frac{1}{2}}{\frac{2}{7}} = \frac{\frac{1}{14}}{\frac{4}{14}} = \frac{1}{4} = 0.25 \)
+        </div>
+        <div class="final-ans">
+          The probability that the player will play when the weather is snowy is 0.25 (25%).
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6a -->
+    <div id="q6a" class="q-card">
+      <div class="q-header">
+        <div class="q-title">Q6. a) Bayes' Theorem (Medical Test)</div>
+        <div class="marks-badge">[3 Marks]</div>
+      </div>
+      <div class="q-text">
+        Incidence of a rare disease: Only 1 in 1000 adults is afflicted. When an individual actually has the disease, a positive result will occur 99% of the time. An individual without the disease will show a positive test result 2% of the time. If tested positive, what is the probability that the individual has the disease?
+      </div>
+      <div class="solution-box">
+        <h4>dY"? Full Exam Solution</h4>
+        <div class="step-math">
+          <strong>Given:</strong><br>
+          Let \( D \) = Has Disease, \( + \) = Positive Test<br>
+          \( P(D) = 0.001 \) (1 in 1000)<br>
+          \( P(D') = 0.999 \)<br>
+          \( P(+|D) = 0.99 \) (Sensitivity)<br>
+          \( P(+|D') = 0.02 \) (False Positive Rate)
+        </div>
+        <div class="step-math">
+          <strong>Total Probability of a Positive Test \( P(+) \):</strong><br>
+          \[ P(+) = P(+|D)P(D) + P(+|D')P(D') \]<br>
+          \[ P(+) = (0.99 \times 0.001) + (0.02 \times 0.999) \]<br>
+          \[ P(+) = 0.00099 + 0.01998 = 0.02097 \]
+        </div>
+        <div class="step-math">
+          <strong>Bayes' Theorem \( P(D|+) \):</strong><br>
+          \[ P(D|+) = \frac{P(+|D)P(D)}{P(+)} \]<br>
+          \[ P(D|+) = \frac{0.00099}{0.02097} \approx 0.0472 \]
+        </div>
+        <div class="final-ans">
+          Probability of having the disease = 4.72%
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6b -->
+    <div id="q6b" class="q-card">
+      <div class="q-header">
+        <div class="q-title">Q6. b) Normal Distribution</div>
+        <div class="marks-badge">[2 Marks]</div>
+      </div>
+      <div class="q-text">
+        A certain machine makes electrical resistors having mean resistance of 40 ohms and standard deviation of 2 ohms. If the resistance follows a normal distribution:<br>
+        i) What percentage of resistors have resistances that exceed 43 ohms?<br>
+        ii) What percentage of resistors will have resistances that exceed 43 ohms to the nearest ohm?
+      </div>
+      <div class="theory-box">
+        <h4>dYZ" Theory & Concepts</h4>
+        <p>To find normal distribution probabilities, we convert the value \( X \) to a standard \( Z \)-score.</p>
+        <div class="formula-box">
+          \[ Z = \frac{X - \mu}{\sigma} \]
+        </div>
+        <p>For values rounded "to the nearest ohm", we apply a continuity correction. "Exceeds 43 to the nearest ohm" means the true continuous value must be greater than 42.5.</p>
+      </div>
+      <div class="solution-box">
+        <h4>dY"? Full Exam Solution</h4>
+        <div class="step-math">
+          <strong>Given:</strong><br>
+          Mean \( \mu = 40 \)<br>
+          Std Dev \( \sigma = 2 \)
+        </div>
+        <div class="step-math">
+          <strong>i) Exceeds 43 ohms: \( P(X > 43) \)</strong><br>
+          \[ z = \frac{43 - 40}{2} = 1.5 \]<br>
+          Using standard normal tables:<br>
+          \[ P(Z > 1.5) = 1 - P(Z \le 1.5) = 1 - 0.9332 = 0.0668 \]
+          Percentage = <strong>6.68%</strong>
+        </div>
+        <div class="step-math">
+          <strong>ii) Exceeds 43 ohms to the nearest ohm: \( P(X > 42.5) \)</strong><br>
+          \[ z = \frac{42.5 - 40}{2} = 1.25 \]<br>
+          Using standard normal tables:<br>
+          \[ P(Z > 1.25) = 1 - P(Z \le 1.25) = 1 - 0.8944 = 0.1056 \]
+          Percentage = <strong>10.56%</strong>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

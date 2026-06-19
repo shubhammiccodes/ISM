@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISM 2024 MidSem Makeup — Complete Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)'], ['$', '$']],
+    displayMath: [['\\[', '\\]'], ['$$', '$$']],
+    packages: {'[+]': ['ams']}
+  },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<style>
+  :root {
+    --bg-start: #0a0118;
+    --bg-mid: #0f0c29;
+    --bg-end: #1a1040;
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.10);
+    --glass-hover: rgba(255,255,255,0.08);
+    --accent-blue: #00d2ff;
+    --accent-purple: #f093fb;
+    --accent-green: #00f5a0;
+    --accent-orange: #f7971e;
+    --accent-pink: #f857a6;
+    --accent-gold: #ffd700;
+    --text-primary: #e8eaf6;
+    --text-secondary: #9fa8da;
+    --text-muted: #5c6bc0;
+    --theory-bg: rgba(0,210,255,0.07);
+    --theory-border: rgba(0,210,255,0.35);
+    --example-bg: rgba(0,245,160,0.07);
+    --example-border: rgba(0,245,160,0.35);
+    --solution-bg: rgba(240,147,251,0.07);
+    --solution-border: rgba(240,147,251,0.35);
+    --alert-bg: rgba(247,151,30,0.07);
+    --alert-border: rgba(247,151,30,0.35);
+    --formula-bg: rgba(255,215,0,0.07);
+    --formula-border: rgba(255,215,0,0.35);
+    --sidebar-width: 280px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-mid) 40%, var(--bg-end) 100%);
+    min-height: 100vh;
+    color: var(--text-primary);
+    display: flex;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(0,210,255,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 10%, rgba(240,147,251,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(0,245,160,0.06) 0%, transparent 50%);
+    animation: bgPulse 12s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes bgPulse {
+    0%   { transform: scale(1) rotate(0deg); }
+    100% { transform: scale(1.1) rotate(3deg); }
+  }
+
+  .sidebar {
+    width: var(--sidebar-width);
+    flex-shrink: 0;
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    background: rgba(10,1,24,0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid var(--glass-border);
+    z-index: 100;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; }
+
+  .sidebar-brand {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid var(--glass-border);
+    text-align: center;
+  }
+
+  .bits-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  .sidebar-subtitle {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .sidebar-nav { padding: 16px 12px; flex: 1; }
+
+  .nav-section-title {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    padding: 12px 8px 6px;
+    font-weight: 600;
+  }
+
+  .nav-item {
+    display: block;
+    padding: 9px 14px;
+    border-radius: 10px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    margin-bottom: 3px;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
+    border-radius: 0 3px 3px 0;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .nav-item:hover {
+    background: var(--glass-hover);
+    border-color: var(--glass-border);
+    color: var(--text-primary);
+    transform: translateX(4px);
+  }
+
+  .nav-item:hover::before { opacity: 1; }
+
+  .nav-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    margin-right: 8px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .nav-marks {
+    float: right;
+    font-size: 10px;
+    background: rgba(255,255,255,0.08);
+    padding: 2px 6px;
+    border-radius: 20px;
+    color: var(--accent-gold);
+  }
+
+  .main-content {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    padding: 0 0 80px 0;
+  }
+
+  .hero-header {
+    background: linear-gradient(135deg, rgba(0,210,255,0.12) 0%, rgba(240,147,251,0.12) 50%, rgba(0,245,160,0.08) 100%);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 50px 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(240,147,251,0.15) 0%, transparent 70%);
+    animation: floatOrb 6s ease-in-out infinite;
+  }
+
+  .hero-header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 100px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(0,210,255,0.12) 0%, transparent 70%);
+    animation: floatOrb 8s ease-in-out infinite reverse;
+  }
+
+  @keyframes floatOrb {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50%       { transform: translateY(-20px) scale(1.05); }
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .bits-emblem {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    box-shadow: 0 0 30px rgba(0,210,255,0.4);
+    animation: pulse-glow 3s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(0,210,255,0.4); }
+    50%       { box-shadow: 0 0 40px rgba(240,147,251,0.5); }
+  }
+
+  .header-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 30%, var(--accent-blue) 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+
+  .header-text h2 {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .meta-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 7px 16px;
+    font-size: 12.5px;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+  }
+
+  .meta-pill .icon { font-size: 15px; }
+  .meta-pill .label { color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .meta-pill .value { color: var(--text-primary); font-weight: 600; }
+
+  .content-area { padding: 40px 60px; }
+
+  .question-block {
+    margin-bottom: 60px;
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .q-badge {
+    width: 64px; height: 64px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    font-weight: 900;
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(0,210,255,0.3);
+    flex-shrink: 0;
+  }
+
+  .q-header-text h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .q-meta {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
+
+  .q-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .q-tag.marks { background: rgba(255,215,0,0.15); color: var(--accent-gold); border: 1px solid rgba(255,215,0,0.3); }
+  .q-tag.topic { background: rgba(0,210,255,0.12); color: var(--accent-blue); border: 1px solid rgba(0,210,255,0.3); }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 5px 14px;
+    border-radius: 30px;
+    margin-bottom: 18px;
+  }
+
+  .label-theory { background: var(--theory-bg); border: 1px solid var(--theory-border); color: var(--accent-blue); }
+  .label-example { background: var(--example-bg); border: 1px solid var(--example-border); color: var(--accent-green); }
+  .label-solution { background: var(--solution-bg); border: 1px solid var(--solution-border); color: var(--accent-purple); }
+  .label-formula { background: var(--formula-bg); border: 1px solid var(--formula-border); color: var(--accent-gold); }
+
+  .theory-card {
+    background: var(--theory-bg);
+    border: 1px solid var(--theory-border);
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .theory-card:hover { background: rgba(0,210,255,0.10); }
+
+  .theory-card h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--accent-blue);
+    margin-bottom: 14px;
+  }
+
+  .theory-card p, .theory-card li {
+    color: var(--text-secondary);
+    line-height: 1.85;
+    font-size: 14.5px;
+    margin-bottom: 8px;
+  }
+
+  .theory-card ul, .theory-card ol { padding-left: 22px; }
+
+  .formula-box {
+    background: var(--formula-bg);
+    border: 1px solid var(--formula-border);
+    border-radius: 16px;
+    padding: 26px 28px 20px;
+    margin: 16px 0;
+    text-align: center;
+    font-size: 18px;
+    position: relative;
+  }
+
+  .formula-box::before {
+    content: '📐 Key Formula';
+    position: absolute;
+    top: -11px; left: 20px;
+    background: linear-gradient(135deg, #ffd700, #f7971e);
+    color: #000;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .algorithm-box {
+    background: linear-gradient(135deg, rgba(58,123,213,0.12), rgba(0,210,255,0.06));
+    border: 1px solid rgba(58,123,213,0.4);
+    border-radius: 18px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+
+  .algorithm-box h5 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .algo-step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+
+  .algo-step-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-blue), #3a7bd5);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .algo-step-content { flex: 1; }
+  .algo-step-what { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .algo-step-why { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .algo-step-how { font-size: 12.5px; color: var(--accent-blue); margin-top: 4px; font-family: 'Fira Code', monospace; }
+
+  .example-card {
+    background: var(--example-bg);
+    border: 1px solid var(--example-border);
+    border-radius: 18px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .example-card:hover { background: rgba(0,245,160,0.11); }
+
+  .example-card h5 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+  }
+
+  .example-card p, .example-card li {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 6px;
+  }
+
+  .example-card ul, .example-card ol { padding-left: 20px; }
+
+  .solution-card {
+    background: var(--solution-bg);
+    border: 2px solid var(--solution-border);
+    border-radius: 20px;
+    padding: 36px 36px 28px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .solution-card::before {
+    content: '✅ EXAM SOLUTION';
+    position: absolute;
+    top: -13px; left: 28px;
+    background: linear-gradient(135deg, var(--accent-purple), #f857a6);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 2px;
+  }
+
+  .solution-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent-purple);
+    margin-bottom: 16px;
+  }
+
+  .solution-card p, .solution-card li {
+    font-size: 14.5px;
+    color: var(--text-secondary);
+    line-height: 1.85;
+    margin-bottom: 8px;
+  }
+
+  .solution-card ul, .solution-card ol { padding-left: 22px; }
+
+  .step-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+
+  .step-circle {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-purple), #f857a6);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(240,147,251,0.3);
+  }
+
+  .step-body { flex: 1; }
+  .step-title { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+  .step-desc  { font-size: 14px; color: var(--text-secondary); line-height: 1.85; }
+
+  .callout {
+    border-radius: 14px;
+    padding: 16px 22px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    line-height: 1.7;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .callout-body { flex: 1; }
+  .callout-title { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .callout-text { color: var(--text-secondary); }
+
+  .callout-tip  { background: rgba(0,245,160,0.08); border: 1px solid rgba(0,245,160,0.3); }
+  .callout-tip .callout-title { color: var(--accent-green); }
+
+  .callout-warn { background: rgba(247,151,30,0.08); border: 1px solid rgba(247,151,30,0.3); }
+  .callout-warn .callout-title { color: var(--accent-orange); }
+
+  .callout-info { background: rgba(0,210,255,0.08); border: 1px solid rgba(0,210,255,0.3); }
+  .callout-info .callout-title { color: var(--accent-blue); }
+
+  .result-box {
+    background: linear-gradient(135deg, rgba(240,147,251,0.15), rgba(248,87,166,0.10));
+    border: 2px solid rgba(240,147,251,0.4);
+    border-radius: 14px;
+    padding: 18px 24px;
+    margin: 20px 0 4px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent-purple);
+  }
+
+  .result-box .result-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13.5px;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .data-table th {
+    background: linear-gradient(135deg, rgba(0,210,255,0.15), rgba(58,123,213,0.15));
+    color: var(--accent-blue);
+    padding: 10px 16px;
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border: 1px solid var(--glass-border);
+  }
+
+  .data-table td {
+    padding: 9px 16px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.05);
+    color: var(--text-secondary);
+  }
+
+  .data-table tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+  .data-table tr:hover td { background: rgba(0,210,255,0.06); }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+    margin: 40px 0;
+  }
+
+  .part-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 28px 0 16px;
+  }
+
+  .part-badge {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(0,210,255,0.2), rgba(58,123,213,0.2));
+    border: 1px solid rgba(0,210,255,0.35);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--accent-blue);
+    flex-shrink: 0;
+  }
+
+  .part-title { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+  .part-marks { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  code {
+    font-family: 'Fira Code', monospace;
+    background: rgba(255,255,255,0.07);
+    padding: 2px 7px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--accent-green);
+  }
+
+  .hl-blue { color: var(--accent-blue); font-weight: 700; }
+  .hl-green { color: var(--accent-green); font-weight: 700; }
+  .hl-purple { color: var(--accent-purple); font-weight: 700; }
+  .hl-gold { color: var(--accent-gold); font-weight: 700; }
+  .hl-orange { color: var(--accent-orange); font-weight: 700; }
+
+  .stats-bar {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  .stat-card {
+    flex: 1; min-width: 100px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 14px 18px;
+    text-align: center;
+  }
+
+  .stat-card .stat-val {
+    font-size: 22px;
+    font-weight: 800;
+    font-family: 'Fira Code', monospace;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-card .stat-label { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+  .classify-result {
+    display: flex;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .classify-card {
+    flex: 1;
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+  }
+
+  .classify-card.spam {
+    background: rgba(248,87,166,0.12);
+    border: 2px solid rgba(248,87,166,0.4);
+  }
+
+  .classify-card.ham {
+    background: rgba(0,245,160,0.08);
+    border: 1px solid rgba(0,245,160,0.3);
+  }
+
+  .classify-card .cls-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; font-weight: 700; }
+  .classify-card.spam .cls-label { color: var(--accent-pink); }
+  .classify-card.ham .cls-label { color: var(--accent-green); }
+  .classify-card .cls-prob { font-size: 20px; font-weight: 800; font-family: 'Fira Code', monospace; }
+  .classify-card.spam .cls-prob { color: var(--accent-pink); }
+  .classify-card.ham .cls-prob { color: var(--accent-green); }
+
+  .page-footer {
+    text-align: center;
+    padding: 40px 60px;
+    color: var(--text-muted);
+    font-size: 12px;
+    border-top: 1px solid var(--glass-border);
+    margin-top: 20px;
+    line-height: 2;
+  }
+
+  .page-footer .ft-brand {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+  }
+
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-green));
+    z-index: 200;
+    transition: width 0.1s;
+  }
+
+  @media (max-width: 900px) {
+    .sidebar { transform: translateX(-100%); }
+    .main-content { margin-left: 0; }
+    .hero-header, .content-area { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollBar"></div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="bits-logo">BITS Pilani</div>
+    <div class="sidebar-subtitle">Introduction to Statistical Methods</div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section-title">📋 Exam Info</div>
+    <a href="#header" class="nav-item">🏠 Overview</a>
+
+    <div class="nav-section-title">📝 Questions</div>
+    <a href="#q1a" class="nav-item"><span class="nav-badge">1a</span>Descriptive Stats<span class="nav-marks">3M</span></a>
+    <a href="#q1b" class="nav-item"><span class="nav-badge">1b</span>CLT &amp; Sampling<span class="nav-marks">2M</span></a>
+    <a href="#q2a" class="nav-item"><span class="nav-badge">2a</span>Naive Bayes<span class="nav-marks">5M</span></a>
+    <a href="#q3a" class="nav-item"><span class="nav-badge">3a</span>Sample Size<span class="nav-marks">2M</span></a>
+    <a href="#q3b" class="nav-item"><span class="nav-badge">3b</span>Discrete RV (PMF)<span class="nav-marks">3M</span></a>
+    <a href="#q4"  class="nav-item"><span class="nav-badge">4</span>Bayes' Theorem<span class="nav-marks">5M</span></a>
+    <a href="#q5a" class="nav-item"><span class="nav-badge">5a</span>Poisson Approx.<span class="nav-marks">3M</span></a>
+    <a href="#q5b" class="nav-item"><span class="nav-badge">5b</span>Poisson Process<span class="nav-marks">2M</span></a>
+    <a href="#q6"  class="nav-item"><span class="nav-badge">6</span>Continuous PDF<span class="nav-marks">5M</span></a>
+
+    <div class="nav-section-title">📊 Total: 25 Marks</div>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+  <!-- HERO HEADER -->
+  <div class="hero-header" id="header">
+    <div class="header-top">
+      <div class="bits-emblem">🎓</div>
+      <div class="header-text">
+        <h1>2024 MidSem Makeup — Complete Solutions</h1>
+        <h2>Introduction to Statistical Methods &nbsp;|&nbsp; BITS Pilani</h2>
+      </div>
+    </div>
+    <div class="header-meta">
+      <div class="meta-pill"><span class="icon">📅</span><div><div class="label">Exam Date</div><div class="value">28 June 2025</div></div></div>
+      <div class="meta-pill"><span class="icon">📊</span><div><div class="label">Total Marks</div><div class="value">25 Marks</div></div></div>
+      <div class="meta-pill"><span class="icon">⏱️</span><div><div class="label">Type</div><div class="value">MidSem Makeup</div></div></div>
+      <div class="meta-pill"><span class="icon">📚</span><div><div class="label">Questions</div><div class="value">6 Questions</div></div></div>
+    </div>
+  </div>
+
+  <div class="content-area">
+
+    <!-- ══════════════════════════════════════
+         Q1a — Descriptive Statistics
+    ══════════════════════════════════════ -->
+    <div class="question-block" id="q1a">
+      <div class="question-header">
+        <div class="q-badge">1a</div>
+        <div class="q-header-text">
+          <h3>Mean &amp; Five-Number Summary — Descriptive Statistics</h3>
+          <div class="q-meta">
+            <span class="q-tag marks">⭐ 3 Marks</span>
+            <span class="q-tag topic">Descriptive Statistics</span>
+            <span class="q-tag topic">Skewness</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-card">
+        <div class="section-label label-theory">📖 Theory Background</div>
+        <h4>Descriptive Statistics — Understanding Your Data at a Glance</h4>
+        <p>Descriptive statistics summarise the key features of a dataset without looking at every value. Two of the most powerful tools are the <strong>mean</strong> and the <strong>five-number summary</strong>.</p>
+        <ul>
+          <li><strong>Mean (x̄):</strong> The arithmetic average — sum all values and divide by n. It is pulled toward outliers.</li>
+          <li><strong>Median (Q2):</strong> The middle value when data is sorted. Robust to outliers. For odd n, it is the ((n+1)/2)-th value.</li>
+          <li><strong>Quartiles:</strong> Q1 splits the lower 25%; Q3 splits the upper 25%. IQR = Q3 − Q1.</li>
+          <li><strong>Five-Number Summary:</strong> {Min, Q1, Median, Q3, Max} — gives a complete picture of spread and center.</li>
+          <li><strong>Symmetry test:</strong> Mean ≈ Median → symmetric | Mean &gt; Median → right (positive) skew | Mean &lt; Median → left (negative) skew.</li>
+        </ul>
+      </div>
+
+      <div class="formula-box">
+        \[\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n} \qquad \text{Five-Number Summary: } \{Min,\; Q_1,\; Q_2,\; Q_3,\; Max\}\]
+        <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">Skewness rule: Mean &gt; Median → positive skew &nbsp;|&nbsp; Mean &lt; Median → negative skew</p>
+      </div>
+
+      <div class="algorithm-box">
+        <h5>⚙️ Step-by-Step Algorithm</h5>
+        <div class="algo-step">
+          <div class="algo-step-num">1</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Sort the data ascending</div>
+            <div class="algo-step-why">WHY: All percentile-based calculations require ordered data</div>
+            <div class="algo-step-how">HOW: Write values from smallest to largest</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">2</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Calculate Mean = (Σxᵢ)/n</div>
+            <div class="algo-step-why">WHY: Provides the center-of-mass for the dataset</div>
+            <div class="algo-step-how">HOW: Add every value, divide by total count n</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">3</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Find Median (Q2)</div>
+            <div class="algo-step-why">WHY: Middle value divides data into equal halves</div>
+            <div class="algo-step-how">HOW: Odd n → ((n+1)/2)-th value | Even n → average of n/2 and n/2+1 values</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">4</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Find Q1 and Q3</div>
+            <div class="algo-step-why">WHY: Quartiles describe the spread of the middle 50%</div>
+            <div class="algo-step-how">HOW: Q1 = median of lower half; Q3 = median of upper half (excluding median)</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">5</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Compare Mean vs. Median to assess symmetry</div>
+            <div class="algo-step-why">WHY: Their relationship reveals the direction of skewness</div>
+            <div class="algo-step-how">HOW: Mean &gt; Median → right-skewed | Mean &lt; Median → left-skewed | Mean ≈ Median → symmetric</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label label-example">🧪 Practice Examples</div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 1 — Small Dataset (n = 7)</h5>
+        <p><strong>Data:</strong> 3, 7, 5, 13, 20, 23, 39 &nbsp;→&nbsp; <strong>Sorted:</strong> 3, 5, 7, 13, 20, 23, 39</p>
+        <p><strong>Mean:</strong> (3+5+7+13+20+23+39)/7 = 110/7 ≈ 15.71</p>
+        <p><strong>Median (4th):</strong> 13 &nbsp;|&nbsp; <strong>Q1</strong> (median of {3,5,7}): 5 &nbsp;|&nbsp; <strong>Q3</strong> (median of {20,23,39}): 23</p>
+        <p><strong>Five-Number Summary:</strong> {3, 5, 13, 23, 39}</p>
+        <p><strong>Symmetry:</strong> Mean (15.71) &gt; Median (13) → <span class="hl-orange">Positively Skewed ↗</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 2 — Even n (n = 8)</h5>
+        <p><strong>Data:</strong> 4, 8, 15, 16, 23, 42, 60, 72</p>
+        <p><strong>Mean:</strong> 240/8 = 30 &nbsp;|&nbsp; <strong>Median:</strong> (16+23)/2 = 19.5</p>
+        <p><strong>Q1:</strong> (8+15)/2 = 11.5 &nbsp;|&nbsp; <strong>Q3:</strong> (42+60)/2 = 51</p>
+        <p><strong>Five-Number Summary:</strong> {4, 11.5, 19.5, 51, 72} &nbsp;→&nbsp; <span class="hl-orange">Strong positive skew (Mean 30 &gt;&gt; Median 19.5)</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 3 — Left-Skewed Data (n = 9)</h5>
+        <p><strong>Data:</strong> 50, 60, 70, 75, 78, 80, 82, 85, 90</p>
+        <p><strong>Mean:</strong> 670/9 ≈ 74.44 &nbsp;|&nbsp; <strong>Median (5th):</strong> 78</p>
+        <p><strong>Q1:</strong> (60+70)/2 = 65 &nbsp;|&nbsp; <strong>Q3:</strong> (82+85)/2 = 83.5</p>
+        <p><strong>Symmetry:</strong> Mean (74.44) &lt; Median (78) → <span class="hl-blue">Negatively Skewed ↙</span></p>
+      </div>
+
+      <div class="solution-card">
+        <h4>🎯 Actual Exam Question Solution</h4>
+        <p><strong>Data:</strong> 28, 12, 10, 22, 18, 18, 17, 15, 16, 15, 14, 15, 16, 17, 18 &nbsp;&nbsp;(n = 15)</p>
+
+        <div class="step-row">
+          <div class="step-circle">1</div>
+          <div class="step-body">
+            <div class="step-title">Sort the Data</div>
+            <div class="step-desc">
+              10, 12, 14, 15, 15, <span class="hl-blue">15</span>, 16, <span class="hl-purple">16</span>, 17, 17, <span class="hl-blue">18</span>, 18, 18, 22, 28<br>
+              <em style="font-size:12px;color:var(--text-muted);">Position: 1, 2, 3, 4, 5, 6, 7, [8], 9, 10, 11, 12, 13, 14, 15</em>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">2</div>
+          <div class="step-body">
+            <div class="step-title">Calculate Mean</div>
+            <div class="step-desc">
+              \[\bar{x} = \frac{10+12+14+15+15+15+16+16+17+17+18+18+18+22+28}{15} = \frac{251}{15} \approx 16.73\]
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">3</div>
+          <div class="step-body">
+            <div class="step-title">Find Median</div>
+            <div class="step-desc">n = 15 (odd) → Median = \(\frac{15+1}{2} =\) 8th value = <span class="hl-purple">16</span></div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">4</div>
+          <div class="step-body">
+            <div class="step-title">Find Q1 and Q3</div>
+            <div class="step-desc">
+              <strong>Lower half</strong> (7 values: pos 1–7): 10, 12, 14, 15, 15, 15, 16 → Q1 = 4th = <span class="hl-blue">15</span><br>
+              <strong>Upper half</strong> (7 values: pos 9–15): 17, 17, 18, 18, 18, 22, 28 → Q3 = 4th = <span class="hl-blue">18</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-bar">
+          <div class="stat-card"><div class="stat-val">10</div><div class="stat-label">Minimum</div></div>
+          <div class="stat-card"><div class="stat-val">15</div><div class="stat-label">Q1</div></div>
+          <div class="stat-card"><div class="stat-val">16</div><div class="stat-label">Median (Q2)</div></div>
+          <div class="stat-card"><div class="stat-val">16.73</div><div class="stat-label">Mean</div></div>
+          <div class="stat-card"><div class="stat-val">18</div><div class="stat-label">Q3</div></div>
+          <div class="stat-card"><div class="stat-val">28</div><div class="stat-label">Maximum</div></div>
+        </div>
+
+        <div class="callout callout-warn">
+          <div class="callout-icon">📊</div>
+          <div class="callout-body">
+            <div class="callout-title">Symmetry Comment</div>
+            <div class="callout-text">Since <strong>Mean (16.73) &gt; Median (16)</strong>, the distribution is <strong>slightly positively (right-) skewed</strong>. The outlier value of 28 pulls the mean upward, stretching the right tail.</div>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <span class="result-label">Final Answer</span>
+          Mean = 16.73 &nbsp;|&nbsp; Five-Number Summary: {10, 15, 16, 18, 28} &nbsp;|&nbsp; Slightly Positively Skewed
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════
+         Q1b — CLT
+    ══════════════════════════════════════ -->
+    <div class="question-block" id="q1b">
+      <div class="question-header">
+        <div class="q-badge">1b</div>
+        <div class="q-header-text">
+          <h3>Sampling Distribution — Central Limit Theorem</h3>
+          <div class="q-meta">
+            <span class="q-tag marks">⭐ 2 Marks</span>
+            <span class="q-tag topic">Central Limit Theorem</span>
+            <span class="q-tag topic">Z-Score</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-card">
+        <div class="section-label label-theory">📖 Theory Background</div>
+        <h4>The Central Limit Theorem (CLT)</h4>
+        <p>The CLT states that if we take many random samples of size n from any population with mean µ and standard deviation σ, then the <strong>distribution of sample means</strong> \(\bar{X}\) approaches a Normal distribution as n increases — regardless of the population's shape!</p>
+        <ul>
+          <li><strong>Standard Error (SE):</strong> The std dev of the sampling distribution: SE = σ/√n. A larger sample → smaller SE → more precise estimate.</li>
+          <li><strong>Z-score:</strong> Converts a sample mean to a standard normal value so we can use the Z-table.</li>
+          <li><strong>Symmetry:</strong> P(Z &lt; −z) = P(Z &gt; z) for the standard normal distribution.</li>
+          <li>Rule of thumb: n ≥ 30 for CLT to apply (though n=49 is excellent).</li>
+        </ul>
+      </div>
+
+      <div class="formula-box">
+        \[\bar{X} \sim N\!\left(\mu,\; \frac{\sigma^2}{n}\right) \qquad SE = \frac{\sigma}{\sqrt{n}} \qquad Z = \frac{\bar{X} - \mu}{SE}\]
+      </div>
+
+      <div class="algorithm-box">
+        <h5>⚙️ Algorithm: CLT Probability Problems</h5>
+        <div class="algo-step">
+          <div class="algo-step-num">1</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Identify µ, σ, and n from the problem</div>
+            <div class="algo-step-why">WHY: These three values completely define the sampling distribution</div>
+            <div class="algo-step-how">HOW: Read directly from problem statement</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">2</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Compute SE = σ / √n</div>
+            <div class="algo-step-why">WHY: SE is the standard deviation of the sampling distribution</div>
+            <div class="algo-step-how">HOW: Divide σ by the square root of the sample size</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">3</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Convert each boundary to Z = (x̄ − µ)/SE</div>
+            <div class="algo-step-why">WHY: Standardization lets us use the Z-table</div>
+            <div class="algo-step-how">HOW: Subtract µ, divide by SE for each boundary value</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">4</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Use Z-table: P(z₁ &lt; Z &lt; z₂) = Φ(z₂) − Φ(z₁)</div>
+            <div class="algo-step-why">WHY: Φ gives the area under the standard normal curve</div>
+            <div class="algo-step-how">HOW: Look up z₂ and z₁ in Z-table, subtract</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label label-example">🧪 Practice Examples</div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 1 — The 68% Rule</h5>
+        <p>µ=100, σ=15, n=25. Find P(97 &lt; X̄ &lt; 103).</p>
+        <p>SE = 15/5 = 3. Z₁ = (97−100)/3 = −1. Z₂ = (103−100)/3 = +1.</p>
+        <p>P(−1 &lt; Z &lt; 1) = 0.8413 − 0.1587 = <span class="hl-green">0.6827 (≈ 68%)</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 2 — One-Tailed</h5>
+        <p>µ=50, σ=10, n=100. Find P(X̄ &gt; 52).</p>
+        <p>SE = 10/10 = 1. Z = (52−50)/1 = 2. P(Z &gt; 2) = 1 − 0.9772 = <span class="hl-green">0.0228</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 3 — Wider Interval</h5>
+        <p>µ=200, σ=20, n=64. Find P(196 &lt; X̄ &lt; 204).</p>
+        <p>SE = 20/8 = 2.5. Z₁ = −1.6, Z₂ = 1.6. P(−1.6 &lt; Z &lt; 1.6) = 0.9452 − 0.0548 = <span class="hl-green">0.8904</span></p>
+      </div>
+
+      <div class="solution-card">
+        <h4>🎯 Actual Exam Question Solution</h4>
+        <p><strong>Given:</strong> µ = 70 in, σ = 3 in, n = 49. Find P(69 &lt; X̄ &lt; 71).</p>
+
+        <div class="step-row">
+          <div class="step-circle">1</div>
+          <div class="step-body">
+            <div class="step-title">Standard Error</div>
+            <div class="step-desc">\[SE = \frac{\sigma}{\sqrt{n}} = \frac{3}{\sqrt{49}} = \frac{3}{7} \approx 0.4286\]</div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">2</div>
+          <div class="step-body">
+            <div class="step-title">Z-Scores</div>
+            <div class="step-desc">
+              \[z_1 = \frac{69 - 70}{0.4286} \approx -2.333 \qquad z_2 = \frac{71 - 70}{0.4286} \approx +2.333\]
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">3</div>
+          <div class="step-body">
+            <div class="step-title">Probability (Z-table lookup)</div>
+            <div class="step-desc">
+              \[P(-2.333 < Z < 2.333) = \Phi(2.333) - \Phi(-2.333) = 0.9902 - 0.0098 = \mathbf{0.9804}\]
+            </div>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <span class="result-label">Final Answer</span>
+          P(69 &lt; X̄ &lt; 71) = <strong>0.9804 ≈ 98.04%</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════
+         Q2a — Naive Bayes
+    ══════════════════════════════════════ -->
+    <div class="question-block" id="q2a">
+      <div class="question-header">
+        <div class="q-badge">2a</div>
+        <div class="q-header-text">
+          <h3>Naive Bayes Classifier — Spam Detection</h3>
+          <div class="q-meta">
+            <span class="q-tag marks">⭐ 5 Marks</span>
+            <span class="q-tag topic">Naive Bayes</span>
+            <span class="q-tag topic">Laplace Smoothing</span>
+            <span class="q-tag topic">Machine Learning</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-card">
+        <div class="section-label label-theory">📖 Theory Background</div>
+        <h4>Naive Bayes Text Classifier</h4>
+        <p>Naive Bayes is a probabilistic classifier based on <strong>Bayes' Theorem</strong>. It's called "naive" because it assumes all words (features) are <em>conditionally independent</em> given the class. Surprisingly, this simplification works very well in text classification.</p>
+        <ul>
+          <li><strong>Prior P(Class):</strong> Proportion of training messages belonging to each class.</li>
+          <li><strong>Likelihood P(word|Class):</strong> How often a word appears in messages of that class.</li>
+          <li><strong>Laplace Smoothing (α=1):</strong> Add 1 to every word count to avoid zero probability for unseen words. Denominator becomes (total words in class + vocabulary size).</li>
+          <li><strong>Classification:</strong> Compute score for each class. Pick the class with the higher score.</li>
+          <li><strong>Score:</strong> P(Class) × Π P(wordᵢ|Class) for all words in test message.</li>
+        </ul>
+      </div>
+
+      <div class="formula-box">
+        \[P(\text{Class}|\text{msg}) \propto P(\text{Class}) \prod_{i} P(w_i | \text{Class})\]
+        <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">With Laplace Smoothing: \(\quad P(w|\text{Class}) = \dfrac{\text{count}(w,\,\text{Class}) + 1}{\text{total words in Class} + |V|}\)</p>
+      </div>
+
+      <div class="algorithm-box">
+        <h5>⚙️ Algorithm: Naive Bayes Classification</h5>
+        <div class="algo-step">
+          <div class="algo-step-num">1</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Compute Prior Probabilities P(Class)</div>
+            <div class="algo-step-why">WHY: Reflects how common each class is in training data</div>
+            <div class="algo-step-how">HOW: P(Spam) = #spam msgs / total msgs; same for Ham</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">2</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Build the Vocabulary V</div>
+            <div class="algo-step-why">WHY: Defines all possible features</div>
+            <div class="algo-step-how">HOW: List every unique word across all training messages</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">3</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Count words in each class, apply Laplace smoothing</div>
+            <div class="algo-step-why">WHY: Smoothing prevents zero-probability for unseen words</div>
+            <div class="algo-step-how">HOW: P(w|C) = (count(w,C)+1) / (totalWordsC + |V|)</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">4</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Score each class: Prior × product of likelihoods</div>
+            <div class="algo-step-why">WHY: The score represents the (unnormalized) posterior probability</div>
+            <div class="algo-step-how">HOW: Multiply the class prior by P(w₁|C)×P(w₂|C)×P(w₃|C)...</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">5</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Assign class with the highest score</div>
+            <div class="algo-step-why">WHY: Maximum a posteriori decision rule</div>
+            <div class="algo-step-how">HOW: Compare scores; the higher one wins</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label label-example">🧪 Practice Examples</div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 1 — Mini Sentiment Analysis</h5>
+        <p><strong>Training:</strong> "Good product" (Pos), "Bad quality" (Neg), "Very good" (Pos)</p>
+        <p><strong>V:</strong> {good, product, bad, quality, very} → |V|=5. P(Pos)=2/3, P(Neg)=1/3</p>
+        <p><strong>Test: "good"</strong> &nbsp;Pos words: good(2),product(1),very(1)=4. Neg: bad(1),quality(1)=2</p>
+        <p>P(good|Pos)=(2+1)/(4+5)=3/9. P(good|Neg)=(0+1)/(2+5)=1/7</p>
+        <p>Score Pos=(2/3)(3/9)=6/27≈0.222. Score Neg=(1/3)(1/7)=1/21≈0.048. → <span class="hl-green">POSITIVE ✓</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 2 — The Zero-Probability Problem</h5>
+        <p>Without Laplace smoothing, if "free" never appears in Ham training data: P(free|Ham) = 0.</p>
+        <p>Then Score(Ham) = 0 for ANY message containing "free" — even if it's clearly ham!</p>
+        <p>With Laplace (α=1): P(free|Ham) = 1/(total_ham_words + |V|) &gt; 0. Problem solved! ✅</p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 3 — Why Use Log-Probabilities</h5>
+        <p>Multiplying many small probabilities (0.01 × 0.02 × 0.003...) creates numerical underflow (rounds to 0).</p>
+        <p>Solution: log Score = log P(Class) + Σ log P(wᵢ|Class). Logs turn products into sums — no underflow!</p>
+        <p>The classification result is identical — just use the class with the higher log-score.</p>
+      </div>
+
+      <div class="solution-card">
+        <h4>🎯 Actual Exam Question Solution</h4>
+
+        <table class="data-table">
+          <tr><th>Message</th><th>Label</th></tr>
+          <tr><td>Win money</td><td style="color:var(--accent-pink);">Spam</td></tr>
+          <tr><td>Free prize</td><td style="color:var(--accent-pink);">Spam</td></tr>
+          <tr><td>See you soon</td><td style="color:var(--accent-green);">Ham</td></tr>
+          <tr><td>Call me now</td><td style="color:var(--accent-green);">Ham</td></tr>
+        </table>
+        <p style="margin-top:12px;"><strong>Test message:</strong> <em>"Win free money"</em></p>
+
+        <div class="step-row">
+          <div class="step-circle">1</div>
+          <div class="step-body">
+            <div class="step-title">Prior Probabilities</div>
+            <div class="step-desc">\[P(\text{Spam}) = \frac{2}{4} = 0.5 \qquad P(\text{Ham}) = \frac{2}{4} = 0.5\]</div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">2</div>
+          <div class="step-body">
+            <div class="step-title">Vocabulary and Word Counts</div>
+            <div class="step-desc">
+              V = {win, money, free, prize, see, you, soon, call, me, now} → <span class="hl-blue">|V| = 10</span><br>
+              <strong>Spam words:</strong> win(1), money(1), free(1), prize(1) → Total = 4<br>
+              <strong>Ham words:</strong> see(1), you(1), soon(1), call(1), me(1), now(1) → Total = 6
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">3</div>
+          <div class="step-body">
+            <div class="step-title">Laplace Smoothing Denominators</div>
+            <div class="step-desc">
+              Spam denom = 4 + 10 = <span class="hl-blue">14</span> &nbsp;&nbsp;|&nbsp;&nbsp; Ham denom = 6 + 10 = <span class="hl-blue">16</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">4</div>
+          <div class="step-body">
+            <div class="step-title">Likelihoods for "Win Free Money"</div>
+            <div class="step-desc">
+              <table class="data-table">
+                <tr><th>Word</th><th>cnt(Spam)</th><th>P(word|Spam)</th><th>cnt(Ham)</th><th>P(word|Ham)</th></tr>
+                <tr><td>win</td><td>1</td><td>(1+1)/14 = 2/14</td><td>0</td><td>(0+1)/16 = 1/16</td></tr>
+                <tr><td>free</td><td>1</td><td>(1+1)/14 = 2/14</td><td>0</td><td>(0+1)/16 = 1/16</td></tr>
+                <tr><td>money</td><td>1</td><td>(1+1)/14 = 2/14</td><td>0</td><td>(0+1)/16 = 1/16</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">5</div>
+          <div class="step-body">
+            <div class="step-title">Compute Scores</div>
+            <div class="step-desc">
+              \[P(\text{Spam}|\text{msg}) \propto 0.5 \times \frac{2}{14} \times \frac{2}{14} \times \frac{2}{14} = 0.5 \times \frac{8}{2744} \approx \mathbf{0.001457}\]
+              \[P(\text{Ham}|\text{msg}) \propto 0.5 \times \frac{1}{16} \times \frac{1}{16} \times \frac{1}{16} = 0.5 \times \frac{1}{4096} \approx \mathbf{0.0001221}\]
+            </div>
+          </div>
+        </div>
+
+        <div class="classify-result">
+          <div class="classify-card spam">
+            <div class="cls-label">🔴 SPAM Score</div>
+            <div class="cls-prob">0.001457</div>
+            <div style="font-size:12px;margin-top:8px;color:#ffc0cb;">← WINNER (11.93× larger) ✓</div>
+          </div>
+          <div class="classify-card ham">
+            <div class="cls-label">🟢 HAM Score</div>
+            <div class="cls-prob">0.0001221</div>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <span class="result-label">Classification Result</span>
+          "Win free money" → <strong>SPAM 🚫</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════
+         Q3a — Sample Size
+    ══════════════════════════════════════ -->
+    <div class="question-block" id="q3a">
+      <div class="question-header">
+        <div class="q-badge">3a</div>
+        <div class="q-header-text">
+          <h3>Sample Size Determination for a Given Margin of Error</h3>
+          <div class="q-meta">
+            <span class="q-tag marks">⭐ 2 Marks</span>
+            <span class="q-tag topic">Confidence Intervals</span>
+            <span class="q-tag topic">Sample Size</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-card">
+        <div class="section-label label-theory">📖 Theory Background</div>
+        <h4>How Large Should Our Sample Be?</h4>
+        <p>A margin of error (E) quantifies the precision of a confidence interval. If we want E to be at most a specific value, we solve for the minimum required sample size n.</p>
+        <ul>
+          <li><strong>Larger n → smaller E:</strong> More data gives more precision.</li>
+          <li><strong>Higher confidence → larger n:</strong> e.g., 99% CI needs bigger sample than 95% CI.</li>
+          <li><strong>z-values:</strong> 90% → 1.645 | 95% → 1.960 | 99% → 2.576</li>
+          <li><strong>Always round UP:</strong> If n = 208.1, you need 209 — rounding down would make E slightly larger than desired.</li>
+        </ul>
+      </div>
+
+      <div class="formula-box">
+        \[E = z^* \cdot \frac{\sigma}{\sqrt{n}} \quad \Longrightarrow \quad n = \left(\frac{z^* \cdot \sigma}{E}\right)^2\]
+        <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">Always round n UP to the nearest integer (ceiling function)</p>
+      </div>
+
+      <div class="algorithm-box">
+        <h5>⚙️ Algorithm</h5>
+        <div class="algo-step">
+          <div class="algo-step-num">1</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Determine z* from the confidence level</div>
+            <div class="algo-step-why">WHY: Different confidence levels require different critical values</div>
+            <div class="algo-step-how">HOW: 90%→1.645 | 95%→1.960 | 99%→2.576</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">2</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Compute n = (z*·σ/E)²</div>
+            <div class="algo-step-why">WHY: Algebraic rearrangement of the margin of error formula</div>
+            <div class="algo-step-how">HOW: Square the ratio (z*·σ) / E</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">3</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Round UP to nearest whole number</div>
+            <div class="algo-step-why">WHY: n must be integer; floor would violate the margin requirement</div>
+            <div class="algo-step-how">HOW: n = ⌈calculated value⌉</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label label-example">🧪 Practice Examples</div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 1 — 95% CI</h5>
+        <p>σ=10, E=2, 95% → z=1.96. n = (1.96×10/2)² = 9.8² = 96.04 → <span class="hl-green">n = 97</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 2 — 90% CI</h5>
+        <p>σ=25, E=5, 90% → z=1.645. n = (1.645×25/5)² = 8.225² = 67.65 → <span class="hl-green">n = 68</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 3 — Effect of Confidence Level</h5>
+        <p>σ=20, E=3. At 95%: n=(1.96×20/3)²=170.7→171. At 99%: n=(2.576×20/3)²=294.9→295.</p>
+        <p>Higher confidence nearly doubles the required sample size!</p>
+      </div>
+
+      <div class="solution-card">
+        <h4>🎯 Actual Exam Question Solution</h4>
+        <p><strong>Given:</strong> s = 14 min (use as σ estimate), E = 2.5 min, 99% confidence.</p>
+
+        <div class="step-row">
+          <div class="step-circle">1</div>
+          <div class="step-body">
+            <div class="step-title">Critical value for 99% confidence</div>
+            <div class="step-desc">\(z^* = 2.576\)</div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">2</div>
+          <div class="step-body">
+            <div class="step-title">Apply sample size formula</div>
+            <div class="step-desc">
+              \[n = \left(\frac{z^* \cdot \sigma}{E}\right)^2 = \left(\frac{2.576 \times 14}{2.5}\right)^2 = \left(\frac{36.064}{2.5}\right)^2 = (14.4256)^2 \approx 208.10\]
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">3</div>
+          <div class="step-body">
+            <div class="step-title">Round up</div>
+            <div class="step-desc">208.10 → <span class="hl-purple">n = 209 workers</span></div>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <span class="result-label">Final Answer</span>
+          Minimum required sample size = <strong>n = 209 workers</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════
+         Q3b — Discrete RV
+    ══════════════════════════════════════ -->
+    <div class="question-block" id="q3b">
+      <div class="question-header">
+        <div class="q-badge">3b</div>
+        <div class="q-header-text">
+          <h3>Discrete Random Variable — PMF, E[X], Var(X)</h3>
+          <div class="q-meta">
+            <span class="q-tag marks">⭐ 3 Marks</span>
+            <span class="q-tag topic">Probability Mass Function</span>
+            <span class="q-tag topic">Expectation</span>
+            <span class="q-tag topic">Variance</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-card">
+        <div class="section-label label-theory">📖 Theory Background</div>
+        <h4>Probability Mass Function — The Language of Discrete Random Variables</h4>
+        <p>A Probability Mass Function (PMF) P(X = x) assigns a probability to each possible value x of a discrete RV X. For a valid PMF:</p>
+        <ul>
+          <li><strong>Non-negativity:</strong> P(X=x) ≥ 0 for all x</li>
+          <li><strong>Normalization:</strong> Σ P(X=x) = 1 over all possible values</li>
+          <li><strong>Expected Value E[X]:</strong> The probability-weighted average — Σ x·P(x). Think of it as the long-run average.</li>
+          <li><strong>E[X²]:</strong> The probability-weighted average of x² — Σ x²·P(x). Needed for variance.</li>
+          <li><strong>Variance Var(X) = E[X²] − (E[X])²:</strong> Measures spread. Always ≥ 0.</li>
+          <li><strong>Symmetry shortcut:</strong> If PMF is symmetric around 0, then E[X] = 0 automatically.</li>
+        </ul>
+      </div>
+
+      <div class="formula-box">
+        \[\sum_x P(X=x)=1 \qquad E[X]=\sum_x x\,P(x) \qquad \text{Var}(X)=E[X^2]-(E[X])^2\]
+      </div>
+
+      <div class="algorithm-box">
+        <h5>⚙️ Algorithm: PMF Problems</h5>
+        <div class="algo-step">
+          <div class="algo-step-num">1</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Find k: set ΣP(x) = 1 and solve</div>
+            <div class="algo-step-why">WHY: Normalization is the fundamental property of any PMF</div>
+            <div class="algo-step-how">HOW: Substitute each x, sum the expressions, set equal to 1</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">2</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Compute E[X] = Σ x·P(x)</div>
+            <div class="algo-step-why">WHY: Gives the long-run average value of X</div>
+            <div class="algo-step-how">HOW: Multiply each x by P(x), then add all terms</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">3</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Compute E[X²] = Σ x²·P(x)</div>
+            <div class="algo-step-why">WHY: Required for the variance shortcut formula</div>
+            <div class="algo-step-how">HOW: Replace x with x² in the expectation computation</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">4</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Var(X) = E[X²] − [E[X]]²</div>
+            <div class="algo-step-why">WHY: The computational formula for variance</div>
+            <div class="algo-step-how">HOW: Subtract square of mean from E[X²]</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label label-example">🧪 Practice Examples</div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 1 — P(X=x) = k(x+1), x=0,1,2</h5>
+        <p>ΣP = k(1+2+3) = 6k = 1 → k = 1/6</p>
+        <p>E[X] = 0(1/6) + 1(2/6) + 2(3/6) = 8/6 = 4/3 ≈ 1.33</p>
+        <p>E[X²] = 0(1/6) + 1(2/6) + 4(3/6) = 14/6. Var = 14/6 − (4/3)² = 10/18 ≈ <span class="hl-green">0.556</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 2 — Discrete Uniform: P(X=x)=k, x=1,2,3,4,5</h5>
+        <p>5k=1 → k=1/5. E[X]=(1+2+3+4+5)/5=3. E[X²]=(1+4+9+16+25)/5=11. Var=11−9=<span class="hl-green">2</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 3 — Symmetric: P(X=x)=kx², x=−2,−1,0,1,2</h5>
+        <p>ΣP = k(4+1+0+1+4)=10k=1 → k=0.1. E[X]=0 (symmetric). E[X²]=k(4·4+1·1+0+1·1+4·4)=34k=3.4. Var=3.4−0=<span class="hl-green">3.4</span></p>
+      </div>
+
+      <div class="solution-card">
+        <h4>🎯 Actual Exam Question Solution</h4>
+        <p>PMF: \(P(X=x) = kx^2\) for \(x \in \{-1,\,0,\,1\}\), zero otherwise.</p>
+
+        <div class="part-header">
+          <div class="part-badge">i</div>
+          <div><div class="part-title">Find k &nbsp;(1 Mark)</div></div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">1</div>
+          <div class="step-body">
+            <div class="step-title">Apply normalization: ΣP(x)=1</div>
+            <div class="step-desc">
+              \[k(-1)^2 + k(0)^2 + k(1)^2 = 1\]
+              \[k + 0 + k = 1 \implies 2k = 1 \implies \boxed{k = \tfrac{1}{2}}\]
+              PMF: P(−1) = 1/2, P(0) = 0, P(1) = 1/2
+            </div>
+          </div>
+        </div>
+
+        <div class="part-header">
+          <div class="part-badge">ii</div>
+          <div><div class="part-title">Calculate E[X] &nbsp;(1 Mark)</div></div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">2</div>
+          <div class="step-body">
+            <div class="step-title">Expected Value</div>
+            <div class="step-desc">
+              \[E[X] = (-1)\cdot\tfrac{1}{2} + (0)\cdot 0 + (1)\cdot\tfrac{1}{2} = -\tfrac{1}{2} + 0 + \tfrac{1}{2} = \boxed{0}\]
+              <em>Symmetric PMF around 0 → mean is 0. ✓</em>
+            </div>
+          </div>
+        </div>
+
+        <div class="part-header">
+          <div class="part-badge">iii</div>
+          <div><div class="part-title">Compute Var(X) &nbsp;(1 Mark)</div></div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">3</div>
+          <div class="step-body">
+            <div class="step-title">E[X²] and Variance</div>
+            <div class="step-desc">
+              \[E[X^2] = (1)\cdot\tfrac{1}{2} + (0)\cdot 0 + (1)\cdot\tfrac{1}{2} = 1\]
+              \[\text{Var}(X) = E[X^2] - (E[X])^2 = 1 - 0^2 = \boxed{1}\]
+            </div>
+          </div>
+        </div>
+
+        <table class="data-table">
+          <tr><th>x</th><th>P(X=x)</th><th>x·P(x)</th><th>x²·P(x)</th></tr>
+          <tr><td>−1</td><td>1/2</td><td>−1/2</td><td>1/2</td></tr>
+          <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>1</td><td>1/2</td><td>+1/2</td><td>1/2</td></tr>
+          <tr><td><strong>Σ</strong></td><td><strong>1</strong></td><td><strong>0</strong></td><td><strong>1</strong></td></tr>
+        </table>
+
+        <div class="result-box">
+          <span class="result-label">Final Answers</span>
+          k = 1/2 &nbsp;|&nbsp; E[X] = 0 &nbsp;|&nbsp; Var(X) = 1
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════
+         Q4 — Bayes' Theorem (DNA)
+    ══════════════════════════════════════ -->
+    <div class="question-block" id="q4">
+      <div class="question-header">
+        <div class="q-badge">4</div>
+        <div class="q-header-text">
+          <h3>Bayes' Theorem — The DNA Crime Scene Problem</h3>
+          <div class="q-meta">
+            <span class="q-tag marks">⭐ 5 Marks</span>
+            <span class="q-tag topic">Bayes' Theorem</span>
+            <span class="q-tag topic">Conditional Probability</span>
+            <span class="q-tag topic">Law of Total Probability</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-card">
+        <div class="section-label label-theory">📖 Theory Background</div>
+        <h4>Bayes' Theorem — Rational Reasoning Under Uncertainty</h4>
+        <p>Bayes' Theorem shows how to update a prior belief (what we thought before) into a posterior belief (what we think after seeing evidence). It is one of the most powerful tools in probability and statistics.</p>
+        <ul>
+          <li><strong>Prior P(H):</strong> Probability of a hypothesis before seeing any evidence.</li>
+          <li><strong>Likelihood P(E|H):</strong> How probable the evidence is, assuming the hypothesis is true.</li>
+          <li><strong>Law of Total Probability:</strong> P(E) = P(E|H)P(H) + P(E|¬H)P(¬H) — the denominator in Bayes.</li>
+          <li><strong>Posterior P(H|E):</strong> Updated probability after seeing the evidence. This is what we seek!</li>
+        </ul>
+        <p><strong>The Prosecutor's Fallacy:</strong> Confusing P(DNA match | innocent) with P(innocent | DNA match). These are VERY different! In a large population, several innocent people may also match the DNA profile.</p>
+      </div>
+
+      <div class="formula-box">
+        \[P(G|M) = \frac{P(M|G)\cdot P(G)}{P(M)} \qquad P(M)=P(M|G)P(G)+P(M|\bar{G})P(\bar{G})\]
+      </div>
+
+      <div class="algorithm-box">
+        <h5>⚙️ Algorithm: Bayes' Theorem</h5>
+        <div class="algo-step">
+          <div class="algo-step-num">1</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Define events G and M clearly</div>
+            <div class="algo-step-why">WHY: Precise definitions prevent the Prosecutor's Fallacy</div>
+            <div class="algo-step-how">HOW: G = "guilty", M = "DNA matches"</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">2</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Set up all given probabilities</div>
+            <div class="algo-step-why">WHY: We need prior, likelihoods, and complement</div>
+            <div class="algo-step-how">HOW: P(G)=1/population, P(M|G)=1, P(M|¬G)=false match rate</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">3</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Compute P(M) via Law of Total Probability</div>
+            <div class="algo-step-why">WHY: P(M) is the normalizing constant in Bayes' formula</div>
+            <div class="algo-step-how">HOW: P(M) = P(M|G)·P(G) + P(M|¬G)·P(¬G)</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">4</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Apply Bayes: P(G|M) = P(M|G)·P(G)/P(M)</div>
+            <div class="algo-step-why">WHY: This is the posterior probability of guilt given the match</div>
+            <div class="algo-step-how">HOW: Numerator / denominator from step 3</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label label-example">🧪 Practice Examples</div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 1 — Medical Test (Base Rate Neglect)</h5>
+        <p>Disease prevalence P(D)=0.01. Sensitivity P(+|D)=0.99. False positive rate P(+|¬D)=0.05.</p>
+        <p>P(+) = 0.99×0.01 + 0.05×0.99 = 0.0099 + 0.0495 = 0.0594</p>
+        <p>P(D|+) = 0.0099/0.0594 ≈ <span class="hl-orange">16.7%</span>. Most positive tests are false positives!</p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 2 — Spam Filter Update</h5>
+        <p>P(Spam)=0.3. P("deal"|Spam)=0.8. P("deal"|Ham)=0.1.</p>
+        <p>P("deal") = 0.8×0.3 + 0.1×0.7 = 0.31. P(Spam|"deal") = 0.24/0.31 ≈ <span class="hl-green">77.4%</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 3 — Factory Quality Control</h5>
+        <p>Machine A makes 60% of parts (P(defect|A)=2%). Machine B makes 40% (P(defect|B)=5%).</p>
+        <p>P(defect) = 0.012+0.020 = 0.032. P(B|defect) = 0.020/0.032 ≈ <span class="hl-orange">62.5%</span> → Likely from B!</p>
+      </div>
+
+      <div class="solution-card">
+        <h4>🎯 Actual Exam Question Solution — DNA Evidence</h4>
+        <p><strong>Given:</strong> Population = 5,000,000. P(random match) = 1/1,000,000.</p>
+
+        <div class="step-row">
+          <div class="step-circle">1</div>
+          <div class="step-body">
+            <div class="step-title">Define Events &amp; Set Up</div>
+            <div class="step-desc">
+              G = "suspect is guilty" &nbsp;|&nbsp; M = "DNA matches"<br><br>
+              \[P(G) = \frac{1}{5{,}000{,}000} \qquad P(\bar{G}) = \frac{4{,}999{,}999}{5{,}000{,}000}\]
+              \[P(M|G) = 1 \quad \text{(perfect match if guilty)}\]
+              \[P(M|\bar{G}) = \frac{1}{1{,}000{,}000} \quad \text{(false match rate)}\]
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">2</div>
+          <div class="step-body">
+            <div class="step-title">Intuitive Approach — Expected Matches</div>
+            <div class="step-desc">
+              In 5,000,000 people, the expected number of innocent DNA matches:<br>
+              \[\text{False matches} = 5{,}000{,}000 \times \frac{1}{1{,}000{,}000} = 5 \text{ people}\]
+              Plus the <strong>1 actual guilty person</strong> → total of <strong>6 people</strong> match the DNA profile.
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">3</div>
+          <div class="step-body">
+            <div class="step-title">Apply Bayes' Theorem</div>
+            <div class="step-desc">
+              \[P(M) = 1\cdot\frac{1}{5\text{M}} + \frac{1}{1\text{M}}\cdot\frac{4{,}999{,}999}{5\text{M}} \approx \frac{1}{5\text{M}} + \frac{5}{5\text{M}} = \frac{6}{5\text{M}}\]
+              \[P(G|M) = \frac{P(M|G)\cdot P(G)}{P(M)} = \frac{1 \cdot \frac{1}{5\text{M}}}{\frac{6}{5\text{M}}} = \frac{1}{6} \approx \mathbf{16.7\%}\]
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-warn">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <div class="callout-title">The Prosecutor's Fallacy — A Critical Warning</div>
+            <div class="callout-text">A DNA match with probability 1 in 1,000,000 does NOT mean there is a 1 in 1,000,000 chance of innocence! In a city of 5 million, we expect 5 innocent people to match. The posterior probability of guilt is only ~16.7% from DNA alone. Additional evidence is absolutely essential!</div>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <span class="result-label">Final Answer</span>
+          P(Guilty | DNA Match) = <strong>1/6 ≈ 16.7%</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════
+         Q5a — Poisson Approximation
+    ══════════════════════════════════════ -->
+    <div class="question-block" id="q5a">
+      <div class="question-header">
+        <div class="q-badge">5a</div>
+        <div class="q-header-text">
+          <h3>Poisson Approximation to Binomial — Machine Breakdowns</h3>
+          <div class="q-meta">
+            <span class="q-tag marks">⭐ 3 Marks</span>
+            <span class="q-tag topic">Poisson Distribution</span>
+            <span class="q-tag topic">Binomial Approximation</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-card">
+        <div class="section-label label-theory">📖 Theory Background</div>
+        <h4>Poisson Approximation to Binomial</h4>
+        <p>The Binomial B(n, p) describes n independent trials each with success probability p. When n is large and p is small (rare events), the Poisson approximation simplifies computation dramatically.</p>
+        <ul>
+          <li><strong>Condition:</strong> n large (≥20) and p small (≤0.05), so that λ = np is moderate.</li>
+          <li><strong>Poisson PMF:</strong> P(X=k) = e<sup>−λ</sup>λ<sup>k</sup>/k! — only one parameter: λ.</li>
+          <li><strong>Complement rule:</strong> P(X ≥ k) = 1 − P(X ≤ k−1) — much easier than summing infinite terms.</li>
+          <li><strong>Range probability:</strong> P(a ≤ X ≤ b) = sum of P(X=k) for k from a to b.</li>
+          <li>Key constant: e<sup>−2</sup> ≈ 0.1353. Memorize for λ=2 problems!</li>
+        </ul>
+      </div>
+
+      <div class="formula-box">
+        \[X \sim \text{Poisson}(\lambda),\quad \lambda = np \qquad P(X=k) = \frac{e^{-\lambda}\,\lambda^k}{k!}\]
+        <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">\(e^{-1}\approx 0.3679,\quad e^{-2}\approx 0.1353,\quad e^{-3}\approx 0.0498,\quad e^{-3.6}\approx 0.0273\)</p>
+      </div>
+
+      <div class="algorithm-box">
+        <h5>⚙️ Algorithm: Poisson Problems</h5>
+        <div class="algo-step">
+          <div class="algo-step-num">1</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Compute λ = np</div>
+            <div class="algo-step-why">WHY: λ parameterizes the entire Poisson distribution</div>
+            <div class="algo-step-how">HOW: Multiply n by p from the problem</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">2</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">For exact k: P(X=k) = e^(−λ) × λ^k / k!</div>
+            <div class="algo-step-why">WHY: Direct application of PMF formula</div>
+            <div class="algo-step-how">HOW: Compute e^(−λ), multiply by λ^k, divide by k factorial</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">3</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">For "at least k": use 1 − P(X ≤ k−1)</div>
+            <div class="algo-step-why">WHY: Complement avoids summing an infinite series</div>
+            <div class="algo-step-how">HOW: Sum P(X=0) through P(X=k−1), subtract from 1</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">4</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">For range a to b: sum P(X=k) for each k</div>
+            <div class="algo-step-why">WHY: No simpler closed form exists for bounded ranges</div>
+            <div class="algo-step-how">HOW: Build table of P(X=k) for k=a,a+1,...,b and sum</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label label-example">🧪 Practice Examples</div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 1 — λ = 1</h5>
+        <p>n=50, p=0.02 → λ=1, e⁻¹=0.3679. P(X=3)=0.3679×1/6=<span class="hl-green">0.0613</span></p>
+        <p>P(X≥2)=1−e⁻¹(1+1)=1−0.3679×2=1−0.7358=<span class="hl-green">0.2642</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 2 — λ = 3</h5>
+        <p>n=100, p=0.03 → λ=3, e⁻³=0.0498. P(X=2)=0.0498×9/2=0.2241. P(X≥1)=1−0.0498=<span class="hl-green">0.9502</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 3 — Computing P(X≤3) for λ=2</h5>
+        <p>P(X=0)=e⁻²=0.1353. P(X=1)=0.1353×2=0.2707. P(X=2)=0.1353×2=0.2707. P(X=3)=0.1353×8/6=0.1804.</p>
+        <p>P(X≤3) = 0.1353+0.2707+0.2707+0.1804 = <span class="hl-green">0.8571</span></p>
+      </div>
+
+      <div class="solution-card">
+        <h4>🎯 Actual Exam Question Solution</h4>
+        <p><strong>Given:</strong> n=25, p=0.08 → <strong>λ = 25 × 0.08 = 2</strong>, &nbsp; e⁻² ≈ 0.1353</p>
+
+        <div class="part-header">
+          <div class="part-badge">i</div>
+          <div><div class="part-title">P(X = 5) — Exactly 5 machines break down</div><div class="part-marks">1 Mark</div></div>
+        </div>
+
+        \[P(X=5) = \frac{e^{-2}\cdot 2^5}{5!} = \frac{0.1353 \times 32}{120} = \frac{4.3296}{120} \approx \boxed{0.0361}\]
+
+        <div class="part-header">
+          <div class="part-badge">ii</div>
+          <div><div class="part-title">P(X ≥ 4) — At least 4 break down</div><div class="part-marks">1 Mark</div></div>
+        </div>
+
+        \[P(X \ge 4) = 1 - [P(X=0)+P(X=1)+P(X=2)+P(X=3)]\]
+        \[= 1 - e^{-2}\!\left[1 + 2 + 2 + \tfrac{4}{3}\right] = 1 - 0.1353 \times 6.333 = 1 - 0.8571 \approx \boxed{0.1429}\]
+
+        <div class="part-header">
+          <div class="part-badge">iii</div>
+          <div><div class="part-title">P(3 ≤ X ≤ 8)</div><div class="part-marks">1 Mark</div></div>
+        </div>
+
+        <table class="data-table">
+          <tr><th>k</th><th>2^k</th><th>k!</th><th>2^k/k!</th><th>P(X=k)</th></tr>
+          <tr><td>3</td><td>8</td><td>6</td><td>1.3333</td><td>0.1804</td></tr>
+          <tr><td>4</td><td>16</td><td>24</td><td>0.6667</td><td>0.0902</td></tr>
+          <tr><td>5</td><td>32</td><td>120</td><td>0.2667</td><td>0.0361</td></tr>
+          <tr><td>6</td><td>64</td><td>720</td><td>0.0889</td><td>0.0120</td></tr>
+          <tr><td>7</td><td>128</td><td>5040</td><td>0.0254</td><td>0.0034</td></tr>
+          <tr><td>8</td><td>256</td><td>40320</td><td>0.00635</td><td>0.00086</td></tr>
+          <tr><td colspan="4"><strong>Total P(3≤X≤8)</strong></td><td><strong>≈ 0.3230</strong></td></tr>
+        </table>
+
+        \[P(3 \le X \le 8) \approx \boxed{0.3230}\]
+
+        <div class="result-box">
+          <span class="result-label">Final Answers</span>
+          (i) P(X=5) ≈ 0.0361 &nbsp;|&nbsp; (ii) P(X≥4) ≈ 0.1429 &nbsp;|&nbsp; (iii) P(3≤X≤8) ≈ 0.3230
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════
+         Q5b — Poisson Process
+    ══════════════════════════════════════ -->
+    <div class="question-block" id="q5b">
+      <div class="question-header">
+        <div class="q-badge">5b</div>
+        <div class="q-header-text">
+          <h3>Poisson Process — Website Visit Probability</h3>
+          <div class="q-meta">
+            <span class="q-tag marks">⭐ 2 Marks</span>
+            <span class="q-tag topic">Poisson Process</span>
+            <span class="q-tag topic">Rate Scaling</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-card">
+        <div class="section-label label-theory">📖 Theory Background</div>
+        <h4>Poisson Process — Events Over a Time Window</h4>
+        <p>A Poisson process models random events occurring at a constant average rate λ per unit time. The key property is <strong>rate scaling</strong>: in t time units, the number of events follows Poisson(λt).</p>
+        <ul>
+          <li>If a website gets λ=1.2 visits/hour, then in t=3 hours: X ~ Poisson(1.2×3 = 3.6)</li>
+          <li>Events in non-overlapping intervals are independent of each other.</li>
+          <li>P(X ≥ 2) = 1 − P(X=0) − P(X=1) = 1 − e<sup>−λt</sup> − λt·e<sup>−λt</sup> = 1 − e<sup>−λt</sup>(1 + λt)</li>
+        </ul>
+      </div>
+
+      <div class="formula-box">
+        \[\text{In } t \text{ time units: } X \sim \text{Poisson}(\lambda t)\]
+        \[P(X \ge 2) = 1 - e^{-\lambda t}(1 + \lambda t)\]
+      </div>
+
+      <div class="section-label label-example">🧪 Practice Examples</div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 1 — Phone Calls</h5>
+        <p>2 calls/min. In 5 min: λ=10. P(X=8) = e⁻¹⁰×10⁸/8! ≈ 0.1126</p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 2 — Shop Customers</h5>
+        <p>3 customers/hour. In 30 min: λ=1.5. P(X≥1)=1−e⁻¹·⁵=1−0.2231=<span class="hl-green">0.7769</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 3 — Road Accidents</h5>
+        <p>1.5 accidents/day. In 2 days: λ=3. P(X≥2)=1−e⁻³(1+3)=1−0.0498×4≈<span class="hl-green">0.8009</span></p>
+      </div>
+
+      <div class="solution-card">
+        <h4>🎯 Actual Exam Question Solution</h4>
+        <p><strong>Given:</strong> Rate = 1.2 visits/hour. Interval = 3 hours. Find P(X ≥ 2).</p>
+
+        <div class="step-row">
+          <div class="step-circle">1</div>
+          <div class="step-body">
+            <div class="step-title">Scale the Rate</div>
+            <div class="step-desc">\[\lambda_{3h} = 1.2 \times 3 = 3.6 \qquad e^{-3.6} \approx 0.02732\]</div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">2</div>
+          <div class="step-body">
+            <div class="step-title">Apply Complement Rule</div>
+            <div class="step-desc">
+              \[P(X \ge 2) = 1 - P(X=0) - P(X=1) = 1 - e^{-3.6} - 3.6\,e^{-3.6}\]
+              \[= 1 - e^{-3.6}(1+3.6) = 1 - 0.02732 \times 4.6 = 1 - 0.12567 \approx \boxed{0.8743}\]
+            </div>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <span class="result-label">Final Answer</span>
+          P(X ≥ 2 visits in 3 hours) = <strong>0.8743 ≈ 87.43%</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════
+         Q6 — Continuous PDF
+    ══════════════════════════════════════ -->
+    <div class="question-block" id="q6">
+      <div class="question-header">
+        <div class="q-badge">6</div>
+        <div class="q-header-text">
+          <h3>Continuous Probability Distribution — Piecewise PDF</h3>
+          <div class="q-meta">
+            <span class="q-tag marks">⭐ 5 Marks</span>
+            <span class="q-tag topic">Continuous RV</span>
+            <span class="q-tag topic">PDF Integration</span>
+            <span class="q-tag topic">Expected Value</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-card">
+        <div class="section-label label-theory">📖 Theory Background</div>
+        <h4>Continuous Random Variables &amp; the PDF</h4>
+        <p>A continuous random variable X can take any value in a range. Its distribution is described by a <strong>Probability Density Function (PDF)</strong> f(x), where probability = area under the curve.</p>
+        <ul>
+          <li><strong>Non-negativity:</strong> f(x) ≥ 0 everywhere</li>
+          <li><strong>Normalization:</strong> ∫<sub>−∞</sub><sup>∞</sup> f(x)dx = 1 (total area must be 1)</li>
+          <li><strong>Probability:</strong> P(a &lt; X &lt; b) = ∫<sub>a</sub><sup>b</sup> f(x)dx</li>
+          <li><strong>Expected Value:</strong> E[X] = ∫ x·f(x)dx (weighted center of mass)</li>
+          <li><strong>Piecewise PDF:</strong> Different formula on different intervals — you MUST split the integral at each breakpoint and integrate each piece separately.</li>
+        </ul>
+        <p><strong>Key integrals:</strong> ∫x² dx = x³/3 | ∫(2−x) dx = 2x − x²/2 | ∫x(2−x) dx = x² − x³/3</p>
+      </div>
+
+      <div class="formula-box">
+        \[\int_{-\infty}^{\infty}f(x)\,dx=1 \qquad P(a<X<b)=\int_a^b f(x)\,dx \qquad E[X]=\int_{-\infty}^{\infty}x\,f(x)\,dx\]
+      </div>
+
+      <div class="algorithm-box">
+        <h5>⚙️ Algorithm: Piecewise PDF Problems</h5>
+        <div class="algo-step">
+          <div class="algo-step-num">1</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Find c by normalization: sum of integrals = 1</div>
+            <div class="algo-step-why">WHY: Every valid PDF must integrate to exactly 1</div>
+            <div class="algo-step-how">HOW: Integrate each piece over its domain, factor out c, set = 1</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">2</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Find P(a &lt; X &lt; b): split at breakpoint x=1</div>
+            <div class="algo-step-why">WHY: f(x) changes formula at x=1; must use correct formula in each sub-interval</div>
+            <div class="algo-step-how">HOW: ∫_a^1 cx² dx + ∫_1^b c(2-x) dx</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="algo-step-num">3</div>
+          <div class="algo-step-content">
+            <div class="algo-step-what">Find E[X] = ∫ x·f(x) dx, again split at x=1</div>
+            <div class="algo-step-why">WHY: Multiply x by f(x) before integrating each piece</div>
+            <div class="algo-step-how">HOW: ∫_0^1 cx³ dx + ∫_1^2 cx(2-x) dx</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label label-example">🧪 Practice Examples</div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 1 — Linear PDF</h5>
+        <p>f(x) = cx for 0 ≤ x ≤ 2. ∫₀² cx dx = c[x²/2]₀² = 2c = 1 → c = 1/2.</p>
+        <p>E[X] = ∫₀² x·(x/2)dx = (1/2)[x³/3]₀² = 4/3 ≈ <span class="hl-green">1.333</span></p>
+        <p>P(X &gt; 1) = ∫₁² (x/2)dx = [x²/4]₁² = 1 − 1/4 = <span class="hl-green">0.75</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 2 — Piecewise Constant</h5>
+        <p>f(x) = {c for [0,1], 2c for [1,2]}. c + 2c = 3c = 1 → c = 1/3.</p>
+        <p>P(0.5 &lt; X &lt; 1.5) = ∫₀.₅¹ (1/3)dx + ∫₁^1.5 (2/3)dx = 1/6 + 1/3 = <span class="hl-green">1/2</span></p>
+      </div>
+
+      <div class="example-card">
+        <h5>✏️ Practice 3 — Quadratic PDF</h5>
+        <p>f(x) = cx² for 0 ≤ x ≤ 1. ∫₀¹ cx² dx = c/3 = 1 → c = 3.</p>
+        <p>E[X] = 3∫₀¹ x³ dx = 3/4 = <span class="hl-green">0.75</span>. &nbsp; P(X &gt; 0.5) = [x³]₀.₅¹ = 1 − 0.125 = <span class="hl-green">0.875</span></p>
+      </div>
+
+      <div class="solution-card">
+        <h4>🎯 Actual Exam Question Solution</h4>
+        <p>PDF: \(\;f(x) = \begin{cases} cx^2 & 0 \le x \le 1 \\ c(2-x) & 1 < x \le 2 \\ 0 & \text{otherwise} \end{cases}\)</p>
+
+        <div class="part-header">
+          <div class="part-badge">a</div>
+          <div><div class="part-title">Find c &nbsp;(normalization)</div></div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">1</div>
+          <div class="step-body">
+            <div class="step-title">Set total integral = 1</div>
+            <div class="step-desc">
+              \[\int_0^1 cx^2\,dx + \int_1^2 c(2-x)\,dx = 1\]
+              \[c\!\left[\frac{x^3}{3}\right]_0^1 + c\!\left[2x - \frac{x^2}{2}\right]_1^2 = 1\]
+              \[\frac{c}{3} + c\!\left[\left(4-2\right)-\left(2-\frac{1}{2}\right)\right] = \frac{c}{3} + c\!\cdot\!\frac{1}{2} = \frac{5c}{6} = 1\]
+              \[\boxed{c = \frac{6}{5}}\]
+            </div>
+          </div>
+        </div>
+
+        <div class="part-header">
+          <div class="part-badge">b</div>
+          <div><div class="part-title">Find P(1/2 &lt; X &lt; 3/2)</div></div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">2</div>
+          <div class="step-body">
+            <div class="step-title">Split at breakpoint x=1</div>
+            <div class="step-desc">
+              \[P\!\left(\tfrac{1}{2} < X < \tfrac{3}{2}\right) = \int_{1/2}^{1}cx^2\,dx + \int_{1}^{3/2}c(2-x)\,dx\]
+              <strong>Piece 1:</strong>
+              \[c\!\left[\frac{x^3}{3}\right]_{1/2}^{1} = c\!\left(\frac{1}{3} - \frac{1}{24}\right) = c\cdot\frac{7}{24}\]
+              <strong>Piece 2:</strong>
+              \[c\!\left[2x-\frac{x^2}{2}\right]_{1}^{3/2} = c\!\left[\left(3-\frac{9}{8}\right)-\left(2-\frac{1}{2}\right)\right] = c\!\left[\frac{15}{8}-\frac{3}{2}\right] = \frac{3c}{8}\]
+              <strong>Total:</strong>
+              \[\frac{7c}{24}+\frac{9c}{24} = \frac{16c}{24} = \frac{2c}{3} = \frac{2}{3}\cdot\frac{6}{5} = \boxed{\frac{4}{5} = 0.8}\]
+            </div>
+          </div>
+        </div>
+
+        <div class="part-header">
+          <div class="part-badge">c</div>
+          <div><div class="part-title">Find E[X]</div></div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-circle">3</div>
+          <div class="step-body">
+            <div class="step-title">Compute E[X] = ∫ x·f(x) dx</div>
+            <div class="step-desc">
+              \[E[X] = \int_0^1 cx^3\,dx + \int_1^2 cx(2-x)\,dx\]
+              <strong>Integral 1:</strong>
+              \[c\!\left[\frac{x^4}{4}\right]_0^1 = \frac{c}{4}\]
+              <strong>Integral 2:</strong>
+              \[c\!\left[x^2 - \frac{x^3}{3}\right]_1^2 = c\!\left[\left(4-\frac{8}{3}\right)-\left(1-\frac{1}{3}\right)\right] = c\!\left[\frac{4}{3}-\frac{2}{3}\right] = \frac{2c}{3}\]
+              <strong>Total:</strong>
+              \[E[X] = \frac{c}{4}+\frac{2c}{3} = c\!\left(\frac{3+8}{12}\right) = \frac{11c}{12} = \frac{11}{12}\cdot\frac{6}{5} = \frac{66}{60} = \boxed{\frac{11}{10}=1.1}\]
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-bar">
+          <div class="stat-card"><div class="stat-val">6/5</div><div class="stat-label">Constant c</div></div>
+          <div class="stat-card"><div class="stat-val">0.8</div><div class="stat-label">P(½ &lt; X &lt; 3/2)</div></div>
+          <div class="stat-card"><div class="stat-val">1.1</div><div class="stat-label">E[X]</div></div>
+        </div>
+
+        <div class="callout callout-tip">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <div class="callout-title">Sanity Check</div>
+            <div class="callout-text">Range of X is [0, 2] so E[X] must be in (0, 2). We got 1.1, close to the midpoint 1. The PDF rises on [0,1] and falls on [1,2], so the distribution is roughly bell-shaped peaking at x=1. The slight asymmetry (1.1 &gt; 1.0) is because the quadratic rise on [0,1] is steeper than the linear fall on [1,2]. Checks out! ✓</div>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <span class="result-label">Final Answers</span>
+          a) c = 6/5 &nbsp;&nbsp;|&nbsp;&nbsp; b) P(½ &lt; X &lt; 3/2) = 4/5 = 0.80 &nbsp;&nbsp;|&nbsp;&nbsp; c) E[X] = 11/10 = 1.1
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end content-area -->
+
+  <div class="page-footer">
+    <div class="ft-brand">BITS Pilani — Introduction to Statistical Methods</div>
+    2024 MidSem Makeup Exam &nbsp;|&nbsp; 28 June 2025 &nbsp;|&nbsp; Complete Solution Guide<br>
+    <span style="font-size:11px;color:var(--text-muted);">All solutions are fully verified. For educational use only.</span>
+  </div>
+
+</main>
+
+<script>
+// Scroll progress bar
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('scrollBar').style.width = pct + '%';
+});
+
+// Active nav highlighting
+const navLinks = document.querySelectorAll('.nav-item[href^="#"]');
+const sections = document.querySelectorAll('[id]');
+
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => {
+        l.style.background = '';
+        l.style.color = '';
+        l.style.borderColor = 'transparent';
+      });
+      const active = document.querySelector(`.nav-item[href="#${e.target.id}"]`);
+      if (active) {
+        active.style.background = 'rgba(0,210,255,0.12)';
+        active.style.color = '#00d2ff';
+        active.style.borderColor = 'rgba(0,210,255,0.3)';
+      }
+    }
+  });
+}, { threshold: 0.25, rootMargin: '-60px 0px -40% 0px' });
+
+sections.forEach(s => obs.observe(s));
+
+// Stagger fade-in
+document.querySelectorAll('.question-block').forEach((b, i) => {
+  b.style.animationDelay = `${i * 0.07}s`;
+});
+</script>
+</body>
+</html>

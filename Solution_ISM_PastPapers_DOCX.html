@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISM Past Papers & Complete Theory Guide</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0a0118;
+    --bg-secondary: #1a1040;
+    --bg-card: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
+    --accent-blue: #00d2ff;
+    --accent-purple: #f093fb;
+    --accent-green: #38ef7d;
+    --accent-gold: #f5af19;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0c0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary), #1a1040, #2c1654);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 50% 0%, rgba(161, 140, 209, 0.15), transparent 40%),
+                radial-gradient(circle at 80% 100%, rgba(251, 194, 235, 0.1), transparent 40%);
+    pointer-events: none; z-index: -1;
+  }
+  
+  .layout { display: flex; max-width: 1400px; margin: 0 auto; padding: 20px; gap: 30px; }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    height: calc(100vh - 40px);
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    overflow-y: auto;
+  }
+  .sidebar h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #a18cd1, #fbc2eb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .nav-link {
+    display: block;
+    padding: 10px 14px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    transition: all 0.3s;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .nav-link:hover { background: rgba(255, 255, 255, 0.1); color: var(--text-primary); transform: translateX(5px); }
+  
+  /* Main Content */
+  .main { flex-grow: 1; min-width: 0; }
+  
+  .header {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 4px;
+    background: linear-gradient(90deg, #a18cd1, #fbc2eb);
+  }
+  .header h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 10px; }
+  .header p { color: var(--text-secondary); font-size: 1.1rem; }
+
+  /* Module Card */
+  .module-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+  }
+  .module-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .module-title { font-size: 1.8rem; font-weight: 800; color: #fbc2eb; }
+  
+  /* Theory Section */
+  .theory-box {
+    background: rgba(161, 140, 209, 0.05);
+    border-left: 4px solid #a18cd1;
+    padding: 24px;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 30px;
+  }
+  .theory-box h4 { color: #fbc2eb; margin-bottom: 12px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+  .theory-box p { color: var(--text-secondary); font-size: 15px; margin-bottom: 15px; }
+  
+  .formula-box {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    font-family: 'Fira Code', monospace;
+    text-align: center;
+    color: #fbc2eb;
+    overflow-x: auto;
+    font-size: 1.1rem;
+  }
+  
+  /* Solution */
+  .solution-box {
+    background: rgba(251, 194, 235, 0.05);
+    border-top: 4px solid #fbc2eb;
+    padding: 30px;
+    border-radius: 12px;
+    margin-top: 30px;
+  }
+  .solution-box h4 { color: #fbc2eb; margin-bottom: 20px; font-size: 1.2rem; }
+  .step-math { margin-bottom: 16px; overflow-x: auto; font-size: 15px; }
+  
+  @media (max-width: 900px) {
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: static; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3>📋 Module Index</h3>
+    <a href="#mod1" class="nav-link">Module 1: Descriptive Stats & Prob Axioms</a>
+    <a href="#mod2" class="nav-link">Module 2: Conditional Prob & Bayes</a>
+    <a href="#mod3" class="nav-link">Module 3: Random Variables & Distributions</a>
+    <div style="margin-top: 30px;">
+      <a href="ISM_Master_Index.html" class="nav-link" style="background: rgba(255,255,255,0.05); text-align: center; border: 1px solid var(--border);">← Back to Master Index</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="header">
+      <h1>ISM Complete Theory Guide</h1>
+      <p>Comprehensive Study Guide & Past Paper Archive Compilation</p>
+    </div>
+
+    <!-- MODULE 1 -->
+    <div id="mod1" class="module-card">
+      <div class="module-header">
+        <div class="module-title">MODULE 1: Basic Probability & Statistics</div>
+      </div>
+      
+      <div class="theory-box">
+        <h4>🎓 CS1: Central Tendency & Variability</h4>
+        <p><strong>Descriptive Statistics</strong> summarizes data. Central tendency refers to the "middle" of the data (Mean, Median, Mode), while variability measures how spread out the data is (Variance, Standard Deviation, IQR).</p>
+        <p><strong>Five-Number Summary:</strong> Min, Q1 (25th percentile), Median (50th), Q3 (75th), Max. Useful for Box Plots.</p>
+        <p><strong>Outlier Detection:</strong> Any value outside the interval [Q1 - 1.5(IQR), Q3 + 1.5(IQR)] is considered an outlier.</p>
+        <div class="formula-box">
+          IQR = Q3 - Q1<br>
+          Lower Fence = Q1 - 1.5 × IQR<br>
+          Upper Fence = Q3 + 1.5 × IQR
+        </div>
+      </div>
+      
+      <div class="theory-box">
+        <h4>🎓 CS2: Axioms of Probability</h4>
+        <p><strong>Sample Space (S):</strong> The set of all possible outcomes.<br>
+        <strong>Mutually Exclusive:</strong> Two events cannot happen at the same time. \(P(A \cap B) = 0\).<br>
+        <strong>Independent:</strong> The outcome of one event does not affect the other. \(P(A \cap B) = P(A)P(B)\).</p>
+        <p><strong>Important Theorem Proof:</strong> "Mutually exclusive events are independent." This is <strong>FALSE</strong>.<br>
+        <em>Proof:</em> If A and B are mutually exclusive, \(P(A \cap B) = 0\). If they were also independent, then \(P(A \cap B) = P(A)P(B)\). This would mean \(P(A)P(B) = 0\), so either P(A) or P(B) must be 0. Thus, non-zero mutually exclusive events CANNOT be independent.</p>
+      </div>
+
+    </div>
+
+    <!-- MODULE 2 -->
+    <div id="mod2" class="module-card">
+      <div class="module-header">
+        <div class="module-title">MODULE 2: Conditional Probability & Bayes</div>
+      </div>
+      
+      <div class="theory-box">
+        <h4>🎓 CS3: Conditional Probability</h4>
+        <p>The probability of event A given that event B has already occurred.</p>
+        <div class="formula-box">
+          \[ P(A|B) = \frac{P(A \cap B)}{P(B)} \]
+          \[ \text{Law of Total Prob: } P(B) = \sum_{i} P(B|A_i)P(A_i) \]
+        </div>
+      </div>
+
+      <div class="solution-box">
+        <h4>📝 Worked Example: Road Accident Probabilities</h4>
+        <div class="step-math">
+          <strong>Problem:</strong> P(A)=rash driving=15%, P(B)=bad roads=25%, P(C)=road indiscipline=20%, P(D)=other=40%.<br>
+          Death rates: P(S|A)=1%, P(S|B)=2%, P(S|C)=3%, P(S|D)=4%. Find overall death rate P(S).<br><br>
+          <strong>Solution (Law of Total Probability):</strong><br>
+          P(S) = P(A)P(S|A) + P(B)P(S|B) + P(C)P(S|C) + P(D)P(S|D)<br>
+          P(S) = (0.15 × 0.01) + (0.25 × 0.02) + (0.20 × 0.03) + (0.40 × 0.04)<br>
+          P(S) = 0.0015 + 0.0050 + 0.0060 + 0.0160 = <strong>0.0285</strong> (2.85%)
+        </div>
+      </div>
+
+      <div class="solution-box">
+        <h4>📝 Worked Example: Probability Algebra</h4>
+        <div class="step-math">
+          <strong>Given:</strong> P(A)=1/2, P(B)=1/3, P(A|B)=1/6. Find P(B|A) and P(B|A').<br><br>
+          <strong>Step 1: Intersection</strong><br>
+          P(A ∩ B) = P(A|B) × P(B) = (1/6) × (1/3) = <strong>1/18</strong><br><br>
+          <strong>Step 2: P(B|A)</strong><br>
+          P(B|A) = P(A ∩ B) / P(A) = (1/18) / (1/2) = <strong>1/9</strong><br><br>
+          <strong>Step 3: P(B|A')</strong><br>
+          P(A' ∩ B) = P(B) - P(A ∩ B) = 1/3 - 1/18 = 6/18 - 1/18 = 5/18<br>
+          P(A') = 1 - P(A) = 1 - 1/2 = 1/2<br>
+          P(B|A') = P(A' ∩ B) / P(A') = (5/18) / (1/2) = <strong>5/9</strong>
+        </div>
+      </div>
+      
+      <div class="theory-box">
+        <h4>🎓 CS4: Bayes' Theorem & Naive Bayes</h4>
+        <p><strong>Bayes' Theorem</strong> reverses conditional probabilities. It computes the posterior probability based on prior probabilities and likelihoods.</p>
+        <p><strong>Naive Bayes Classifier</strong> is widely used in text classification (like Spam detection). It assumes features (words) are conditionally independent given the class.</p>
+        <p><strong>Laplace Smoothing:</strong> Used to prevent zero probabilities for unseen words. Add \(\alpha\) (usually 1) to the numerator, and add \(\alpha \times |V|\) to the denominator, where |V| is the total vocabulary size.</p>
+      </div>
+    </div>
+
+    <!-- MODULE 3 -->
+    <div id="mod3" class="module-card">
+      <div class="module-header">
+        <div class="module-title">MODULE 3: Probability Distributions</div>
+      </div>
+      
+      <div class="theory-box">
+        <h4>🎓 CS5: Random Variables</h4>
+        <p><strong>Discrete RV:</strong> Takes specific, distinct values. Modeled by Probability Mass Function (PMF). \(\sum P(X=x) = 1\).</p>
+        <p><strong>Continuous RV:</strong> Takes any value in a range. Modeled by Probability Density Function (PDF). \(\int f(x)dx = 1\).</p>
+        <div class="formula-box">
+          Expectation (Mean): \( E[X] = \sum x P(x) \) OR \( \int x f(x)dx \)<br>
+          Variance: \( Var(X) = E[X^2] - (E[X])^2 \)
+        </div>
+      </div>
+
+      <div class="theory-box">
+        <h4>🎓 CS6: Named Distributions</h4>
+        <ul>
+          <li><strong>Binomial:</strong> Number of successes in n independent trials. \( P(X=k) = \binom{n}{k} p^k (1-p)^{n-k} \). Mean = np.</li>
+          <li><strong>Poisson:</strong> Number of events in fixed interval. \( P(X=k) = \frac{e^{-\lambda} \lambda^k}{k!} \). Mean = \(\lambda\). Used to approximate Binomial when n is large and p is small (\(\lambda = np\)).</li>
+          <li><strong>Normal:</strong> Bell curve. Characterized by mean \(\mu\) and SD \(\sigma\). Standardize to Z-score: \( Z = \frac{X - \mu}{\sigma} \).</li>
+        </ul>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

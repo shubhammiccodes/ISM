@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solutions - 2024 Makeup ISM 2 & 2025 Regular ISM</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0a0118;
+    --bg-secondary: #1a1040;
+    --bg-card: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
+    --accent-blue: #00d2ff;
+    --accent-purple: #f093fb;
+    --accent-green: #38ef7d;
+    --accent-gold: #f5af19;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0c0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary), #0f0c29, var(--bg-secondary));
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 85% 50%, rgba(245, 175, 25, 0.08), transparent 25%),
+                radial-gradient(circle at 15% 80%, rgba(241, 39, 17, 0.08), transparent 25%);
+    pointer-events: none; z-index: -1;
+  }
+  
+  .layout { display: flex; max-width: 1400px; margin: 0 auto; padding: 20px; gap: 30px; }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    height: calc(100vh - 40px);
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    overflow-y: auto;
+  }
+  .sidebar h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, var(--accent-gold), #f12711);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .nav-link {
+    display: block;
+    padding: 10px 14px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    transition: all 0.3s;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .nav-link:hover { background: rgba(255, 255, 255, 0.1); color: var(--text-primary); transform: translateX(5px); }
+  
+  /* Main Content */
+  .main { flex-grow: 1; min-width: 0; }
+  
+  .header {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 4px;
+    background: linear-gradient(90deg, var(--accent-gold), #f12711);
+  }
+  .header h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 10px; }
+  .header p { color: var(--text-secondary); font-size: 1.1rem; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+  .tab-btn {
+    padding: 12px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .tab-btn.active {
+    background: linear-gradient(135deg, rgba(245, 175, 25, 0.2), rgba(241, 39, 17, 0.2));
+    border-color: var(--accent-gold);
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  
+  /* Question Card */
+  .q-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+  }
+  .q-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .q-title { font-size: 1.5rem; font-weight: 800; color: var(--accent-gold); }
+  .marks-badge { background: rgba(245, 175, 25, 0.15); color: var(--accent-gold); padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+  .q-text { font-size: 1.1rem; margin-bottom: 30px; font-weight: 500; }
+  
+  /* Solution */
+  .solution-box {
+    background: rgba(241, 39, 17, 0.05);
+    border-top: 4px solid #f12711;
+    padding: 30px;
+    border-radius: 12px;
+    margin-top: 20px;
+  }
+  .solution-box h4 { color: #f12711; margin-bottom: 20px; font-size: 1.2rem; }
+  .step-math { margin-bottom: 16px; overflow-x: auto; }
+  .final-ans {
+    display: inline-block;
+    background: rgba(241, 39, 17, 0.1);
+    border: 1px solid #f12711;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+  
+  @media (max-width: 900px) {
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: static; }
+  }
+</style>
+<script>
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+</script>
+</head>
+<body>
+<div class="layout">
+  
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3>📋 Navigation</h3>
+    <div style="color: var(--accent-gold); font-weight: bold; margin: 10px 0 5px;">Paper 1 (2024 Makeup 2)</div>
+    <a href="#p1q1" class="nav-link">Q1. Five-Number & Sets</a>
+    <a href="#p1q2" class="nav-link">Q2. Normal Dist & Bayes</a>
+    <a href="#p1q3" class="nav-link">Q3. Contingency & Poisson</a>
+    <a href="#p1q4" class="nav-link">Q4. Naive Bayes & PDF</a>
+    <a href="#p1q5" class="nav-link">Q5. Joint PMF</a>
+    
+    <div style="color: #f12711; font-weight: bold; margin: 20px 0 5px;">Paper 2 (2025 Regular)</div>
+    <a href="#p2q1" class="nav-link">Q1. Outliers & Variance</a>
+    <a href="#p2q2" class="nav-link">Q2. Normal & Approx</a>
+    <a href="#p2q3" class="nav-link">Q3. Naive Bayes Spam</a>
+    <a href="#p2q4" class="nav-link">Q4. Medical Testing</a>
+    <a href="#p2q5" class="nav-link">Q5. Expectation</a>
+    <a href="#p2q6" class="nav-link">Q6. Joint Coin Toss</a>
+    
+    <div style="margin-top: 30px;">
+      <a href="ISM_Master_Index.html" class="nav-link" style="background: rgba(255,255,255,0.05); text-align: center; border: 1px solid var(--border);">← Back to Master Index</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="header">
+      <h1>Combined Exam Solutions</h1>
+      <p>2024 MidSem Makeup ISM 2 & 2025 MidSem Regular</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('paper1')">📄 Paper 1: 2024 Makeup ISM 2</button>
+      <button class="tab-btn" onclick="switchTab('paper2')">📄 Paper 2: 2025 MidSem Regular</button>
+    </div>
+
+    <!-- PAPER 1 CONTENT -->
+    <div id="paper1" class="tab-content active">
+      
+      <!-- Q1a & Q1b -->
+      <div id="p1q1" class="q-card">
+        <div class="q-header">
+          <div class="q-title">Q1. Descriptive Stats & Set Theory</div>
+        <div class="marks-badge">[6 Marks]</div>
+        </div>
+        <div class="q-text">
+          <strong>a)</strong> Weights: 30, 32, 35, 38, 40, 42, 45, 48, 50, 53. Calculate Q1, Q2, Q3, IQR, and determine outliers.<br><br>
+          <strong>b)</strong> Set of workers. M: Machine operators, Q: Quality inspectors.<br>
+          P(M∪Q)=0.40, P(M-Q)=0.15, P(Q-M)=0.10. Find P(M∩Q), P(M), P(Q).
+        </div>
+        <div class="solution-box">
+          <h4>📝 Solution</h4>
+          <div class="step-math">
+            <strong>Part a) Quartiles & Outliers</strong><br>
+            Data (sorted): 30, 32, 35, 38, 40, 42, 45, 48, 50, 53. (n=10)<br>
+            Q1 position = 0.25(11) = 2.75. Q1 = 32 + 0.75(35-32) = 34.25<br>
+            Median (Q2) = average of 5th and 6th = (40+42)/2 = 41<br>
+            Q3 position = 0.75(11) = 8.25. Q3 = 48 + 0.25(50-48) = 48.5<br>
+            IQR = Q3 - Q1 = 48.5 - 34.25 = 14.25<br>
+            Lower fence = 34.25 - 1.5(14.25) = 12.875<br>
+            Upper fence = 48.5 + 1.5(14.25) = 69.875<br>
+            <strong>Conclusion:</strong> No outliers present.
+          </div>
+          <div class="step-math">
+            <strong>Part b) Set Theory</strong><br>
+            We know: \( P(M \cup Q) = P(M-Q) + P(Q-M) + P(M \cap Q) \)<br>
+            0.40 = 0.15 + 0.10 + P(M ∩ Q)<br>
+            P(M ∩ Q) = 0.40 - 0.25 = <strong>0.15</strong><br><br>
+            
+            <div style="display:flex; justify-content:center; margin: 25px 0; background: rgba(0,0,0,0.2); border-radius: 12px; padding: 15px;">
+              <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- M Circle -->
+                <circle cx="110" cy="100" r="70" fill="rgba(0, 210, 255, 0.15)" stroke="#00d2ff" stroke-width="2"/>
+                <!-- Q Circle -->
+                <circle cx="190" cy="100" r="70" fill="rgba(240, 147, 251, 0.15)" stroke="#f093fb" stroke-width="2"/>
+                
+                <!-- Labels -->
+                <text x="70" y="45" fill="#00d2ff" font-family="Inter, sans-serif" font-weight="700" font-size="16">M</text>
+                <text x="220" y="45" fill="#f093fb" font-family="Inter, sans-serif" font-weight="700" font-size="16">Q</text>
+                
+                <!-- Values -->
+                <text x="80" y="105" fill="#ffffff" font-family="Fira Code, monospace" font-size="14" text-anchor="middle">0.15</text>
+                <text x="150" y="105" fill="#ffffff" font-family="Fira Code, monospace" font-weight="bold" font-size="14" text-anchor="middle">0.15</text>
+                <text x="220" y="105" fill="#ffffff" font-family="Fira Code, monospace" font-size="14" text-anchor="middle">0.10</text>
+                
+                <!-- Legend -->
+                <text x="150" y="190" fill="#a0a0c0" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Total P(M∪Q) = 0.40 | Outside = 0.60</text>
+              </svg>
+            </div>
+
+            P(M) = P(M-Q) + P(M ∩ Q) = 0.15 + 0.15 = <strong>0.30</strong><br>
+            P(Q) = P(Q-M) + P(M ∩ Q) = 0.10 + 0.15 = <strong>0.25</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div id="p1q2" class="q-card">
+        <div class="q-header">
+          <div class="q-title">Q2. Normal Distribution & Total Probability</div>
+        </div>
+        <div class="q-text">
+          <strong>a)</strong> Normal dist: μ=73, σ=8. Find P(X < 91) and P(65 < X < 89).<br><br>
+          <strong>b)</strong> Ram Nagar: P(Open)=0.25, P(Closed)=0.75. P(Stolen|Open)=0.05, P(Stolen|Closed)=0.01. Find P(Open|Stolen).
+        </div>
+        <div class="solution-box">
+          <h4>📝 Solution</h4>
+          <div class="step-math">
+            <strong>Part a) Normal Distribution</strong><br>
+            i) \( z = \frac{91-73}{8} = 2.25 \). P(Z < 2.25) = 0.9878 = <strong>98.78%</strong><br>
+            ii) \( z_1 = \frac{65-73}{8} = -1.0 \), \( z_2 = \frac{89-73}{8} = 2.0 \)<br>
+            P(-1.0 < Z < 2.0) = P(Z < 2.0) - P(Z < -1.0) = 0.9772 - 0.1587 = <strong>0.8185</strong> (81.85%)
+          </div>
+          <div class="step-math">
+            <strong>Part b) Bayes' Theorem</strong><br>
+            P(Stolen) = P(Stolen|Open)×P(Open) + P(Stolen|Closed)×P(Closed)<br>
+            = 0.05×0.25 + 0.01×0.75 = 0.0125 + 0.0075 = 0.02<br>
+            P(Open|Stolen) = \(\frac{0.05 \times 0.25}{0.02}\) = \(\frac{0.0125}{0.02}\) = <strong>0.625</strong> (62.5%)
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div id="p1q3" class="q-card">
+        <div class="q-header">
+          <div class="q-title">Q3. Contingency Tables & Poisson/Binomial</div>
+        </div>
+        <div class="solution-box">
+          <h4>📝 Solution Highlight</h4>
+          <div class="step-math">
+            <strong>Part b) Comparing Binomial & Poisson</strong><br>
+            n=25, p=0.2. Find P(X=3).<br>
+            Binomial: \( P(X=3) = \binom{25}{3} 0.2^3 (0.8)^{22} = 2300 \times 0.008 \times 0.007374 = \mathbf{0.1358} \)<br>
+            Poisson: \(\lambda = np = 5\). \( P(X=3) = \frac{e^{-5} 5^3}{3!} = \mathbf{0.1404} \)<br>
+            <em>Conclusion:</em> Poisson slightly overestimates since p=0.2 is not very small.
+          </div>
+        </div>
+      </div>
+      
+      <!-- Q5 -->
+      <div id="p1q5" class="q-card">
+        <div class="q-header">
+          <div class="q-title">Q5. Joint PMF</div>
+        </div>
+        <div class="solution-box">
+          <h4>📝 Solution Highlight</h4>
+          <div class="step-math">
+            Given a 4x4 matrix of joint probabilities. To find <strong>Marginal PMF</strong>, simply sum across the rows (for X) or down the columns (for Y).<br>
+            \( E(X) = \sum x \cdot P(X=x) \)<br>
+            \( Var(X) = E(X^2) - (E(X))^2 \)
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PAPER 2 CONTENT -->
+    <div id="paper2" class="tab-content">
+      
+      <!-- Q1 -->
+      <div id="p2q1" class="q-card">
+        <div class="q-header">
+          <div class="q-title">Q1. Outliers & Standard Deviation</div>
+        </div>
+        <div class="q-text">
+          <strong>a)</strong> Weights: 60, 72, 65, 68, 70, 100, 62, 75, 78, 80, 83. Calculate IQR & Outliers.<br>
+          <strong>b)</strong> Simulation times: 18, 25, 19, 32, 27, 22, 29, 30, 24, 26. Find mean and standard deviation.
+        </div>
+        <div class="solution-box">
+          <h4>📝 Solution</h4>
+          <div class="step-math">
+            <strong>Part a)</strong><br>
+            Sorted: 60, 62, 65, 68, 70, 72, 75, 78, 80, 83, 100. (n=11)<br>
+            Q1 = 3rd value = 65, Q3 = 9th value = 80. IQR = 15.<br>
+            Upper bound = 80 + 1.5(15) = 102.5. Since 100 < 102.5, there are <strong>no outliers</strong>.
+          </div>
+          <div class="step-math">
+            <strong>Part b) Mean, Variance and Standard Deviation</strong><br>
+            Mean (\( \bar{x} \)) = \( \frac{\sum x_i}{n} = \frac{252}{10} = 25.2 \).<br><br>
+            Calculate sum of squared deviations from the mean, then divide by (n-1):<br>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 15px; font-size: 0.95rem; text-align: center;">
+              <tr style="background-color: rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.2);">
+                <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">\( x_i \)</th>
+                <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">\( x_i - \bar{x} \)</th>
+                <th style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">\( (x_i - \bar{x})^2 \)</th>
+              </tr>
+              <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">18</td><td style="border: 1px solid rgba(255,255,255,0.1);">-7.2</td><td style="border: 1px solid rgba(255,255,255,0.1);">51.84</td></tr>
+              <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">25</td><td style="border: 1px solid rgba(255,255,255,0.1);">-0.2</td><td style="border: 1px solid rgba(255,255,255,0.1);">0.04</td></tr>
+              <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">19</td><td style="border: 1px solid rgba(255,255,255,0.1);">-6.2</td><td style="border: 1px solid rgba(255,255,255,0.1);">38.44</td></tr>
+              <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">32</td><td style="border: 1px solid rgba(255,255,255,0.1);">6.8</td><td style="border: 1px solid rgba(255,255,255,0.1);">46.24</td></tr>
+              <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">27</td><td style="border: 1px solid rgba(255,255,255,0.1);">1.8</td><td style="border: 1px solid rgba(255,255,255,0.1);">3.24</td></tr>
+              <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">22</td><td style="border: 1px solid rgba(255,255,255,0.1);">-3.2</td><td style="border: 1px solid rgba(255,255,255,0.1);">10.24</td></tr>
+              <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">29</td><td style="border: 1px solid rgba(255,255,255,0.1);">3.8</td><td style="border: 1px solid rgba(255,255,255,0.1);">14.44</td></tr>
+              <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">30</td><td style="border: 1px solid rgba(255,255,255,0.1);">4.8</td><td style="border: 1px solid rgba(255,255,255,0.1);">23.04</td></tr>
+              <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">24</td><td style="border: 1px solid rgba(255,255,255,0.1);">-1.2</td><td style="border: 1px solid rgba(255,255,255,0.1);">1.44</td></tr>
+              <tr><td style="padding: 6px; border: 1px solid rgba(255,255,255,0.1);">26</td><td style="border: 1px solid rgba(255,255,255,0.1);">0.8</td><td style="border: 1px solid rgba(255,255,255,0.1);">0.64</td></tr>
+              <tr style="background-color: rgba(255,255,255,0.05); font-weight: bold;">
+                <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.1);">Sum</td>
+                <td style="border: 1px solid rgba(255,255,255,0.1);">0</td>
+                <td style="border: 1px solid rgba(255,255,255,0.1);">189.6</td>
+              </tr>
+            </table>
+            Variance = \(\frac{\sum (x_i - \bar{x})^2}{n-1} = \frac{189.6}{9} = 21.0667\)<br>
+            SD = \(\sqrt{21.0667} \approx \mathbf{4.59 \text{ minutes}}\)
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div id="p2q3" class="q-card">
+        <div class="q-header">
+          <div class="q-title">Q3. Spam Filter via Naive Bayes</div>
+        </div>
+        <div class="solution-box">
+          <h4>📝 Solution Highlight</h4>
+          <div class="step-math">
+            Priors: P(Spam) = 0.5, P(Not Spam) = 0.5. Vocabulary |V| = 25.<br>
+            With Laplace Smoothing (\(\alpha=1\)):<br>
+            P(word | Spam) = \(\frac{\text{count in Spam} + 1}{\text{total Spam words} + |V|}\) = \(\frac{\text{count} + 1}{14 + 25} = \frac{\text{count} + 1}{39}\)<br>
+            P(word | NotSpam) = \(\frac{\text{count in NotSpam} + 1}{11 + 25} = \frac{\text{count} + 1}{36}\)<br>
+            Comparing the multiplied likelihoods, the email is classified as <strong>SPAM</strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div id="p2q6" class="q-card">
+        <div class="q-header">
+          <div class="q-title">Q6. Joint Distribution (Coin Toss Game)</div>
+        </div>
+        <div class="q-text">
+          Fair coin tossed 3 times. X = # of tails. Y = winnings ($3 if first tail on 1st toss, $2 if on 2nd, $1 if on 3rd, -$2 if no tail).
+        </div>
+        <div class="solution-box">
+          <h4>📝 Solution Highlight</h4>
+          <div class="step-math">
+            Sample space (8 outcomes, each 1/8 prob):<br>
+            HHH: X=0, Y=-2<br>
+            HHT: X=1, Y=1<br>
+            HTH: X=1, Y=2<br>
+            HTT: X=2, Y=2<br>
+            THH: X=1, Y=3<br>
+            THT: X=2, Y=3<br>
+            TTH: X=2, Y=3<br>
+            TTT: X=3, Y=3<br><br>
+            Marginal PMF of X: P(X=0)=1/8, P(X=1)=3/8, P(X=2)=3/8, P(X=3)=1/8.<br>
+            \( E(X) = 0(1/8) + 1(3/8) + 2(3/8) + 3(1/8) = 1.5 \)
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

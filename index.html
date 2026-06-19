@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISM Study Hub – BITS Pilani AIMLCZC418</title>
+<meta name="description" content="Complete study resources for Introduction to Statistical Methods (AIMLCZC418) – BITS Pilani. Past papers, solutions, concept guides, and formula sheets.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07080f;--card:rgba(255,255,255,0.045);--border:rgba(255,255,255,0.09);--border-hi:rgba(255,255,255,0.2);--t1:#eef2ff;--t2:#8892aa;--t3:#4a5568;--blue:#4f8ef7;--purple:#a855f7;--teal:#2dd4bf;--gold:#f59e0b;--pink:#ec4899;--green:#22c55e;--orange:#f97316;--red:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(ellipse at 15% 10%,rgba(79,142,247,0.09) 0%,transparent 55%),
+             radial-gradient(ellipse at 85% 85%,rgba(168,85,247,0.09) 0%,transparent 55%),
+             radial-gradient(ellipse at 50% 50%,rgba(45,212,191,0.04) 0%,transparent 65%);}
+
+/* HERO */
+.hero{text-align:center;padding:70px 24px 48px;}
+.hero-tag{display:inline-block;padding:5px 18px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:rgba(79,142,247,.12);border:1px solid rgba(79,142,247,.35);color:var(--blue);margin-bottom:20px;animation:fadeUp .6s ease both;}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem);font-weight:900;line-height:1.1;
+  background:linear-gradient(135deg,#ffffff 0%,var(--blue) 40%,var(--purple) 80%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:16px;animation:fadeUp .7s .1s ease both;}
+.hero-sub{font-size:1.05rem;color:var(--t2);max-width:580px;margin:0 auto 32px;line-height:1.7;animation:fadeUp .7s .2s ease both;}
+.hero-badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;animation:fadeUp .7s .3s ease both;}
+.badge{padding:5px 14px;border-radius:999px;font-size:.75rem;font-weight:600;border:1px solid;backdrop-filter:blur(6px);}
+.badge-b{border-color:rgba(79,142,247,.4);color:var(--blue);background:rgba(79,142,247,.08);}
+.badge-p{border-color:rgba(168,85,247,.4);color:var(--purple);background:rgba(168,85,247,.08);}
+.badge-t{border-color:rgba(45,212,191,.4);color:var(--teal);background:rgba(45,212,191,.08);}
+.badge-g{border-color:rgba(245,158,11,.4);color:var(--gold);background:rgba(245,158,11,.08);}
+
+/* GRID */
+.container{max-width:1100px;margin:0 auto;padding:0 20px 64px;}
+.section-label{font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--t3);margin:36px 0 14px;padding-left:4px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:12px;transition:transform .22s,border-color .22s,box-shadow .22s;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;inset:0;border-radius:18px;opacity:0;transition:opacity .3s;}
+.card:hover{transform:translateY(-4px);border-color:var(--border-hi);box-shadow:0 20px 60px rgba(0,0,0,.4);}
+
+.card.blue::before{background:radial-gradient(circle at 0% 0%,rgba(79,142,247,0.06),transparent 70%);}
+.card.purple::before{background:radial-gradient(circle at 0% 0%,rgba(168,85,247,0.06),transparent 70%);}
+.card.teal::before{background:radial-gradient(circle at 0% 0%,rgba(45,212,191,0.06),transparent 70%);}
+.card.gold::before{background:radial-gradient(circle at 0% 0%,rgba(245,158,11,0.06),transparent 70%);}
+.card.green::before{background:radial-gradient(circle at 0% 0%,rgba(34,197,94,0.06),transparent 70%);}
+.card.pink::before{background:radial-gradient(circle at 0% 0%,rgba(236,72,153,0.06),transparent 70%);}
+.card.orange::before{background:radial-gradient(circle at 0% 0%,rgba(249,115,22,0.06),transparent 70%);}
+.card:hover::before{opacity:1;}
+
+.card-top{display:flex;align-items:center;gap:12px;}
+.card-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.icon-blue{background:rgba(79,142,247,.15);}
+.icon-purple{background:rgba(168,85,247,.15);}
+.icon-teal{background:rgba(45,212,191,.15);}
+.icon-gold{background:rgba(245,158,11,.15);}
+.icon-green{background:rgba(34,197,94,.15);}
+.icon-pink{background:rgba(236,72,153,.15);}
+.icon-orange{background:rgba(249,115,22,.15);}
+
+.card-meta{flex:1;}
+.card-tag{font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;}
+.tag-blue{color:var(--blue);}
+.tag-purple{color:var(--purple);}
+.tag-teal{color:var(--teal);}
+.tag-gold{color:var(--gold);}
+.tag-green{color:var(--green);}
+.tag-pink{color:var(--pink);}
+.tag-orange{color:var(--orange);}
+
+.card-title{font-size:.98rem;font-weight:700;line-height:1.3;color:var(--t1);}
+.card-desc{font-size:.8rem;color:var(--t2);line-height:1.55;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
+.card-link{font-size:.75rem;font-weight:600;display:flex;align-items:center;gap:5px;}
+.card.blue .card-link{color:var(--blue);}
+.card.purple .card-link{color:var(--purple);}
+.card.teal .card-link{color:var(--teal);}
+.card.gold .card-link{color:var(--gold);}
+.card.green .card-link{color:var(--green);}
+.card.pink .card-link{color:var(--pink);}
+.card.orange .card-link{color:var(--orange);}
+.card-arrow{font-size:.9rem;transition:transform .2s;}
+.card:hover .card-arrow{transform:translateX(4px);}
+.card-size{font-size:.7rem;color:var(--t3);}
+
+/* ACCENT BORDER TOP */
+.card.blue{border-top:2px solid rgba(79,142,247,.5);}
+.card.purple{border-top:2px solid rgba(168,85,247,.5);}
+.card.teal{border-top:2px solid rgba(45,212,191,.5);}
+.card.gold{border-top:2px solid rgba(245,158,11,.5);}
+.card.green{border-top:2px solid rgba(34,197,94,.5);}
+.card.pink{border-top:2px solid rgba(236,72,153,.5);}
+.card.orange{border-top:2px solid rgba(249,115,22,.5);}
+
+/* FOOTER */
+footer{text-align:center;padding:24px 20px 40px;color:var(--t3);font-size:.75rem;line-height:1.8;}
+footer a{color:var(--blue);text-decoration:none;}
+footer a:hover{text-decoration:underline;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+@media(max-width:600px){.hero{padding:48px 18px 32px;}.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">&#x1F4DA; BITS Pilani WILPD</div>
+  <h1>ISM Study Hub</h1>
+  <p class="hero-sub">Complete study resources for <strong>Introduction to Statistical Methods</strong> (AIMLCZC418 / DSECLZC418) &mdash; Past papers, full solutions, concept guides &amp; formula sheets.</p>
+  <div class="hero-badges">
+    <span class="badge badge-b">&#x1F4C4; 7 HTML Pages</span>
+    <span class="badge badge-p">&#x1F9EE; All Past Papers</span>
+    <span class="badge badge-t">&#x1F4D0; Formula Sheet</span>
+    <span class="badge badge-g">&#x26A1; MathJax Rendered</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- FORMULA & CONCEPT GUIDES -->
+  <div class="section-label">&#x2728; Guides &amp; Revision</div>
+  <div class="grid">
+
+    <a href="new.html" class="card pink">
+      <div class="card-top">
+        <div class="card-icon icon-pink">&#x26A1;</div>
+        <div class="card-meta">
+          <div class="card-tag tag-pink">Last-Minute Revision</div>
+          <div class="card-title">ISM Formula Cheat Sheet</div>
+        </div>
+      </div>
+      <div class="card-desc">All exam-ready formulas: Descriptive Stats, Probability, Bayes, Distributions, Naive Bayes, Confidence Intervals &amp; more.</div>
+      <div class="card-footer">
+        <span class="card-link">Open Sheet <span class="card-arrow">&#x2192;</span></span>
+        <span class="card-size">21 KB</span>
+      </div>
+    </a>
+
+    <a href="ISM_Complete_Concept_Guide.html" class="card blue">
+      <div class="card-top">
+        <div class="card-icon icon-blue">&#x1F4D6;</div>
+        <div class="card-meta">
+          <div class="card-tag tag-blue">Complete Guide</div>
+          <div class="card-title">ISM Complete Concept Guide</div>
+        </div>
+      </div>
+      <div class="card-desc">Comprehensive concept coverage for all exam topics with worked examples, theory, and practice problems.</div>
+      <div class="card-footer">
+        <span class="card-link">Open Guide <span class="card-arrow">&#x2192;</span></span>
+        <span class="card-size">91 KB</span>
+      </div>
+    </a>
+
+    <a href="ISM_Master_Index.html" class="card teal">
+      <div class="card-top">
+        <div class="card-icon icon-teal">&#x1F5C2;&#xFE0F;</div>
+        <div class="card-meta">
+          <div class="card-tag tag-teal">Navigation</div>
+          <div class="card-title">ISM Master Index</div>
+        </div>
+      </div>
+      <div class="card-desc">Quick-access index to all study materials, topics, and resources organized by chapter and exam type.</div>
+      <div class="card-footer">
+        <span class="card-link">Open Index <span class="card-arrow">&#x2192;</span></span>
+        <span class="card-size">26 KB</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- PAST PAPER SOLUTIONS -->
+  <div class="section-label">&#x1F4DD; Past Paper Solutions</div>
+  <div class="grid">
+
+    <a href="Solution_Dec2025_Regular_Jan2026_Makeup.html" class="card green">
+      <div class="card-top">
+        <div class="card-icon icon-green">&#x1F7E2;</div>
+        <div class="card-meta">
+          <div class="card-tag tag-green">Dec 2025 + Jan 2026</div>
+          <div class="card-title">Regular &amp; Makeup Solutions</div>
+        </div>
+      </div>
+      <div class="card-desc">Full solutions to Dec 2025 (Regular) and Jan 2026 (Makeup) midsem question papers with step-by-step workings.</div>
+      <div class="card-footer">
+        <span class="card-link">View Solutions <span class="card-arrow">&#x2192;</span></span>
+        <span class="card-size">92 KB</span>
+      </div>
+    </a>
+
+    <a href="Solution_2024_MidSem_Makeup.html" class="card purple">
+      <div class="card-top">
+        <div class="card-icon icon-purple">&#x1F7E3;</div>
+        <div class="card-meta">
+          <div class="card-tag tag-purple">2024 Makeup</div>
+          <div class="card-title">2024 MidSem Makeup Solutions</div>
+        </div>
+      </div>
+      <div class="card-desc">Detailed solutions for the 2024 Mid-Semester Makeup exam (EC-2) covering probability, distributions &amp; more.</div>
+      <div class="card-footer">
+        <span class="card-link">View Solutions <span class="card-arrow">&#x2192;</span></span>
+        <span class="card-size">92 KB</span>
+      </div>
+    </a>
+
+    <a href="Solution_2024_MidSem_Regular.html" class="card gold">
+      <div class="card-top">
+        <div class="card-icon icon-gold">&#x1F7E1;</div>
+        <div class="card-meta">
+          <div class="card-tag tag-gold">2024 Regular</div>
+          <div class="card-title">2024 MidSem Regular Solutions</div>
+        </div>
+      </div>
+      <div class="card-desc">Complete worked solutions for the 2024 Mid-Semester Regular exam including Bayes, Normal distribution &amp; statistics.</div>
+      <div class="card-footer">
+        <span class="card-link">View Solutions <span class="card-arrow">&#x2192;</span></span>
+        <span class="card-size">38 KB</span>
+      </div>
+    </a>
+
+    <a href="Solution_2024_Makeup2_and_2025_Regular.html" class="card orange">
+      <div class="card-top">
+        <div class="card-icon icon-orange">&#x1F7E0;</div>
+        <div class="card-meta">
+          <div class="card-tag tag-orange">2024 Makeup 2 + 2025 Regular</div>
+          <div class="card-title">2024 Makeup 2 &amp; 2025 Regular</div>
+        </div>
+      </div>
+      <div class="card-desc">Solutions for both the 2024 Second Makeup and 2025 Regular midsem papers with full answer walkthroughs.</div>
+      <div class="card-footer">
+        <span class="card-link">View Solutions <span class="card-arrow">&#x2192;</span></span>
+        <span class="card-size">20 KB</span>
+      </div>
+    </a>
+
+    <a href="Solution_ISM_PastPapers_DOCX.html" class="card blue">
+      <div class="card-top">
+        <div class="card-icon icon-blue">&#x1F4C3;</div>
+        <div class="card-meta">
+          <div class="card-tag tag-blue">Past Papers</div>
+          <div class="card-title">ISM Past Papers Archive</div>
+        </div>
+      </div>
+      <div class="card-desc">Archive of ISM past paper questions extracted and organized for quick revision and practice.</div>
+      <div class="card-footer">
+        <span class="card-link">View Archive <span class="card-arrow">&#x2192;</span></span>
+        <span class="card-size">12 KB</span>
+      </div>
+    </a>
+
+  </div>
+
+</div>
+
+<footer>
+  Built for <strong>BITS Pilani WILPD</strong> &nbsp;&middot;&nbsp; AIMLCZC418 / DSECLZC418 &nbsp;&middot;&nbsp; Introduction to Statistical Methods<br>
+  <a href="https://github.com/shubhammiccodes/ISM" target="_blank">&#x1F517; github.com/shubhammiccodes/ISM</a>
+</footer>
+
+</body>
+</html>
