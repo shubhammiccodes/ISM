@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISM Topic Frequency Insights – BITS Pilani</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07080f;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.09);--border-hi:rgba(255,255,255,0.18);--t1:#eef2ff;--t2:#8892aa;--t3:#4a5568;--blue:#4f8ef7;--purple:#a855f7;--teal:#2dd4bf;--gold:#f59e0b;--pink:#ec4899;--green:#22c55e;--orange:#f97316;--red:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 10% 15%,rgba(79,142,247,0.08) 0%,transparent 55%),radial-gradient(ellipse at 90% 80%,rgba(168,85,247,0.08) 0%,transparent 55%);}
+.header{text-align:center;padding:52px 20px 36px;}
+.header-tag{display:inline-block;padding:5px 20px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);color:var(--gold);margin-bottom:18px;}
+.header h1{font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:900;background:linear-gradient(135deg,#fff 0%,var(--gold) 40%,var(--orange) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;margin-bottom:12px;}
+.header p{color:var(--t2);font-size:.9rem;max-width:580px;margin:0 auto 20px;line-height:1.7;}
+.papers-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.paper-chip{padding:4px 12px;border-radius:999px;font-size:.7rem;font-weight:600;border:1px solid rgba(255,255,255,0.12);color:var(--t2);background:rgba(255,255,255,0.04);}
+.stats-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;max-width:900px;margin:28px auto 44px;padding:0 20px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 28px;text-align:center;flex:1;min-width:130px;}
+.stat-num{font-size:2rem;font-weight:900;line-height:1;}
+.stat-lbl{font-size:.7rem;color:var(--t2);margin-top:5px;letter-spacing:.5px;text-transform:uppercase;}
+.num-gold{color:var(--gold);} .num-red{color:var(--red);} .num-green{color:var(--green);} .num-blue{color:var(--blue);}
+.container{max-width:1200px;margin:0 auto;padding:0 20px 64px;}
+.section-lbl{font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--t3);margin:0 0 14px;padding-left:4px;}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:22px;}
+.leg-item{display:flex;align-items:center;gap:7px;font-size:.77rem;color:var(--t2);}
+.leg-dot{width:10px;height:10px;border-radius:50%;}
+.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow-x:auto;margin-bottom:44px;}
+.table-wrap table{width:100%;border-collapse:collapse;min-width:750px;}
+.table-wrap thead th{background:rgba(255,255,255,0.06);padding:13px 16px;text-align:left;font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t2);border-bottom:1px solid var(--border);}
+.table-wrap tbody tr{border-bottom:1px solid rgba(255,255,255,0.04);transition:background .18s;}
+.table-wrap tbody tr:last-child{border-bottom:none;}
+.table-wrap tbody tr:hover{background:rgba(255,255,255,0.03);}
+.table-wrap tbody td{padding:12px 16px;font-size:.82rem;vertical-align:middle;}
+.rank{width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;}
+.r-gold{background:rgba(245,158,11,.2);color:var(--gold);border:1px solid rgba(245,158,11,.4);}
+.r-purple{background:rgba(168,85,247,.15);color:var(--purple);border:1px solid rgba(168,85,247,.35);}
+.r-blue{background:rgba(79,142,247,.15);color:var(--blue);border:1px solid rgba(79,142,247,.35);}
+.r-other{background:rgba(255,255,255,.05);color:var(--t2);border:1px solid rgba(255,255,255,.12);}
+.topic-name{font-weight:600;color:var(--t1);}
+.topic-sub{font-size:.72rem;color:var(--t2);margin-top:3px;}
+.freq-wrap{display:flex;align-items:center;gap:10px;}
+.freq-bar-bg{flex:1;height:8px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;max-width:150px;}
+.freq-bar{height:100%;border-radius:999px;}
+.freq-num{font-weight:700;font-size:.86rem;min-width:30px;}
+.imp{display:inline-flex;align-items:center;gap:4px;padding:4px 11px;border-radius:999px;font-size:.7rem;font-weight:700;}
+.imp-c{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.35);color:var(--red);}
+.imp-h{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);color:var(--gold);}
+.imp-m{background:rgba(79,142,247,.12);border:1px solid rgba(79,142,247,.35);color:var(--blue);}
+.marks{font-family:'Fira Code',monospace;font-size:.8rem;color:var(--teal);font-weight:600;}
+.pdots{display:flex;gap:4px;flex-wrap:wrap;}
+.pd{width:22px;height:22px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;}
+.pd-y{background:rgba(34,197,94,.18);color:var(--green);border:1px solid rgba(34,197,94,.35);}
+.pd-n{background:rgba(255,255,255,.04);color:var(--t3);border:1px solid rgba(255,255,255,.07);}
+.tip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:44px;}
+.tip-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;transition:border-color .2s,transform .2s;}
+.tip-card:hover{border-color:var(--border-hi);transform:translateY(-2px);}
+.tip-card.red{border-top:2px solid var(--red);}
+.tip-card.gold{border-top:2px solid var(--gold);}
+.tip-card.green{border-top:2px solid var(--green);}
+.tip-card.blue{border-top:2px solid var(--blue);}
+.tip-card.purple{border-top:2px solid var(--purple);}
+.tip-card.teal{border-top:2px solid var(--teal);}
+.tip-icon{font-size:1.5rem;margin-bottom:9px;}
+.tip-title{font-weight:700;font-size:.9rem;margin-bottom:6px;}
+.tip-body{font-size:.79rem;color:var(--t2);line-height:1.6;}
+.back-link{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--blue);font-size:.8rem;font-weight:600;margin-bottom:26px;padding:8px 14px;border-radius:10px;border:1px solid rgba(79,142,247,.2);background:rgba(79,142,247,.06);transition:background .2s;}
+.back-link:hover{background:rgba(79,142,247,.12);}
+.pri-badge{font-weight:800;font-size:.88rem;}
+footer{text-align:center;padding:16px 0 36px;color:var(--t3);font-size:.72rem;}
+footer a{color:var(--blue);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-tag">&#x1F4CA; Exam Intelligence Report</div>
+  <h1>Topic Frequency &amp; Importance</h1>
+  <p>Compiled from <strong>6 past question papers</strong> of ISM (AIMLCZC418/DSECLZC418) &mdash; BITS Pilani WILPD</p>
+  <div class="papers-row">
+    <span class="paper-chip">2024 Regular</span>
+    <span class="paper-chip">2024 Makeup</span>
+    <span class="paper-chip">2024 Makeup 2</span>
+    <span class="paper-chip">2025 Regular</span>
+    <span class="paper-chip">Dec 2025 Regular</span>
+    <span class="paper-chip">Jan 2026 Makeup</span>
+  </div>
+</div>
+
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-num num-gold">6</div><div class="stat-lbl">Papers Analyzed</div></div>
+  <div class="stat-card"><div class="stat-num num-red">4</div><div class="stat-lbl">Critical Topics</div></div>
+  <div class="stat-card"><div class="stat-num num-green">36</div><div class="stat-lbl">Total Questions</div></div>
+  <div class="stat-card"><div class="stat-num num-blue">4</div><div class="stat-lbl">In ALL 6 Papers</div></div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#x2190; Back to Study Hub</a>
+
+  <div class="section-lbl">Topic Frequency Table &mdash; All Past Papers</div>
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div> CRITICAL &mdash; all papers</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--gold)"></div> HIGH &mdash; 4&ndash;5 papers</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--blue)"></div> MEDIUM &mdash; 2&ndash;3 papers</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--t3)"></div> LOW &mdash; 1 paper</div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Topic &amp; Sub-topics</th>
+          <th>Frequency</th>
+          <th>Papers (P1&ndash;P6)</th>
+          <th>Avg Marks</th>
+          <th>Importance</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td><span class="rank r-gold">1</span></td>
+          <td><div class="topic-name">&#x1F4CA; Descriptive Statistics</div><div class="topic-sub">Mean, Std Dev, Five-Number Summary, IQR, Outlier detection (1.5&#xD7;IQR)</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:100%;background:linear-gradient(90deg,var(--red),var(--orange));"></div></div><span class="freq-num" style="color:var(--red);">6/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-y">P1</span><span class="pd pd-y">P2</span><span class="pd pd-y">P3</span><span class="pd pd-y">P4</span><span class="pd pd-y">P5</span><span class="pd pd-y">P6</span></div></td>
+          <td><span class="marks">3&ndash;5 M</span></td>
+          <td><span class="imp imp-c">&#x1F525; CRITICAL</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="rank r-gold">2</span></td>
+          <td><div class="topic-name">&#x1F916; Na&iuml;ve Bayes Classifier</div><div class="topic-sub">Prior, Likelihood, Laplace smoothing (&#945;=1), step-by-step classification</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:100%;background:linear-gradient(90deg,var(--red),var(--orange));"></div></div><span class="freq-num" style="color:var(--red);">6/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-y">P1</span><span class="pd pd-y">P2</span><span class="pd pd-y">P3</span><span class="pd pd-y">P4</span><span class="pd pd-y">P5</span><span class="pd pd-y">P6</span></div></td>
+          <td><span class="marks">5 M</span></td>
+          <td><span class="imp imp-c">&#x1F525; CRITICAL</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="rank r-gold">3</span></td>
+          <td><div class="topic-name">&#x1F9E0; Bayes&rsquo; Theorem &amp; Total Probability</div><div class="topic-sub">Conditional probability, law of total probability, tree diagram approach</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:100%;background:linear-gradient(90deg,var(--red),var(--orange));"></div></div><span class="freq-num" style="color:var(--red);">6/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-y">P1</span><span class="pd pd-y">P2</span><span class="pd pd-y">P3</span><span class="pd pd-y">P4</span><span class="pd pd-y">P5</span><span class="pd pd-y">P6</span></div></td>
+          <td><span class="marks">3&ndash;5 M</span></td>
+          <td><span class="imp imp-c">&#x1F525; CRITICAL</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="rank r-gold">4</span></td>
+          <td><div class="topic-name">&#x1F514; Normal Distribution &amp; Z-scores</div><div class="topic-sub">Standardization Z=(X-&mu;)/&sigma;, P(X&lt;a), P(a&lt;X&lt;b), CLT, sampling distribution</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:100%;background:linear-gradient(90deg,var(--red),var(--orange));"></div></div><span class="freq-num" style="color:var(--red);">6/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-y">P1</span><span class="pd pd-y">P2</span><span class="pd pd-y">P3</span><span class="pd pd-y">P4</span><span class="pd pd-y">P5</span><span class="pd pd-y">P6</span></div></td>
+          <td><span class="marks">2&ndash;5 M</span></td>
+          <td><span class="imp imp-c">&#x1F525; CRITICAL</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="rank r-purple">5</span></td>
+          <td><div class="topic-name">&#x1F3AF; Discrete RV &mdash; PMF, E(X), Var(X)</div><div class="topic-sub">Find k so &sum;P(x)=1, E(X), E(X&sup2;), Var(X), Var(aX+b)=a&sup2;Var(X)</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:83%;background:linear-gradient(90deg,var(--gold),var(--orange));"></div></div><span class="freq-num" style="color:var(--gold);">5/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-y">P1</span><span class="pd pd-y">P2</span><span class="pd pd-y">P3</span><span class="pd pd-y">P4</span><span class="pd pd-y">P5</span><span class="pd pd-n">P6</span></div></td>
+          <td><span class="marks">3&ndash;5 M</span></td>
+          <td><span class="imp imp-h">&#x26A1; HIGH</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="rank r-purple">6</span></td>
+          <td><div class="topic-name">&#x1F7E2; Poisson Distribution</div><div class="topic-sub">P(X=k)=e^(-&lambda;)&lambda;^k/k!, approx to Binomial (&lambda;=np), interval scaling</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:83%;background:linear-gradient(90deg,var(--gold),var(--orange));"></div></div><span class="freq-num" style="color:var(--gold);">5/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-y">P1</span><span class="pd pd-y">P2</span><span class="pd pd-y">P3</span><span class="pd pd-y">P4</span><span class="pd pd-y">P5</span><span class="pd pd-n">P6</span></div></td>
+          <td><span class="marks">2&ndash;3 M</span></td>
+          <td><span class="imp imp-h">&#x26A1; HIGH</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="rank r-purple">7</span></td>
+          <td><div class="topic-name">&#x1F517; Joint Distributions</div><div class="topic-sub">Marginal PMF/PDF, Conditional dist., Independence check, E[XY], E[X], E[Y]</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:83%;background:linear-gradient(90deg,var(--gold),var(--orange));"></div></div><span class="freq-num" style="color:var(--gold);">5/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-y">P1</span><span class="pd pd-y">P2</span><span class="pd pd-y">P3</span><span class="pd pd-y">P4</span><span class="pd pd-n">P5</span><span class="pd pd-y">P6</span></div></td>
+          <td><span class="marks">5&ndash;6 M</span></td>
+          <td><span class="imp imp-h">&#x26A1; HIGH</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="rank r-purple">8</span></td>
+          <td><div class="topic-name">&#x1F30A; Continuous RV &mdash; PDF, E(X), Var(X)</div><div class="topic-sub">Find k/c (integrate f(x)=1), E(X), E(X&sup2;), Var(X), piecewise PDFs</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:83%;background:linear-gradient(90deg,var(--gold),var(--orange));"></div></div><span class="freq-num" style="color:var(--gold);">5/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-y">P1</span><span class="pd pd-y">P2</span><span class="pd pd-y">P3</span><span class="pd pd-y">P4</span><span class="pd pd-n">P5</span><span class="pd pd-y">P6</span></div></td>
+          <td><span class="marks">3&ndash;5 M</span></td>
+          <td><span class="imp imp-h">&#x26A1; HIGH</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="rank r-blue">9</span></td>
+          <td><div class="topic-name">&#x1F535; Binomial Distribution</div><div class="topic-sub">P(X=k)=C(n,k)p^k(1-p)^(n-k), Mean=np, Var=np(1-p), compare with Poisson</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:67%;background:linear-gradient(90deg,var(--blue),var(--purple));"></div></div><span class="freq-num" style="color:var(--blue);">4/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-n">P1</span><span class="pd pd-y">P2</span><span class="pd pd-y">P3</span><span class="pd pd-y">P4</span><span class="pd pd-y">P5</span><span class="pd pd-n">P6</span></div></td>
+          <td><span class="marks">2&ndash;3 M</span></td>
+          <td><span class="imp imp-h">&#x26A1; HIGH</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="rank r-blue">10</span></td>
+          <td><div class="topic-name">&#x2795; Probability Rules &amp; Set Theory</div><div class="topic-sub">Addition rule, Inclusion-Exclusion (3 events), Complement, P(A&cap;B), P(A&cup;B)</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:67%;background:linear-gradient(90deg,var(--blue),var(--purple));"></div></div><span class="freq-num" style="color:var(--blue);">4/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-y">P1</span><span class="pd pd-y">P2</span><span class="pd pd-n">P3</span><span class="pd pd-n">P4</span><span class="pd pd-y">P5</span><span class="pd pd-y">P6</span></div></td>
+          <td><span class="marks">3&ndash;5 M</span></td>
+          <td><span class="imp imp-h">&#x26A1; HIGH</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="rank r-other">11</span></td>
+          <td><div class="topic-name">&#x1F4CA; Skewness &amp; Distribution Shape</div><div class="topic-sub">Mean vs Median comment, positive/negative skew interpretation</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:50%;background:linear-gradient(90deg,var(--teal),var(--blue));"></div></div><span class="freq-num" style="color:var(--teal);">3/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-n">P1</span><span class="pd pd-y">P2</span><span class="pd pd-y">P3</span><span class="pd pd-y">P4</span><span class="pd pd-n">P5</span><span class="pd pd-n">P6</span></div></td>
+          <td><span class="marks">1&ndash;2 M</span></td>
+          <td><span class="imp imp-m">&#x1F4CC; MEDIUM</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="rank r-other">12</span></td>
+          <td><div class="topic-name">&#x1F4CF; Confidence Intervals &amp; Sample Size</div><div class="topic-sub">CI = x&#772;&plusmn;z(&sigma;/&radic;n), Sample size n=(z&sigma;/E)&sup2;, round UP</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:50%;background:linear-gradient(90deg,var(--teal),var(--blue));"></div></div><span class="freq-num" style="color:var(--teal);">3/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-n">P1</span><span class="pd pd-y">P2</span><span class="pd pd-y">P3</span><span class="pd pd-n">P4</span><span class="pd pd-n">P5</span><span class="pd pd-y">P6</span></div></td>
+          <td><span class="marks">2&ndash;3 M</span></td>
+          <td><span class="imp imp-m">&#x1F4CC; MEDIUM</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="rank r-other">13</span></td>
+          <td><div class="topic-name">&#x1F7E0; Hypergeometric Distribution</div><div class="topic-sub">Without replacement, defective item sampling, C(K,k)C(N-K,n-k)/C(N,n)</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:33%;background:linear-gradient(90deg,var(--purple),var(--pink));"></div></div><span class="freq-num" style="color:var(--purple);">2/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-n">P1</span><span class="pd pd-n">P2</span><span class="pd pd-n">P3</span><span class="pd pd-y">P4</span><span class="pd pd-y">P5</span><span class="pd pd-n">P6</span></div></td>
+          <td><span class="marks">2&ndash;3 M</span></td>
+          <td><span class="imp imp-m">&#x1F4CC; MEDIUM</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="rank r-other">14</span></td>
+          <td><div class="topic-name">&#x1F4C9; CDF (Cumulative Distribution Function)</div><div class="topic-sub">Find k from CDF, derive PDF = dF/dx, compute P(a&le;X&le;b)</div></td>
+          <td><div class="freq-wrap"><div class="freq-bar-bg"><div class="freq-bar" style="width:17%;background:linear-gradient(90deg,var(--purple),var(--pink));"></div></div><span class="freq-num" style="color:var(--purple);">1/6</span></div></td>
+          <td><div class="pdots"><span class="pd pd-n">P1</span><span class="pd pd-n">P2</span><span class="pd pd-n">P3</span><span class="pd pd-n">P4</span><span class="pd pd-n">P5</span><span class="pd pd-y">P6</span></div></td>
+          <td><span class="marks">3&ndash;5 M</span></td>
+          <td><span class="imp imp-m">&#x1F4CC; MEDIUM</span></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PAPER KEY -->
+  <div style="margin-bottom:36px;">
+    <div class="section-lbl">Paper Key</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span class="paper-chip">P1 = 2024 Makeup 2</span>
+      <span class="paper-chip">P2 = 2024 Makeup (EC-2)</span>
+      <span class="paper-chip">P3 = 2024 Regular</span>
+      <span class="paper-chip">P4 = 2025 Regular</span>
+      <span class="paper-chip">P5 = Dec 2025 Regular</span>
+      <span class="paper-chip">P6 = Jan 2026 Makeup</span>
+    </div>
+  </div>
+
+  <!-- STRATEGIC INSIGHTS -->
+  <div class="section-lbl">&#x1F3AF; Strategic Exam Insights</div>
+  <div class="tip-grid">
+    <div class="tip-card red">
+      <div class="tip-icon">&#x1F525;</div>
+      <div class="tip-title">4 Topics = ~60% of Marks</div>
+      <div class="tip-body">Descriptive Stats, Bayes, Na&iuml;ve Bayes, and Normal Distribution appear in <strong>every single paper</strong>. Master these 4 first &mdash; they carry 10&ndash;18 marks per paper.</div>
+    </div>
+    <div class="tip-card gold">
+      <div class="tip-icon">&#x1F4AF;</div>
+      <div class="tip-title">Na&iuml;ve Bayes = Always 5 Marks</div>
+      <div class="tip-body">Without exception, Na&iuml;ve Bayes is a full 5-mark question in every paper. Same algorithm every time &mdash; memorize the steps once, guarantee full marks.</div>
+    </div>
+    <div class="tip-card green">
+      <div class="tip-icon">&#x1F4C8;</div>
+      <div class="tip-title">Joint Distribution = Biggest Question</div>
+      <div class="tip-body">Joint distributions appear in 5/6 papers as a <strong>5&ndash;6 mark question</strong>. Know: marginal, conditional, independence check, E[X], E[Y], E[XY].</div>
+    </div>
+    <div class="tip-card blue">
+      <div class="tip-icon">&#x1F4CA;</div>
+      <div class="tip-title">Poisson Always Paired with Binomial</div>
+      <div class="tip-body">In 4 out of 6 papers, Poisson and Binomial appear <strong>in the same question</strong>. Calculate both, compare results. Know when to approximate: n&ge;20, p&le;0.05.</div>
+    </div>
+    <div class="tip-card purple">
+      <div class="tip-icon">&#x1F9EE;</div>
+      <div class="tip-title">Descriptive Stats = Q1 Always</div>
+      <div class="tip-body">Five-number summary + outlier detection is Q1 in every paper. Easiest guaranteed marks. Sort &rarr; Q1/Q2/Q3 &rarr; IQR &rarr; Lower/Upper bounds &rarr; check outliers.</div>
+    </div>
+    <div class="tip-card teal">
+      <div class="tip-icon">&#x1F4A1;</div>
+      <div class="tip-title">CDF is a New Trend (Jan 2026)</div>
+      <div class="tip-body">CDF appeared for the first time in Jan 2026 Makeup. Expect it in future papers. Know: find k from CDF conditions, differentiate to get PDF, compute probabilities.</div>
+    </div>
+  </div>
+
+  <!-- PRIORITY ORDER TABLE -->
+  <div class="section-lbl">&#x1F3C6; Recommended Study Priority</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Priority</th>
+          <th>Topic</th>
+          <th>Time Needed</th>
+          <th>Why?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pri-badge" style="color:var(--red);">1st</span></td>
+          <td><strong>Na&iuml;ve Bayes Classifier</strong></td>
+          <td style="color:var(--teal);font-family:'Fira Code';">45 min</td>
+          <td style="font-size:.79rem;color:var(--t2);">6/6 papers, always exactly 5 marks, same repeatable algorithm</td>
+        </tr>
+        <tr>
+          <td><span class="pri-badge" style="color:var(--red);">2nd</span></td>
+          <td><strong>Descriptive Stats (IQR + Five-Number Summary)</strong></td>
+          <td style="color:var(--teal);font-family:'Fira Code';">30 min</td>
+          <td style="font-size:.79rem;color:var(--t2);">6/6 papers, Q1 every time, easiest free marks</td>
+        </tr>
+        <tr>
+          <td><span class="pri-badge" style="color:var(--red);">3rd</span></td>
+          <td><strong>Bayes&rsquo; Theorem &amp; Total Probability</strong></td>
+          <td style="color:var(--teal);font-family:'Fira Code';">45 min</td>
+          <td style="font-size:.79rem;color:var(--t2);">6/6 papers, 3&ndash;5 marks, real-world contexts vary</td>
+        </tr>
+        <tr>
+          <td><span class="pri-badge" style="color:var(--red);">4th</span></td>
+          <td><strong>Normal Distribution &amp; Z-scores</strong></td>
+          <td style="color:var(--teal);font-family:'Fira Code';">40 min</td>
+          <td style="font-size:.79rem;color:var(--t2);">6/6 papers, needs Z-table practice + symmetry trick</td>
+        </tr>
+        <tr>
+          <td><span class="pri-badge" style="color:var(--gold);">5th</span></td>
+          <td><strong>Joint Distributions (discrete + continuous)</strong></td>
+          <td style="color:var(--teal);font-family:'Fira Code';">60 min</td>
+          <td style="font-size:.79rem;color:var(--t2);">5/6 papers, 5&ndash;6 marks, highest per-topic payoff</td>
+        </tr>
+        <tr>
+          <td><span class="pri-badge" style="color:var(--gold);">6th</span></td>
+          <td><strong>Discrete RV &mdash; PMF, E(X), Var(X)</strong></td>
+          <td style="color:var(--teal);font-family:'Fira Code';">40 min</td>
+          <td style="font-size:.79rem;color:var(--t2);">5/6 papers, find-k pattern very frequent</td>
+        </tr>
+        <tr>
+          <td><span class="pri-badge" style="color:var(--gold);">7th</span></td>
+          <td><strong>Continuous RV &mdash; PDF integrals</strong></td>
+          <td style="color:var(--teal);font-family:'Fira Code';">40 min</td>
+          <td style="font-size:.79rem;color:var(--t2);">5/6 papers, find-k by setting integral=1</td>
+        </tr>
+        <tr>
+          <td><span class="pri-badge" style="color:var(--gold);">8th</span></td>
+          <td><strong>Poisson + Binomial (together)</strong></td>
+          <td style="color:var(--teal);font-family:'Fira Code';">35 min</td>
+          <td style="font-size:.79rem;color:var(--t2);">5/6 and 4/6 papers, usually one combined question</td>
+        </tr>
+        <tr>
+          <td><span class="pri-badge" style="color:var(--blue);">9th</span></td>
+          <td><strong>Probability Rules &amp; Set Theory</strong></td>
+          <td style="color:var(--teal);font-family:'Fira Code';">25 min</td>
+          <td style="font-size:.79rem;color:var(--t2);">4/6 papers, inclusion-exclusion for 3 events</td>
+        </tr>
+        <tr>
+          <td><span class="pri-badge" style="color:var(--t3);">10th</span></td>
+          <td><strong>Confidence Intervals &amp; Sample Size</strong></td>
+          <td style="color:var(--teal);font-family:'Fira Code';">20 min</td>
+          <td style="font-size:.79rem;color:var(--t2);">3/6 papers, straightforward formula plug-in</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer>
+  ISM Exam Intelligence &nbsp;&middot;&nbsp; BITS Pilani WILPD &nbsp;&middot;&nbsp; AIMLCZC418 &nbsp;&middot;&nbsp;
+  <a href="index.html">&#x2190; Study Hub</a>
+</footer>
+
+</body>
+</html>
