@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISM Practice Paper – PYQ Format with Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<script>
+window.MathJax = {
+  tex: { inlineMath:[['\\(','\\)'],['$','$']], displayMath:[['\\[','\\]'],['$$','$$']], processEscapes:true },
+  options:{ skipHtmlTags:['script','noscript','style','textarea'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root{
+  --bg:#07080f; --bg2:#0c0e1a; --card:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.09); --border-hi:rgba(255,255,255,0.2);
+  --t1:#eef2ff; --t2:#8892aa; --t3:#4a5568;
+  --blue:#4f8ef7; --purple:#a855f7; --teal:#2dd4bf;
+  --gold:#f59e0b; --pink:#ec4899; --green:#22c55e;
+  --orange:#f97316; --red:#ef4444;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden;line-height:1.6;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(ellipse at 10% 10%,rgba(79,142,247,0.07) 0%,transparent 55%),
+             radial-gradient(ellipse at 90% 85%,rgba(168,85,247,0.07) 0%,transparent 55%);}
+
+/* ── NAV ── */
+.nav{background:rgba(7,8,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
+  padding:12px 24px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;}
+.nav-logo{font-weight:800;font-size:.95rem;background:linear-gradient(135deg,var(--blue),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-links{display:flex;gap:10px;}
+.nav-btn{padding:6px 14px;border-radius:8px;font-size:.75rem;font-weight:600;cursor:pointer;border:1px solid;transition:all .2s;text-decoration:none;}
+.btn-outline{border-color:rgba(255,255,255,.15);color:var(--t2);background:transparent;}
+.btn-outline:hover{border-color:var(--blue);color:var(--blue);}
+.btn-primary{border-color:var(--blue);color:var(--bg);background:var(--blue);}
+.btn-primary:hover{background:#6ba3ff;}
+
+/* ── EXAM HEADER ── */
+.exam-header{background:linear-gradient(135deg,rgba(79,142,247,0.08),rgba(168,85,247,0.06));
+  border:1px solid rgba(79,142,247,0.2);border-radius:20px;
+  padding:32px 36px;margin:28px 20px 24px;text-align:center;position:relative;overflow:hidden;}
+.exam-header::before{content:'📐';position:absolute;right:-10px;top:-20px;font-size:110px;opacity:.04;}
+.uni-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;
+  background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
+.uni-sub{font-size:.8rem;color:var(--t2);margin-bottom:18px;letter-spacing:.3px;}
+.exam-meta{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;
+  background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:14px 20px;text-align:left;}
+.meta-row{display:flex;gap:8px;font-size:.8rem;}
+.meta-key{color:var(--t2);min-width:100px;}
+.meta-val{color:var(--t1);font-weight:600;}
+.exam-note{margin-top:14px;font-size:.77rem;color:var(--t2);text-align:left;padding:0 4px;}
+.exam-note li{margin:3px 0;}
+.total-badge{display:inline-flex;align-items:center;gap:8px;margin-top:14px;
+  padding:8px 20px;border-radius:999px;background:rgba(245,158,11,.12);
+  border:1px solid rgba(245,158,11,.3);color:var(--gold);font-weight:700;font-size:.85rem;}
+
+/* ── LAYOUT ── */
+.main{max-width:1100px;margin:0 auto;padding:0 20px 60px;}
+
+/* ── SECTION DIVIDER ── */
+.sec-divider{display:flex;align-items:center;gap:12px;margin:32px 0 20px;}
+.sec-line{flex:1;height:1px;background:var(--border);}
+.sec-tag{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  padding:4px 14px;border-radius:999px;white-space:nowrap;}
+.tag-blue{color:var(--blue);border:1px solid rgba(79,142,247,.3);background:rgba(79,142,247,.08);}
+.tag-sol{color:var(--green);border:1px solid rgba(34,197,94,.3);background:rgba(34,197,94,.08);}
+
+/* ── QUESTION CARD ── */
+.qcard{background:var(--card);border:1px solid var(--border);border-radius:18px;
+  margin-bottom:20px;overflow:hidden;transition:border-color .2s;}
+.qcard:hover{border-color:var(--border-hi);}
+.qcard-header{padding:16px 24px 14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.q-num{font-size:1rem;font-weight:800;display:flex;align-items:center;gap:10px;}
+.q-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:999px;font-size:.7rem;font-weight:700;}
+.qb-blue{background:rgba(79,142,247,.15);border:1px solid rgba(79,142,247,.3);color:var(--blue);}
+.qb-purple{background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.3);color:var(--purple);}
+.qb-teal{background:rgba(45,212,191,.15);border:1px solid rgba(45,212,191,.3);color:var(--teal);}
+.qb-gold{background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);color:var(--gold);}
+.qb-pink{background:rgba(236,72,153,.15);border:1px solid rgba(236,72,153,.3);color:var(--pink);}
+.qb-green{background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);color:var(--green);}
+.marks-pill{font-size:.78rem;font-weight:700;padding:4px 12px;border-radius:999px;
+  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:var(--gold);}
+.qcard-body{padding:20px 24px;}
+.q-text{font-size:.9rem;color:var(--t1);margin-bottom:10px;line-height:1.7;}
+.q-sub{margin:10px 0 6px;padding-left:16px;}
+.q-sub-item{font-size:.87rem;color:var(--t1);margin:6px 0;display:flex;gap:8px;align-items:baseline;}
+.q-sub-label{color:var(--t2);font-weight:600;min-width:22px;}
+.inline-marks{font-size:.72rem;color:var(--t3);margin-left:6px;}
+
+/* Data table */
+.data-table{width:100%;border-collapse:collapse;font-size:.82rem;margin:12px 0;border-radius:10px;overflow:hidden;}
+.data-table th{background:rgba(255,255,255,0.07);padding:8px 14px;text-align:center;color:var(--t2);font-weight:600;border-bottom:1px solid var(--border);}
+.data-table td{padding:7px 14px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--t1);}
+.data-table tr:last-child td{border-bottom:none;}
+
+/* Toggle solution button */
+.sol-toggle{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;
+  border:1px solid rgba(34,197,94,.25);background:rgba(34,197,94,.06);color:var(--green);
+  font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;margin-top:16px;width:fit-content;}
+.sol-toggle:hover{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.4);}
+.sol-toggle .arrow{transition:transform .3s;font-size:.7rem;}
+.sol-toggle.open .arrow{transform:rotate(180deg);}
+
+/* ── SOLUTION BOX ── */
+.sol-box{display:none;margin-top:16px;border-top:1px solid rgba(34,197,94,.15);padding-top:16px;}
+.sol-box.visible{display:block;}
+.sol-title{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--green);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.step{background:rgba(255,255,255,0.03);border-left:3px solid var(--blue);
+  border-radius:0 10px 10px 0;padding:12px 16px;margin:10px 0;}
+.step.purple{border-left-color:var(--purple);}
+.step.teal{border-left-color:var(--teal);}
+.step.gold{border-left-color:var(--gold);}
+.step.pink{border-left-color:var(--pink);}
+.step.green{border-left-color:var(--green);}
+.step-num{font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--blue);margin-bottom:6px;}
+.step.purple .step-num{color:var(--purple);}
+.step.teal .step-num{color:var(--teal);}
+.step.gold .step-num{color:var(--gold);}
+.step.pink .step-num{color:var(--pink);}
+.step.green .step-num{color:var(--green);}
+.step-body{font-size:.84rem;color:var(--t1);line-height:1.75;}
+.step-body p{margin:4px 0;}
+.formula-box{background:rgba(79,142,247,0.06);border:1px solid rgba(79,142,247,.2);
+  border-radius:10px;padding:10px 16px;margin:10px 0;text-align:center;font-size:.88rem;}
+.ans-box{background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,.25);
+  border-radius:10px;padding:10px 16px;margin:12px 0;font-weight:600;color:var(--green);font-size:.86rem;}
+.sub-sol{border-left:2px dashed rgba(255,255,255,.08);padding-left:14px;margin:8px 0;}
+.sub-sol-title{font-size:.76rem;font-weight:700;color:var(--purple);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;}
+
+/* Comparison table */
+.cmp-table{width:100%;border-collapse:collapse;font-size:.82rem;margin:10px 0;}
+.cmp-table th{background:rgba(255,255,255,.06);padding:8px 14px;text-align:left;color:var(--t2);font-weight:600;}
+.cmp-table td{padding:7px 14px;border-bottom:1px solid rgba(255,255,255,.04);}
+.cmp-table tr:last-child td{border-bottom:none;}
+.cmp-table .highlight{color:var(--teal);font-weight:700;}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:16px 0 36px;color:var(--t3);font-size:.72rem;border-top:1px solid var(--border);}
+footer a{color:var(--blue);text-decoration:none;}
+
+/* Reveal all btn */
+.reveal-all{display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 28px;border-radius:12px;background:rgba(79,142,247,.1);
+  border:1px solid rgba(79,142,247,.3);color:var(--blue);font-weight:700;
+  font-size:.85rem;cursor:pointer;transition:all .2s;margin:8px auto 28px;width:fit-content;}
+.reveal-all:hover{background:rgba(79,142,247,.2);}
+
+@media(max-width:640px){.exam-meta{grid-template-columns:1fr;}.qcard-body{padding:16px;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">ISM Practice Paper</div>
+  <div class="nav-links">
+    <a href="index.html" class="nav-btn btn-outline">&#x2190; Hub</a>
+    <a href="new.html" class="nav-btn btn-outline">Formula Sheet</a>
+    <a href="insights.html" class="nav-btn btn-outline">Insights</a>
+  </div>
+</nav>
+
+<!-- EXAM HEADER -->
+<div class="exam-header">
+  <div class="uni-name">BIRLA INSTITUTE OF TECHNOLOGY &amp; SCIENCE, PILANI</div>
+  <div class="uni-sub">Work Integrated Learning Programmes Division</div>
+  <div class="exam-meta">
+    <div class="meta-row"><span class="meta-key">Course No.</span><span class="meta-val">AIMLCZC418 / DSECLZC418</span></div>
+    <div class="meta-row"><span class="meta-key">Course Title</span><span class="meta-val">Introduction to Statistical Methods</span></div>
+    <div class="meta-row"><span class="meta-key">Nature of Exam</span><span class="meta-val">Closed Book</span></div>
+    <div class="meta-row"><span class="meta-key">Weightage</span><span class="meta-val">30%</span></div>
+    <div class="meta-row"><span class="meta-key">Duration</span><span class="meta-val">2 Hours</span></div>
+    <div class="meta-row"><span class="meta-key">Type</span><span class="meta-val">&#x1F4DD; PYQ-Style Practice Paper</span></div>
+  </div>
+  <ol class="exam-note">
+    <li>Answer ALL questions. All parts of a question should be answered consecutively.</li>
+    <li>Assumptions made, if any, should be stated clearly at the beginning of your answer.</li>
+    <li>Topics chosen based on highest frequency from 6 past question papers.</li>
+  </ol>
+  <div class="total-badge">&#x1F4CA; Total Marks: 30 &nbsp;|&nbsp; 6 Questions &nbsp;|&nbsp; 2 Hours</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <button class="reveal-all" onclick="toggleAll()">&#x1F50D; Show / Hide All Solutions</button>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- Q1: DESCRIPTIVE STATISTICS + CLT   -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="sec-divider"><div class="sec-line"></div><div class="sec-tag tag-blue">&#x1F4CA; Topic 1: Descriptive Statistics &amp; CLT — Appeared in ALL 6 Papers</div><div class="sec-line"></div></div>
+
+  <div class="qcard" id="q1">
+    <div class="qcard-header">
+      <div class="q-num"><span class="q-badge qb-blue">Q1</span> Descriptive Statistics &amp; Central Limit Theorem</div>
+      <div style="display:flex;gap:8px;"><span class="q-badge qb-blue">6/6 Papers</span><span class="marks-pill">5 Marks</span></div>
+    </div>
+    <div class="qcard-body">
+      <p class="q-text"><strong>a)</strong> A quality control engineer recorded the following breaking strengths (in kg) of 10 randomly selected steel cables from a production line:</p>
+      <p class="q-text" style="text-align:center;font-family:'Fira Code';font-size:.9rem;color:var(--teal);">12, 7, 25, 18, 30, 22, 42, 15, 35, 28</p>
+      <div class="q-sub">
+        <div class="q-sub-item"><span class="q-sub-label">i)</span><span>Compute the <strong>mean</strong>, <strong>sample standard deviation</strong>, and <strong>five-number summary</strong> (Min, Q1, Q2, Q3, Max). <span class="inline-marks">[2 Marks]</span></span></div>
+        <div class="q-sub-item"><span class="q-sub-label">ii)</span><span>Calculate <strong>IQR</strong> and identify any potential <strong>outliers</strong> using the 1.5×IQR rule. <span class="inline-marks">[1 Mark]</span></span></div>
+        <div class="q-sub-item"><span class="q-sub-label">iii)</span><span>Based on Mean vs Median, comment on the <strong>symmetry/skewness</strong> of the data. <span class="inline-marks">[0.5 Mark]</span></span></div>
+      </div>
+      <p class="q-text" style="margin-top:16px;"><strong>b)</strong> The breaking strength of cables from a large factory is normally distributed with \(\mu = 45\) kg and \(\sigma = 12\) kg. A random sample of \(n = 36\) cables is selected. Find \(P(42 < \bar{X} < 48)\). <span class="inline-marks">[1.5 Marks]</span></p>
+
+      <button class="sol-toggle" onclick="toggle('sol-q1')">&#x1F4A1; Show Step-by-Step Solution <span class="arrow">&#x25BC;</span></button>
+      <div class="sol-box" id="sol-q1">
+        <div class="sol-title">&#x2714;&#xFE0F; Complete Solution</div>
+
+        <p style="font-size:.8rem;color:var(--gold);font-weight:600;margin-bottom:10px;">Part (a)</p>
+        <div class="step">
+          <div class="step-num">Step 1 — Sort the Data</div>
+          <div class="step-body">
+            <p>Original: 12, 7, 25, 18, 30, 22, 42, 15, 35, 28</p>
+            <p><strong>Sorted:</strong> \(7,\ 12,\ 15,\ 18,\ 22,\ 25,\ 28,\ 30,\ 35,\ 42\) &nbsp; &nbsp; \(n = 10\)</p>
+          </div>
+        </div>
+        <div class="step purple">
+          <div class="step-num">Step 2 — Mean</div>
+          <div class="step-body">
+            <div class="formula-box">\[\bar{x} = \frac{\sum x_i}{n} = \frac{7+12+15+18+22+25+28+30+35+42}{10} = \frac{234}{10} = \mathbf{23.4}\]</div>
+          </div>
+        </div>
+        <div class="step teal">
+          <div class="step-num">Step 3 — Five-Number Summary</div>
+          <div class="step-body">
+            <p>\(\text{Min} = 7, \quad \text{Max} = 42\)</p>
+            <p>\(Q_2\) (Median): Average of 5th and 6th value \(= \dfrac{22+25}{2} = \mathbf{23.5}\)</p>
+            <p>\(Q_1\) position: \(0.25 \times (n+1) = 0.25 \times 11 = 2.75\text{th value}\)</p>
+            <p>\(Q_1 = 12 + 0.75 \times (15-12) = 12 + 2.25 = \mathbf{14.25}\)</p>
+            <p>\(Q_3\) position: \(0.75 \times (n+1) = 0.75 \times 11 = 8.25\text{th value}\)</p>
+            <p>\(Q_3 = 30 + 0.25 \times (35-30) = 30 + 1.25 = \mathbf{31.25}\)</p>
+          </div>
+        </div>
+        <div class="step gold">
+          <div class="step-num">Step 4 — Sample Standard Deviation</div>
+          <div class="step-body">
+            <div class="formula-box">\[s = \sqrt{\frac{\sum(x_i - \bar{x})^2}{n-1}}\]</div>
+            <p>Squared deviations \((x_i - 23.4)^2\):</p>
+            <p style="font-size:.8rem;font-family:'Fira Code';">
+              (7−23.4)²=268.96 &nbsp;|&nbsp; (12−23.4)²=129.96 &nbsp;|&nbsp; (15−23.4)²=70.56<br>
+              (18−23.4)²=29.16 &nbsp;|&nbsp; (22−23.4)²=1.96 &nbsp;&nbsp;&nbsp;|&nbsp; (25−23.4)²=2.56<br>
+              (28−23.4)²=21.16 &nbsp;|&nbsp; (30−23.4)²=43.56 &nbsp;|&nbsp; (35−23.4)²=134.56<br>
+              (42−23.4)²=345.96
+            </p>
+            <p>\(\sum(x_i-\bar{x})^2 = 1048.4\)</p>
+            <div class="formula-box">\[s^2 = \frac{1048.4}{9} = 116.49 \quad \Rightarrow \quad s = \sqrt{116.49} \approx \mathbf{10.79}\]</div>
+          </div>
+        </div>
+        <div class="step green">
+          <div class="step-num">Step 5 — IQR &amp; Outlier Detection</div>
+          <div class="step-body">
+            <div class="formula-box">\[IQR = Q_3 - Q_1 = 31.25 - 14.25 = 17\]</div>
+            <p>\(\text{Lower bound} = Q_1 - 1.5 \times IQR = 14.25 - 25.5 = -11.25\)</p>
+            <p>\(\text{Upper bound} = Q_3 + 1.5 \times IQR = 31.25 + 25.5 = 56.75\)</p>
+            <p>All values lie within \([-11.25,\ 56.75]\) → <strong>No outliers detected.</strong></p>
+          </div>
+        </div>
+        <div class="step pink">
+          <div class="step-num">Step 6 — Skewness Comment</div>
+          <div class="step-body">
+            <p>Mean \(= 23.4\) and Median \(= 23.5\)</p>
+            <p>Since Mean \(\approx\) Median, the data is <strong>approximately symmetric</strong> (very slight left skew).</p>
+          </div>
+        </div>
+
+        <p style="font-size:.8rem;color:var(--gold);font-weight:600;margin:16px 0 10px;">Part (b) — CLT / Sampling Distribution</p>
+        <div class="step">
+          <div class="step-num">Given</div>
+          <div class="step-body">
+            <p>\(\mu = 45,\quad \sigma = 12,\quad n = 36\)</p>
+          </div>
+        </div>
+        <div class="step purple">
+          <div class="step-num">Step 1 — Standard Error of Mean</div>
+          <div class="step-body">
+            <div class="formula-box">\[\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}} = \frac{12}{\sqrt{36}} = \frac{12}{6} = 2\]</div>
+          </div>
+        </div>
+        <div class="step teal">
+          <div class="step-num">Step 2 — Standardize Both Limits</div>
+          <div class="step-body">
+            <div class="formula-box">\[Z = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}\]</div>
+            <p>\(Z_1 = \dfrac{42-45}{2} = -1.5\) &nbsp;&nbsp;&nbsp; \(Z_2 = \dfrac{48-45}{2} = 1.5\)</p>
+          </div>
+        </div>
+        <div class="step green">
+          <div class="step-num">Step 3 — Find Probability</div>
+          <div class="step-body">
+            <div class="formula-box">\[P(42 < \bar{X} < 48) = P(-1.5 < Z < 1.5) = \Phi(1.5) - \Phi(-1.5)\]</div>
+            <p>\(= 0.9332 - (1 - 0.9332) = 0.9332 - 0.0668 = \mathbf{0.8664}\)</p>
+          </div>
+        </div>
+        <div class="ans-box">✅ Answers: &nbsp; Mean = 23.4, &nbsp; s ≈ 10.79, &nbsp; Q1=14.25, &nbsp; Q2=23.5, &nbsp; Q3=31.25, &nbsp; IQR=17, &nbsp; No outliers. &nbsp;|&nbsp; Part b: P = 0.8664 (86.64%)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- Q2: BAYES' THEOREM              -->
+  <!-- ═══════════════════════════════ -->
+  <div class="sec-divider"><div class="sec-line"></div><div class="sec-tag tag-blue">&#x1F9E0; Topic 2: Bayes' Theorem — Appeared in ALL 6 Papers</div><div class="sec-line"></div></div>
+
+  <div class="qcard" id="q2">
+    <div class="qcard-header">
+      <div class="q-num"><span class="q-badge qb-purple">Q2</span> Bayes' Theorem &amp; Probability Rules</div>
+      <div style="display:flex;gap:8px;"><span class="q-badge qb-purple">6/6 Papers</span><span class="marks-pill">5 Marks</span></div>
+    </div>
+    <div class="qcard-body">
+      <p class="q-text"><strong>a)</strong> A pharmaceutical company manufactures a medicine in three factories A, B, and C. Factory A produces 50%, Factory B produces 30%, and Factory C produces 20% of the total output. The probabilities that a tablet produced is defective are 2%, 3%, and 5% for factories A, B, and C respectively. A tablet is picked at random and found to be defective. <span class="inline-marks">[3 Marks]</span></p>
+      <div class="q-sub">
+        <div class="q-sub-item"><span class="q-sub-label">i)</span><span>What is the probability that a randomly selected tablet is defective?</span></div>
+        <div class="q-sub-item"><span class="q-sub-label">ii)</span><span>What is the probability that the defective tablet came from Factory A?</span></div>
+      </div>
+      <p class="q-text" style="margin-top:16px;"><strong>b)</strong> For events A and B: \(P(A) = 0.40\), \(P(B) = 0.35\), \(P(A \cap B) = 0.12\). Find: \(P(A \cup B)\), \(P(A|B)\), \(P(B|A)\), and \(P(A' \cap B')\). <span class="inline-marks">[2 Marks]</span></p>
+
+      <button class="sol-toggle" onclick="toggle('sol-q2')">&#x1F4A1; Show Step-by-Step Solution <span class="arrow">&#x25BC;</span></button>
+      <div class="sol-box" id="sol-q2">
+        <div class="sol-title">&#x2714;&#xFE0F; Complete Solution</div>
+
+        <p style="font-size:.8rem;color:var(--gold);font-weight:600;margin-bottom:10px;">Part (a)</p>
+        <div class="step">
+          <div class="step-num">Given</div>
+          <div class="step-body">
+            <p>\(P(A)=0.50,\ P(B)=0.30,\ P(C)=0.20\)</p>
+            <p>\(P(D|A)=0.02,\ P(D|B)=0.03,\ P(D|C)=0.05\)</p>
+          </div>
+        </div>
+        <div class="step purple">
+          <div class="step-num">Step 1 — Law of Total Probability</div>
+          <div class="step-body">
+            <div class="formula-box">\[P(D) = P(D|A)\cdot P(A) + P(D|B)\cdot P(B) + P(D|C)\cdot P(C)\]</div>
+            <p>\(= (0.02)(0.50) + (0.03)(0.30) + (0.05)(0.20)\)</p>
+            <p>\(= 0.010 + 0.009 + 0.010 = \mathbf{0.029}\)</p>
+          </div>
+        </div>
+        <div class="step teal">
+          <div class="step-num">Step 2 — Apply Bayes' Theorem</div>
+          <div class="step-body">
+            <div class="formula-box">\[P(A|D) = \frac{P(D|A)\cdot P(A)}{P(D)} = \frac{0.02 \times 0.50}{0.029} = \frac{0.010}{0.029} \approx \mathbf{0.3448}\]</div>
+            <p>There is a <strong>34.48% probability</strong> the defective tablet came from Factory A.</p>
+          </div>
+        </div>
+
+        <p style="font-size:.8rem;color:var(--gold);font-weight:600;margin:16px 0 10px;">Part (b)</p>
+        <div class="step gold">
+          <div class="step-num">Probability Rules Applied</div>
+          <div class="step-body">
+            <p><strong>1. Addition Rule:</strong></p>
+            <div class="formula-box">\[P(A \cup B) = P(A) + P(B) - P(A \cap B) = 0.40 + 0.35 - 0.12 = \mathbf{0.63}\]</div>
+            <p><strong>2. Conditional Probability \(P(A|B)\):</strong></p>
+            <div class="formula-box">\[P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{0.12}{0.35} = \mathbf{0.343}\]</div>
+            <p><strong>3. Conditional Probability \(P(B|A)\):</strong></p>
+            <div class="formula-box">\[P(B|A) = \frac{P(A \cap B)}{P(A)} = \frac{0.12}{0.40} = \mathbf{0.30}\]</div>
+            <p><strong>4. De Morgan's Law:</strong></p>
+            <div class="formula-box">\[P(A' \cap B') = 1 - P(A \cup B) = 1 - 0.63 = \mathbf{0.37}\]</div>
+          </div>
+        </div>
+        <div class="ans-box">✅ P(D) = 0.029 | P(A|D) ≈ 0.3448 (34.48%) | P(A∪B)=0.63 | P(A|B)≈0.343 | P(B|A)=0.30 | P(A'∩B')=0.37</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- Q3: NAIVE BAYES                 -->
+  <!-- ═══════════════════════════════ -->
+  <div class="sec-divider"><div class="sec-line"></div><div class="sec-tag tag-blue">&#x1F916; Topic 3: Naïve Bayes — Appeared in ALL 6 Papers (Always 5 Marks)</div><div class="sec-line"></div></div>
+
+  <div class="qcard" id="q3">
+    <div class="qcard-header">
+      <div class="q-num"><span class="q-badge qb-teal">Q3</span> Naïve Bayes Classifier with Laplace Smoothing</div>
+      <div style="display:flex;gap:8px;"><span class="q-badge qb-teal">6/6 Papers</span><span class="marks-pill">5 Marks</span></div>
+    </div>
+    <div class="qcard-body">
+      <p class="q-text">A company wants to classify customer reviews as <strong>Positive</strong> or <strong>Negative</strong> using a Naïve Bayes classifier. The training dataset is given below:</p>
+      <table class="data-table">
+        <thead><tr><th>Review ID</th><th>Review Text</th><th>Label</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>great product quality service</td><td style="color:var(--green);">Positive</td></tr>
+          <tr><td>2</td><td>worst experience poor quality</td><td style="color:var(--red);">Negative</td></tr>
+          <tr><td>3</td><td>excellent service great value</td><td style="color:var(--green);">Positive</td></tr>
+          <tr><td>4</td><td>poor product terrible experience</td><td style="color:var(--red);">Negative</td></tr>
+        </tbody>
+      </table>
+      <p class="q-text">Using <strong>Naïve Bayes with Laplace smoothing (\(\alpha = 1\))</strong>, classify the new review: <span style="color:var(--teal);font-family:'Fira Code';">"great service poor quality"</span></p>
+      <p class="q-text">Show all working steps clearly.</p>
+
+      <button class="sol-toggle" onclick="toggle('sol-q3')">&#x1F4A1; Show Step-by-Step Solution <span class="arrow">&#x25BC;</span></button>
+      <div class="sol-box" id="sol-q3">
+        <div class="sol-title">&#x2714;&#xFE0F; Complete Solution — 5 Steps</div>
+
+        <div class="step">
+          <div class="step-num">Step 1 — Class Counts &amp; Prior Probabilities</div>
+          <div class="step-body">
+            <p>Total reviews = 4 &nbsp;|&nbsp; Positive = 2 &nbsp;|&nbsp; Negative = 2</p>
+            <div class="formula-box">\[P(\text{Positive}) = \frac{2}{4} = 0.5 \qquad P(\text{Negative}) = \frac{2}{4} = 0.5\]</div>
+          </div>
+        </div>
+        <div class="step purple">
+          <div class="step-num">Step 2 — Build Vocabulary</div>
+          <div class="step-body">
+            <p><strong>All unique words (V):</strong> {great, product, quality, service, worst, experience, poor, excellent, value, terrible}</p>
+            <p>\(|V| = 10\)</p>
+            <p><strong>Positive class words:</strong> great(2), product(1), quality(1), service(2), excellent(1), value(1) → Total = 8</p>
+            <p><strong>Negative class words:</strong> worst(1), experience(2), poor(2), quality(1), product(1), terrible(1) → Total = 8</p>
+          </div>
+        </div>
+        <div class="step teal">
+          <div class="step-num">Step 3 — Laplace Smoothed Likelihoods</div>
+          <div class="step-body">
+            <div class="formula-box">\[P(w \mid C) = \frac{\text{count}(w, C) + 1}{\text{Total words in } C + |V|}\]</div>
+            <p>Test words: <strong>great, service, poor, quality</strong></p>
+            <table class="cmp-table">
+              <thead><tr><th>Word</th><th>Count in Positive</th><th>Count in Negative</th><th>P(w|Positive)</th><th>P(w|Negative)</th></tr></thead>
+              <tbody>
+                <tr><td>great</td><td>2</td><td>0</td><td class="highlight">(2+1)/(8+10) = 3/18</td><td>(0+1)/(8+10) = 1/18</td></tr>
+                <tr><td>service</td><td>2</td><td>0</td><td class="highlight">3/18</td><td>1/18</td></tr>
+                <tr><td>poor</td><td>0</td><td>2</td><td>1/18</td><td class="highlight">3/18</td></tr>
+                <tr><td>quality</td><td>1</td><td>1</td><td>2/18</td><td>2/18</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="step gold">
+          <div class="step-num">Step 4 — Compute Posterior Scores</div>
+          <div class="step-body">
+            <p><strong>Score for Positive:</strong></p>
+            <div class="formula-box">\[P(+)\times P(\text{great}|+)\times P(\text{service}|+)\times P(\text{poor}|+)\times P(\text{quality}|+)\]
+            \[= 0.5 \times \frac{3}{18} \times \frac{3}{18} \times \frac{1}{18} \times \frac{2}{18} = 0.5 \times \frac{18}{104976} \approx 8.57 \times 10^{-5}\]</div>
+            <p><strong>Score for Negative:</strong></p>
+            <div class="formula-box">\[P(-)\times P(\text{great}|-)\times P(\text{service}|-)\times P(\text{poor}|-)\times P(\text{quality}|-)\]
+            \[= 0.5 \times \frac{1}{18} \times \frac{1}{18} \times \frac{3}{18} \times \frac{2}{18} = 0.5 \times \frac{6}{104976} \approx 2.86 \times 10^{-5}\]</div>
+          </div>
+        </div>
+        <div class="step green">
+          <div class="step-num">Step 5 — Compare &amp; Classify</div>
+          <div class="step-body">
+            <p>\(P(\text{Positive}|\text{review}) \approx 8.57 \times 10^{-5}\)</p>
+            <p>\(P(\text{Negative}|\text{review}) \approx 2.86 \times 10^{-5}\)</p>
+            <p>Since \(P(\text{Positive}) > P(\text{Negative})\)</p>
+          </div>
+        </div>
+        <div class="ans-box">✅ Classification: POSITIVE — The review "great service poor quality" is classified as Positive because the positive class score (8.57×10⁻⁵) is higher than negative (2.86×10⁻⁵), driven by strong positive words "great" and "service".</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ -->
+  <!-- Q4: NORMAL DISTRIBUTION         -->
+  <!-- ═══════════════════════════════ -->
+  <div class="sec-divider"><div class="sec-line"></div><div class="sec-tag tag-blue">&#x1F514; Topic 4: Normal Distribution — Appeared in ALL 6 Papers</div><div class="sec-line"></div></div>
+
+  <div class="qcard" id="q4">
+    <div class="qcard-header">
+      <div class="q-num"><span class="q-badge qb-gold">Q4</span> Normal Distribution &amp; Z-scores</div>
+      <div style="display:flex;gap:8px;"><span class="q-badge qb-gold">6/6 Papers</span><span class="marks-pill">5 Marks</span></div>
+    </div>
+    <div class="qcard-body">
+      <p class="q-text">The scores of students in an ISM exam are normally distributed with a <strong>mean of 68</strong> and a <strong>standard deviation of 10</strong>. (\(X \sim N(68, 10^2)\))</p>
+      <div class="q-sub">
+        <div class="q-sub-item"><span class="q-sub-label">i)</span><span>Find the probability that a student scores <strong>less than 80</strong>. <span class="inline-marks">[1 Mark]</span></span></div>
+        <div class="q-sub-item"><span class="q-sub-label">ii)</span><span>Find the probability that a student scores <strong>between 55 and 80</strong>. <span class="inline-marks">[1.5 Marks]</span></span></div>
+        <div class="q-sub-item"><span class="q-sub-label">iii)</span><span>The top 5% of students qualify for the <strong>Dean's List</strong>. Find the minimum score needed. <span class="inline-marks">[1.5 Marks]</span></span></div>
+        <div class="q-sub-item"><span class="q-sub-label">iv)</span><span>A sample of 25 students is selected. Find \(P(\bar{X} > 70)\). <span class="inline-marks">[1 Mark]</span></span></div>
+      </div>
+
+      <button class="sol-toggle" onclick="toggle('sol-q4')">&#x1F4A1; Show Step-by-Step Solution <span class="arrow">&#x25BC;</span></button>
+      <div class="sol-box" id="sol-q4">
+        <div class="sol-title">&#x2714;&#xFE0F; Complete Solution</div>
+        <div class="step">
+          <div class="step-num">Key Formula</div>
+          <div class="step-body">
+            <div class="formula-box">\[Z = \frac{X - \mu}{\sigma} = \frac{X - 68}{10}\]</div>
+          </div>
+        </div>
+
+        <div class="sub-sol">
+          <div class="sub-sol-title">Part i — P(X &lt; 80)</div>
+          <div class="step">
+            <div class="step-body">
+              <div class="formula-box">\[Z = \frac{80 - 68}{10} = \frac{12}{10} = 1.2\]</div>
+              <p>\(P(X < 80) = P(Z < 1.2) = \Phi(1.2) = \mathbf{0.8849}\)</p>
+              <p>→ About <strong>88.49%</strong> of students score below 80.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-sol">
+          <div class="sub-sol-title">Part ii — P(55 &lt; X &lt; 80)</div>
+          <div class="step purple">
+            <div class="step-body">
+              <p>\(Z_1 = \dfrac{55 - 68}{10} = -1.3\) &nbsp;&nbsp;&nbsp; \(Z_2 = \dfrac{80-68}{10} = 1.2\)</p>
+              <div class="formula-box">\[P(55 < X < 80) = \Phi(1.2) - \Phi(-1.3)\]</div>
+              <p>\(\Phi(-1.3) = 1 - \Phi(1.3) = 1 - 0.9032 = 0.0968\)</p>
+              <div class="formula-box">\[= 0.8849 - 0.0968 = \mathbf{0.7881}\]</div>
+              <p>→ <strong>78.81%</strong> of students score between 55 and 80.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-sol">
+          <div class="sub-sol-title">Part iii — Dean's List Cutoff (Top 5%)</div>
+          <div class="step teal">
+            <div class="step-body">
+              <p>Top 5% means \(P(X > x_0) = 0.05\) → \(P(Z > z_0) = 0.05\)</p>
+              <p>From Z-table: \(z_0 = 1.645\) (critical value for 95th percentile)</p>
+              <div class="formula-box">\[x_0 = \mu + z_0 \cdot \sigma = 68 + 1.645 \times 10 = 68 + 16.45 = \mathbf{84.45}\]</div>
+              <p>→ A student must score at least <strong>84.45</strong> to make the Dean's List.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-sol">
+          <div class="sub-sol-title">Part iv — Sampling Distribution P(X̄ &gt; 70)</div>
+          <div class="step gold">
+            <div class="step-body">
+              <div class="formula-box">\[\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}} = \frac{10}{\sqrt{25}} = \frac{10}{5} = 2\]</div>
+              <p>\(Z = \dfrac{70 - 68}{2} = 1.0\)</p>
+              <div class="formula-box">\[P(\bar{X} > 70) = P(Z > 1.0) = 1 - \Phi(1.0) = 1 - 0.8413 = \mathbf{0.1587}\]</div>
+            </div>
+          </div>
+        </div>
+        <div class="ans-box">✅ i) P(X&lt;80) = 0.8849 &nbsp;|&nbsp; ii) P(55&lt;X&lt;80) = 0.7881 &nbsp;|&nbsp; iii) Dean's List cutoff = 84.45 &nbsp;|&nbsp; iv) P(X̄&gt;70) = 0.1587</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- Q5: JOINT DISTRIBUTION              -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="sec-divider"><div class="sec-line"></div><div class="sec-tag tag-blue">&#x1F517; Topic 5: Joint Distribution — Appeared in 5/6 Papers (5–6 Marks)</div><div class="sec-line"></div></div>
+
+  <div class="qcard" id="q5">
+    <div class="qcard-header">
+      <div class="q-num"><span class="q-badge qb-pink">Q5</span> Joint Probability Distribution</div>
+      <div style="display:flex;gap:8px;"><span class="q-badge qb-pink">5/6 Papers</span><span class="marks-pill">5 Marks</span></div>
+    </div>
+    <div class="qcard-body">
+      <p class="q-text">Let \(X\) (number of failed servers) and \(Y\) (system load level) be discrete random variables with joint PMF:</p>
+      <div class="formula-box" style="margin:12px 0;">\[f(x,y) = c(x + y) \quad \text{for } x \in \{0,1,2\},\; y \in \{1,2\}\]</div>
+      <div class="q-sub">
+        <div class="q-sub-item"><span class="q-sub-label">a)</span><span>Find the normalising constant \(c\). <span class="inline-marks">[1 Mark]</span></span></div>
+        <div class="q-sub-item"><span class="q-sub-label">b)</span><span>Compute the marginal PMFs \(P_X(x)\) and \(P_Y(y)\). <span class="inline-marks">[1.5 Marks]</span></span></div>
+        <div class="q-sub-item"><span class="q-sub-label">c)</span><span>Find \(P(X=1 \mid Y=1)\). <span class="inline-marks">[1 Mark]</span></span></div>
+        <div class="q-sub-item"><span class="q-sub-label">d)</span><span>Are \(X\) and \(Y\) independent? Justify. <span class="inline-marks">[0.5 Mark]</span></span></div>
+        <div class="q-sub-item"><span class="q-sub-label">e)</span><span>Compute \(E[X]\) and \(\text{Var}(X)\). <span class="inline-marks">[1 Mark]</span></span></div>
+      </div>
+
+      <button class="sol-toggle" onclick="toggle('sol-q5')">&#x1F4A1; Show Step-by-Step Solution <span class="arrow">&#x25BC;</span></button>
+      <div class="sol-box" id="sol-q5">
+        <div class="sol-title">&#x2714;&#xFE0F; Complete Solution</div>
+
+        <div class="step">
+          <div class="step-num">Joint PMF Table: f(x,y) = c(x+y)</div>
+          <div class="step-body">
+            <table class="data-table">
+              <thead><tr><th></th><th>y = 1</th><th>y = 2</th><th>P_X(x)</th></tr></thead>
+              <tbody>
+                <tr><td><strong>x = 0</strong></td><td>c(0+1)=c</td><td>c(0+2)=2c</td><td>3c</td></tr>
+                <tr><td><strong>x = 1</strong></td><td>c(1+1)=2c</td><td>c(1+2)=3c</td><td>5c</td></tr>
+                <tr><td><strong>x = 2</strong></td><td>c(2+1)=3c</td><td>c(2+2)=4c</td><td>7c</td></tr>
+                <tr><td><strong>P_Y(y)</strong></td><td>6c</td><td>9c</td><td><strong>15c</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="step purple">
+          <div class="step-num">Part a — Find c</div>
+          <div class="step-body">
+            <div class="formula-box">\[\sum_{x}\sum_{y} f(x,y) = 1 \implies 15c = 1 \implies \mathbf{c = \frac{1}{15}}\]</div>
+          </div>
+        </div>
+        <div class="step teal">
+          <div class="step-num">Part b — Marginal PMFs</div>
+          <div class="step-body">
+            <p><strong>Marginal of X:</strong> \(P_X(x) = \sum_y f(x,y)\)</p>
+            <div class="formula-box">\[P_X(0)=\frac{3}{15}=\frac{1}{5},\quad P_X(1)=\frac{5}{15}=\frac{1}{3},\quad P_X(2)=\frac{7}{15}\]</div>
+            <p><strong>Marginal of Y:</strong> \(P_Y(y) = \sum_x f(x,y)\)</p>
+            <div class="formula-box">\[P_Y(1)=\frac{6}{15}=\frac{2}{5},\quad P_Y(2)=\frac{9}{15}=\frac{3}{5}\]</div>
+          </div>
+        </div>
+        <div class="step gold">
+          <div class="step-num">Part c — P(X=1 | Y=1)</div>
+          <div class="step-body">
+            <div class="formula-box">\[P(X=1|Y=1) = \frac{P(X=1,Y=1)}{P_Y(1)} = \frac{2c}{6c} = \frac{2}{6} = \mathbf{\frac{1}{3}}\]</div>
+          </div>
+        </div>
+        <div class="step pink">
+          <div class="step-num">Part d — Independence Check</div>
+          <div class="step-body">
+            <p>For independence: \(P(x,y) = P_X(x) \cdot P_Y(y)\) must hold for ALL x, y.</p>
+            <p>Check \(x=0,y=1\):</p>
+            <p>\(P(0,1) = \dfrac{1}{15}\) &nbsp;but&nbsp; \(P_X(0)\cdot P_Y(1) = \dfrac{1}{5} \times \dfrac{2}{5} = \dfrac{2}{25}\)</p>
+            <p>\(\dfrac{1}{15} \neq \dfrac{2}{25}\) → <strong>X and Y are NOT independent.</strong></p>
+          </div>
+        </div>
+        <div class="step green">
+          <div class="step-num">Part e — E[X] and Var(X)</div>
+          <div class="step-body">
+            <div class="formula-box">\[E[X] = \sum x \cdot P_X(x) = 0\cdot\frac{1}{5} + 1\cdot\frac{1}{3} + 2\cdot\frac{7}{15} = 0 + \frac{5}{15} + \frac{14}{15} = \frac{19}{15} \approx 1.267\]</div>
+            <div class="formula-box">\[E[X^2] = 0^2\cdot\frac{1}{5} + 1^2\cdot\frac{1}{3} + 2^2\cdot\frac{7}{15} = 0 + \frac{5}{15} + \frac{28}{15} = \frac{33}{15} = \frac{11}{5} = 2.2\]</div>
+            <div class="formula-box">\[\text{Var}(X) = E[X^2] - [E[X]]^2 = 2.2 - \left(\frac{19}{15}\right)^2 = 2.2 - \frac{361}{225} = \frac{495-361}{225} = \frac{134}{225} \approx 0.596\]</div>
+          </div>
+        </div>
+        <div class="ans-box">✅ c=1/15 | P_X: 1/5, 1/3, 7/15 | P_Y: 2/5, 3/5 | P(X=1|Y=1)=1/3 | NOT independent | E[X]=19/15≈1.267 | Var(X)≈0.596</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- Q6: POISSON+BINOMIAL + CONTINUOUS RV/CDF   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="sec-divider"><div class="sec-line"></div><div class="sec-tag tag-blue">&#x1F7E2; Topic 6: Poisson+Binomial &amp; CDF — High Frequency + New Trend</div><div class="sec-line"></div></div>
+
+  <div class="qcard" id="q6">
+    <div class="qcard-header">
+      <div class="q-num"><span class="q-badge qb-green">Q6</span> Distributions: Binomial, Poisson &amp; CDF</div>
+      <div style="display:flex;gap:8px;"><span class="q-badge qb-green">5/6 Papers</span><span class="marks-pill">5 Marks</span></div>
+    </div>
+    <div class="qcard-body">
+      <p class="q-text"><strong>a)</strong> A data centre finds that 10% of its servers experience a minor fault each month. In a cluster of 20 servers, find the probability that exactly 2 servers fault this month using <strong>both the Binomial and Poisson distributions</strong>. Compare the results and comment on the accuracy of the Poisson approximation. <span class="inline-marks">[3 Marks]</span></p>
+
+      <p class="q-text" style="margin-top:16px;"><strong>b)</strong> The overheating index \(X\) of a cooling unit has CDF:
+      \[F(x) = \begin{cases} 0 & x < 0 \\ kx^3 & 0 \le x \le 2 \\ 1 & x > 2 \end{cases}\]
+      Find: &nbsp;<strong>(i)</strong> constant \(k\) &nbsp; <strong>(ii)</strong> PDF \(f(x)\) &nbsp; <strong>(iii)</strong> \(P(0.5 \le X \le 1.5)\) <span class="inline-marks">[2 Marks]</span></p>
+
+      <button class="sol-toggle" onclick="toggle('sol-q6')">&#x1F4A1; Show Step-by-Step Solution <span class="arrow">&#x25BC;</span></button>
+      <div class="sol-box" id="sol-q6">
+        <div class="sol-title">&#x2714;&#xFE0F; Complete Solution</div>
+
+        <p style="font-size:.8rem;color:var(--gold);font-weight:600;margin-bottom:10px;">Part (a) — Binomial vs Poisson</p>
+        <div class="step">
+          <div class="step-num">Given</div>
+          <div class="step-body"><p>\(n = 20,\quad p = 0.1,\quad k = 2\)</p></div>
+        </div>
+        <div class="sub-sol">
+          <div class="sub-sol-title">Binomial Distribution</div>
+          <div class="step purple">
+            <div class="step-body">
+              <div class="formula-box">\[P(X=k) = \binom{n}{k}p^k(1-p)^{n-k}\]</div>
+              <div class="formula-box">\[P(X=2) = \binom{20}{2}(0.1)^2(0.9)^{18}\]</div>
+              <p>\(\binom{20}{2} = \dfrac{20!}{2!\cdot18!} = 190\)</p>
+              <p>\((0.9)^{18}\): &nbsp; \(0.9^2=0.81,\ 0.9^4=0.6561,\ 0.9^8=0.4305,\ 0.9^{16}=0.1853,\ 0.9^{18}=0.1853\times0.81=0.1501\)</p>
+              <div class="formula-box">\[P(X=2) = 190 \times 0.01 \times 0.1501 = \mathbf{0.2852}\]</div>
+            </div>
+          </div>
+        </div>
+        <div class="sub-sol">
+          <div class="sub-sol-title">Poisson Approximation</div>
+          <div class="step teal">
+            <div class="step-body">
+              <p>\(\lambda = np = 20 \times 0.1 = 2\)</p>
+              <div class="formula-box">\[P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}\]</div>
+              <div class="formula-box">\[P(X=2) = \frac{e^{-2}\cdot 2^2}{2!} = \frac{0.1353 \times 4}{2} = 0.1353 \times 2 = \mathbf{0.2707}\]</div>
+            </div>
+          </div>
+        </div>
+        <div class="step gold">
+          <div class="step-num">Comparison &amp; Comment</div>
+          <div class="step-body">
+            <table class="cmp-table">
+              <thead><tr><th>Method</th><th>P(X=2)</th><th>Difference</th></tr></thead>
+              <tbody>
+                <tr><td>Binomial (exact)</td><td class="highlight">0.2852</td><td>—</td></tr>
+                <tr><td>Poisson (approx)</td><td>0.2707</td><td>0.0145</td></tr>
+              </tbody>
+            </table>
+            <p style="margin-top:8px;"><strong>Comment:</strong> The Poisson approximation slightly <em>underestimates</em> the true probability. The approximation is best when \(n \ge 20\) and \(p \le 0.05\). Here \(p = 0.10\) is borderline, so the approximation is reasonably close but not exact.</p>
+          </div>
+        </div>
+
+        <p style="font-size:.8rem;color:var(--gold);font-weight:600;margin:16px 0 10px;">Part (b) — CDF Analysis (New Trend Topic)</p>
+        <div class="step">
+          <div class="step-num">i) Find constant k</div>
+          <div class="step-body">
+            <p>At \(x = 2\), CDF must equal 1:</p>
+            <div class="formula-box">\[F(2) = 1 \implies k \cdot (2)^3 = 1 \implies 8k = 1 \implies \mathbf{k = \frac{1}{8}}\]</div>
+          </div>
+        </div>
+        <div class="step purple">
+          <div class="step-num">ii) Derive PDF by differentiating CDF</div>
+          <div class="step-body">
+            <div class="formula-box">\[f(x) = \frac{d}{dx}F(x) = \frac{d}{dx}\left(\frac{x^3}{8}\right) = \frac{3x^2}{8} \quad \text{for } 0 \le x \le 2\]</div>
+            <p>So: \(f(x) = \dfrac{3x^2}{8}\) for \(0 \le x \le 2\), and \(0\) otherwise.</p>
+          </div>
+        </div>
+        <div class="step teal">
+          <div class="step-num">iii) P(0.5 ≤ X ≤ 1.5) using CDF</div>
+          <div class="step-body">
+            <div class="formula-box">\[P(0.5 \le X \le 1.5) = F(1.5) - F(0.5) = \frac{(1.5)^3}{8} - \frac{(0.5)^3}{8}\]</div>
+            <div class="formula-box">\[= \frac{3.375}{8} - \frac{0.125}{8} = \frac{3.25}{8} = \mathbf{0.40625}\]</div>
+          </div>
+        </div>
+        <div class="ans-box">✅ Binomial P(X=2)=0.2852 | Poisson P(X=2)=0.2707 | k=1/8 | f(x)=3x²/8 for 0≤x≤2 | P(0.5≤X≤1.5)=0.40625</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARKS SUMMARY -->
+  <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:16px;padding:20px 24px;margin-top:8px;">
+    <div style="font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:14px;">&#x1F4CB; Marks Summary</div>
+    <table class="cmp-table">
+      <thead><tr><th>Question</th><th>Topic</th><th>Marks</th><th>Frequency in PYQ</th></tr></thead>
+      <tbody>
+        <tr><td>Q1</td><td>Descriptive Stats + CLT</td><td class="highlight">5 M</td><td>&#x1F525; 6/6 Papers</td></tr>
+        <tr><td>Q2</td><td>Bayes' Theorem + Probability Rules</td><td class="highlight">5 M</td><td>&#x1F525; 6/6 Papers</td></tr>
+        <tr><td>Q3</td><td>Naïve Bayes Classifier</td><td class="highlight">5 M</td><td>&#x1F525; 6/6 Papers</td></tr>
+        <tr><td>Q4</td><td>Normal Distribution + Z-scores</td><td class="highlight">5 M</td><td>&#x1F525; 6/6 Papers</td></tr>
+        <tr><td>Q5</td><td>Joint PMF + Marginal + Conditional</td><td class="highlight">5 M</td><td>&#x26A1; 5/6 Papers</td></tr>
+        <tr><td>Q6</td><td>Binomial vs Poisson + CDF</td><td class="highlight">5 M</td><td>&#x26A1; 5/6 Papers</td></tr>
+        <tr><td colspan="2" style="text-align:right;font-weight:700;color:var(--gold);">Total</td><td class="highlight">30 M</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /main -->
+
+<footer>
+  ISM Practice Paper &nbsp;&middot;&nbsp; PYQ-Style &nbsp;&middot;&nbsp; BITS Pilani WILPD &nbsp;&middot;&nbsp;
+  <a href="index.html">&#x2190; Study Hub</a> &nbsp;|&nbsp;
+  <a href="new.html">Formula Sheet</a> &nbsp;|&nbsp;
+  <a href="insights.html">Topic Insights</a>
+</footer>
+
+<script>
+function toggle(id) {
+  const box = document.getElementById(id);
+  const btn = box.previousElementSibling;
+  box.classList.toggle('visible');
+  btn.classList.toggle('open');
+  if (box.classList.contains('visible')) {
+    btn.innerHTML = '&#x1F4D5; Hide Solution <span class="arrow">&#x25BC;</span>';
+    if (window.MathJax) MathJax.typesetPromise([box]);
+  } else {
+    btn.innerHTML = '&#x1F4A1; Show Step-by-Step Solution <span class="arrow">&#x25BC;</span>';
+  }
+}
+
+let allOpen = false;
+function toggleAll() {
+  const boxes = document.querySelectorAll('.sol-box');
+  const btns = document.querySelectorAll('.sol-toggle');
+  allOpen = !allOpen;
+  boxes.forEach(b => { if(allOpen) b.classList.add('visible'); else b.classList.remove('visible'); });
+  btns.forEach(btn => {
+    btn.classList.toggle('open', allOpen);
+    btn.innerHTML = allOpen
+      ? '&#x1F4D5; Hide Solution <span class="arrow">&#x25BC;</span>'
+      : '&#x1F4A1; Show Step-by-Step Solution <span class="arrow">&#x25BC;</span>';
+  });
+  if (allOpen && window.MathJax) MathJax.typesetPromise();
+}
+</script>
+</body>
+</html>
